@@ -1,0 +1,111 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>全部订单</nz-breadcrumb-item>
+ </nz-breadcrumb>
+     <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="订单编号" >
+			    <input type="text" nz-input [(ngModel)]="orderno">
+			</nz-input-group>
+          </div>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="联系电话" >
+			    <input type="text" nz-input [(ngModel)]="phone">
+			</nz-input-group>
+          </div>
+        </div>
+        
+      </div>
+      </div>
+      <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="接单技师" >
+			    <input type="text" nz-input [(ngModel)]="workername">
+			</nz-input-group>
+          </div>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="维修方式" >
+			    <nz-select [(ngModel)]="servertype" nzAllowClear >
+			        <nz-option nzValue="1" nzLabel="上门"></nz-option>
+			        <nz-option nzValue="2" nzLabel="到店"></nz-option>
+			        <nz-option nzValue="3" nzLabel="邮寄"></nz-option>
+			    </nz-select>
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+      </div>
+       <div class="gutter-example">
+      <div nz-row nzGutter="16">       
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="状态" >
+			    <nz-select [(ngModel)]="status"  nzAllowClear >
+			    	<nz-option nzValue="0" nzLabel="已取消"></nz-option>
+			        <nz-option nzValue="1" nzLabel="待受理"></nz-option>
+			        <nz-option nzValue="2" nzLabel="已受理"></nz-option>
+			        <nz-option nzValue="3" nzLabel="已确认"></nz-option>
+			        <nz-option nzValue="4" nzLabel="已支付"></nz-option>
+			        <nz-option nzValue="5" nzLabel="已完成"></nz-option>
+			        <nz-option nzValue="6" nzLabel="售后"></nz-option>
+			        
+			    </nz-select>
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+      </div>
+<button nz-button (click)="searchData()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>订单编号</th>
+          <th>头像</th>
+          <th style="max-width:120px;">名称</th>
+          <th>电话</th>
+          <th>维修方式</th>
+          <th>预约时间</th>
+          <th style="max-width:120px;">预约地址</th>
+          <th>接单技师</th>
+          <th>订单状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.orderno}}</td>
+          <td><img src="{{data.avatar}}" alt=""/></td>
+          <td style="max-width:120px;">{{data.membername}}</td>
+          <td>{{data.phone}}</td>
+          <td>{{data.servertype== 1? "上门" : data.servertype== 2 ? "到店":"邮寄"}}</td>
+          <td>{{data.bookingtime}}</td>
+          <td style="max-width:120px;">{{data.address}}</td>
+          <td>{{data.workername}}</td>
+          <td>{{data.status == 0? "已取消" : data.status == 1? "待受理" : data.status == 2? "已受理" : data.status == 3? "已确认" : data.status == 4? "已支付" : data.status == 5? "已完成" : "售后"}}</td>
+          <td class='operator'>       
+            <a  (click)="EditRow(data)">详情</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

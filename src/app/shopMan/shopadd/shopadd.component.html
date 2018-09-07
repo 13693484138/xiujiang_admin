@@ -1,0 +1,115 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/shop']">门店列表</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{label}}门店</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="name">名称</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="name" [(ngModel)]="name" placeholder="请输入门店名称" nzAllowClear>
+          <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">门店名称不能为空！</nz-form-explain>
+        </nz-form-control>        
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="phone">联系电话</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="phone" [(ngModel)]="phone" placeholder="请输入联系电话" nzAllowClear>
+          <nz-form-explain *ngIf="validateForm.get('phone').dirty && validateForm.get('phone').errors">请输入正确的联系电话！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>              
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="address">门店地址</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+         <div nz-row>
+      		<div nz-col nzSpan="8">
+		      <nz-select  formControlName="address" [(ngModel)]="addressp" (ngModelChange)="provinceChangep($event,'province')" nzAllowClear nzPlaceHolder="省">
+		        <nz-option *ngFor="let p of provinceData" [nzValue]="p" [nzLabel]="p.name"></nz-option>
+		      </nz-select>
+			</div> 
+			<div nz-col nzSpan="8">
+		      <nz-select  formControlName="address" [(ngModel)]="addressc"  (ngModelChange)="provinceChangec($event,'city')" nzAllowClear nzPlaceHolder="市">
+		        <nz-option *ngFor="let c of cityData" [nzValue]="c" [nzLabel]="c.name"></nz-option>
+		      </nz-select>
+		     </div>
+		      <div nz-col nzSpan="8">
+		      <nz-select  formControlName="address" [(ngModel)]="addressr" nzAllowClear nzPlaceHolder="区">
+		        <nz-option *ngFor="let r of regionData" [nzValue]="r" [nzLabel]="r.name"></nz-option>
+		      </nz-select>
+		       </div>
+		    </div>
+          <nz-form-explain *ngIf="validateForm.get('address').dirty && validateForm.get('address').errors">门店地址不能为空！</nz-form-explain>
+          </nz-form-control>
+             <nz-form-label [nzSpan]="4" nzFor="coordinate" nzRequired>门店坐标</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="coordinate" [(ngModel)]="coordinate" (focus)="getlonlat()" placeholder="点击获取门店坐标">
+          <div id="container"></div>
+          <nz-form-explain *ngIf="validateForm.get('coordinate').dirty && validateForm.get('coordinate').errors">门店坐标不能为空！</nz-form-explain>
+        </nz-form-control>    
+      </nz-form-item>      
+      <nz-form-item>
+         <nz-form-label [nzSpan]="3" nzFor="appid" nzRequired>公众号ID</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="appid" [(ngModel)]="appid" placeholder="请输入公众号ID" nzAllowClear>
+          <nz-form-explain *ngIf="validateForm.get('appid').dirty && validateForm.get('appid').errors">公众号ID不能为空！</nz-form-explain>
+        </nz-form-control>    
+        <nz-form-label [nzSpan]="4" nzFor="state" nzRequired>门店状态</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+         <nz-select  formControlName="state" nzName="state" [(ngModel)]="state" >
+		    <nz-option  nzValue="1" nzLabel="启用"></nz-option>
+		    <nz-option  nzValue="2" nzLabel="冻结"></nz-option>
+		</nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+      	<nz-form-label [nzSpan]="3" nzFor="maintainA" nzRequired>维修范围</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+       <nz-select  formControlName="maintain" nzName="maintain" [(ngModel)]="maintain" >
+		    <nz-option  nzValue="0" nzLabel="普通维修"></nz-option>
+		    <nz-option  nzValue="1" nzLabel="主板维修"></nz-option>
+		</nz-select>
+        
+        </nz-form-control>
+      	<nz-form-label [nzSpan]="4" nzFor="parts" nzRequired>配件采购</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+		   <nz-select  formControlName="parts" nzName="parts" [(ngModel)]="parts" >
+		    <nz-option  nzValue="1" nzLabel="是"></nz-option>
+		    <nz-option  nzValue="0" nzLabel="否"></nz-option>
+		</nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+      	<nz-form-label [nzSpan]="3" nzFor="pohto" nzRequired>门店图片</nz-form-label>
+        <nz-form-control [nzSpan]="8"> 
+        	<div class="file" *ngIf="!picture">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event)"/>
+        	</div>
+        	<img class='imglist' id="vi" [src]="picture" *ngIf="picture"/>
+            <button type="button"  class="upbtn" (click)="uploadFile()" *ngIf="picturesc">上传</button>
+            <button type="button"  class="upbtn" (click)="changeFile()" *ngIf="picture">换图片</button>
+            <div>
+            </div>
+        </nz-form-control>
+        <nz-form-label [nzSpan]="4" nzFor="serviceArea" nzRequired>服务范围</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+        <label nz-checkbox formControlName='serviceAreasm' [(ngModel)]="serviceAreasm">上门</label><label nz-checkbox formControlName='serviceAreadd'  [(ngModel)]="serviceAreadd">到店</label><label nz-checkbox formControlName='serviceAreayj' [(ngModel)]="serviceAreayj">邮寄</label>
+        <nz-form-explain *ngIf="validateForm.get('serviceAreasm').dirty && validateForm.get('serviceAreasm').errors && validateForm.get('serviceAreayj').dirty && validateForm.get('serviceAreayj').errors && validateForm.get('serviceAreadd').dirty && validateForm.get('serviceAreadd').errors">Please select your serviceArea!</nz-form-explain>
+        </nz-form-control>
+         
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="8" [nzOffset]="3">
+          <button nz-button nzType="primary">确认</button>
+        </nz-form-control>
+      </nz-form-item>
+</form>
+
+ 
+      

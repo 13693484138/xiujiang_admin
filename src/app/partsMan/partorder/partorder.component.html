@@ -1,0 +1,114 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>配件订单列表</nz-breadcrumb-item>
+</nz-breadcrumb>
+ <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="订单编号" >
+			    <input type="text" nz-input [(ngModel)]="orderno">
+			</nz-input-group>
+          </div>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="技师名称" >
+			    <input type="text" nz-input [(ngModel)]="worker">
+			</nz-input-group>
+          </div>
+        </div>
+  
+      </div>
+      </div>
+      <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="门店名称" >
+			    <input type="text" nz-input [(ngModel)]="shopname">
+			</nz-input-group>
+          </div>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="快递单号" >
+			    <input type="text" nz-input [(ngModel)]="courier">
+			</nz-input-group>
+          </div>
+        </div>
+  
+      </div>
+      </div>
+      <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="状态" >
+			    <nz-select class='select_zq'  [(ngModel)]="status" nzAllowClear >
+			        <nz-option nzValue="0" nzLabel="未生效"></nz-option>
+			        <nz-option nzValue="1" nzLabel="待处理"></nz-option>
+			        <nz-option nzValue="2" nzLabel="已发货"></nz-option>
+			        <nz-option nzValue="3" nzLabel="待收货"></nz-option>
+			        <nz-option nzValue="4" nzLabel="已完成"></nz-option>
+			        <nz-option nzValue="5" nzLabel="退单"></nz-option>
+			    </nz-select>
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+    </div>
+<button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>订单编号</th>
+          <th>申请技师</th>
+          <th>技师工号</th>
+          <th>配件总价</th>
+          <!--<th>消耗额度</th>-->
+          <th>配件总数</th>
+          <th>寄送门店</th>
+          <th>联系电话</th>
+          <th>下单时间</th>
+          <th>订单状态</th>
+          <th>快递编号</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.orderno}}</td>
+          <td>{{data.worker}}</td>
+          <td>{{data.worknum}}</td>
+          <td>{{data.totalprice}}</td>
+          <!--<td>{{data.totalquota}}</td>-->
+          <td>{{data.num}}</td>
+          <td>{{data.shopname}}</td>
+          <td>{{data.phone}}</td>
+          <td style="max-width:120px">{{data.createtime}}</td>
+          <td>{{data.status == 0? "未生效" : data.status == 1? "待处理" : data.status == 2? "已发货" : data.status == 3? "待收货" : data.status == 0? "已完成" : "退单"}}</td>
+          <td></td>
+          <td class='operator'>       
+            <!--<a  (click)="toTechnician(data.id)">查看技师</a>-->
+            <a  (click)="EditRow(data.orderno)">详情</a>
+            <!--<nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+              <a  nz-popconfirm>删除</a>
+            </nz-popconfirm>-->
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

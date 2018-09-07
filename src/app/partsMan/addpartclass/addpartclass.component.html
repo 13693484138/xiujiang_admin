@@ -1,0 +1,43 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/partclass']">配件分类列表</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{pagename}}配件分类</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+ <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="title">名称</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="title" [(ngModel)]="title" placeholder="请输入名称">
+          <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">名称不能为空！</nz-form-explain>
+        </nz-form-control>        
+        <nz-form-label [nzSpan]="4"  nzFor="explain">描述</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="explain" [(ngModel)]="explain" placeholder="请输入描述">
+          <nz-form-explain *ngIf="validateForm.get('explain').dirty && validateForm.get('explain').errors">描述不能为空！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      
+       <nz-form-item>      
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="num">排序</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="num" [(ngModel)]="num" placeholder="请输入排序序号">
+          <nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">排序序号不能为空！</nz-form-explain>
+        </nz-form-control>
+        
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="status">状态</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+        <nz-select  formControlName="status" [(ngModel)]="status" nzPlaceHolder="请选择状态">
+		    <nz-option  nzValue="1" nzLabel="启用"></nz-option>
+		    <nz-option  nzValue="2" nzLabel="禁用"></nz-option>
+		</nz-select>
+		<nz-form-explain *ngIf="validateForm.get('status').dirty && validateForm.get('status').errors">状态不能为空！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="8" [nzOffset]="3">
+          <button nz-button nzType="primary">确认</button>
+        </nz-form-control>
+      </nz-form-item>
+</form>

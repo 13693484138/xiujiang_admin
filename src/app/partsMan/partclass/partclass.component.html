@@ -1,0 +1,43 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>配件分类列表</nz-breadcrumb-item>
+</nz-breadcrumb>     
+<button nz-button (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>描述</th>
+          <th>排序</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.title}}</td>
+          <td>{{data.explain}}</td>
+          <td>{{data.num}}</td>
+          <td>{{data.status == 1? "启用" : "禁用"}}</td>
+          <td class='operator'>       
+            <a  (click)="EditRow(data.id)">详情</a>
+            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+              <a  nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

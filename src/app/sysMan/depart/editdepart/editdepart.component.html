@@ -1,0 +1,38 @@
+ <nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/depart']">部门管理</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{label}}部门</nz-breadcrumb-item>
+ </nz-breadcrumb>
+ 
+ <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="simplename">部门简称</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="simplename" [(ngModel)]="simplename" placeholder="请输入部门简称" >
+          <nz-form-explain *ngIf="validateForm.get('simplename').dirty && validateForm.get('simplename').errors">部门简称不能为空！</nz-form-explain>
+        </nz-form-control>        
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="fullname">部门全称</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="fullname" [(ngModel)]="fullname" placeholder="请输入部门全称" >
+          <nz-form-explain *ngIf="validateForm.get('fullname').dirty && validateForm.get('fullname').errors">部门全称不能为空！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="num">排序</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="num" [(ngModel)]="num" placeholder="请输入排序" >
+          <nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">排序不能为空！</nz-form-explain>
+        </nz-form-control>        
+        <nz-form-label [nzSpan]="4" nzFor="remark">备注</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="remark" [(ngModel)]="remark" placeholder="请输入备注">
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-control [nzSpan]="8" [nzOffset]="3">
+          <button nz-button nzType="primary">确认</button>
+        </nz-form-control>
+      </nz-form-item>
+</form>
+

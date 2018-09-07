@@ -1,0 +1,172 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/shop']" >门店列表</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/technicianlist']" [queryParams]="{'shopid':shopid}">技师列表</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{pagename}}技师</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="name">姓名</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="name" [(ngModel)]="name" placeholder="请输入姓名">
+          <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">姓名不能为空！</nz-form-explain>
+        </nz-form-control>        
+        <nz-form-label [nzSpan]="4"  nzFor="nickname">昵称</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="nickname" [(ngModel)]="nickname" placeholder="请输入昵称">
+        </nz-form-control>
+      </nz-form-item>
+      
+       <nz-form-item>
+       	<nz-form-label [nzSpan]="3" nzRequired nzFor="sex">性别</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+        <nz-select  formControlName="sex" [(ngModel)]="sex" nzPlaceHolder="请选择性别">
+		    <nz-option  nzValue="1" nzLabel="男"></nz-option>
+		    <nz-option  nzValue="2" nzLabel="女"></nz-option>
+		</nz-select>
+		<nz-form-explain *ngIf="validateForm.get('sex').dirty && validateForm.get('sex').errors">性别不能为空！</nz-form-explain>
+        </nz-form-control>
+               
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="phone">联系电话</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="phone" [(ngModel)]="phone" placeholder="请输入联系电话">
+          <nz-form-explain *ngIf="validateForm.get('phone').dirty && validateForm.get('phone').errors">请输入有效的电话号码！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>              
+      <nz-form-label [nzSpan]="3" nzFor="email" nzRequired>Email</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="email"  [(ngModel)]="email" placeholder="请输入email">
+          <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入有效的Email地址！</nz-form-explain>
+        </nz-form-control> 
+        <nz-form-label [nzSpan]="4" nzFor="birthday">出生日期</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <nz-date-picker [nzFormat]="dateFormat" formControlName="birthday" [(ngModel)]="birthday"  nzAllowClear></nz-date-picker>
+        </nz-form-control>    
+      </nz-form-item>   
+      
+      <nz-form-item>	
+      	<nz-form-label [nzSpan]="3" nzFor="cardid" nzRequired>身份证号</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+         <input type="text" nz-input [(ngModel)]="cardid" formControlName="cardid" placeholder="请输入身份证号">
+        <nz-form-explain *ngIf="validateForm.get('cardid').dirty && validateForm.get('cardid').errors">请输入有效的身份证号！</nz-form-explain>
+        </nz-form-control>  
+        <nz-form-label [nzSpan]="4" nzFor="isboard" nzRequired>主板维修</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+		     <nz-select  formControlName="isboard" [(ngModel)]="isboard" nzPlaceHolder="请选择是否主板维修">
+		    <nz-option  nzValue="1" nzLabel="是"></nz-option>
+		    <nz-option  nzValue="0" nzLabel="否"></nz-option>
+		</nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+      	 <nz-form-label [nzSpan]="3"  nzFor="password" [nzRequired]='parmlen!=2'>APP登录密码</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+        <input type="text" nz-input  [(ngModel)]="password" formControlName="password" placeholder="请输入APP登录密码">
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">APP登录密码不能为空！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item *ngIf='parmlen==2'>
+	 	<nz-form-label [nzSpan]="3">投诉记录</nz-form-label>
+        <nz-form-control [nzSpan]="20"> 
+	 	<ul class="ul_zq">
+        	<li>
+        		<div nz-row>
+			      <div nz-col nzSpan="5">订单号</div>
+			      <div nz-col nzSpan="3">昵称</div>
+			      <div nz-col nzSpan="4">投诉时间</div>
+			      <div nz-col nzSpan="4">投诉原因</div>
+			      <div nz-col nzSpan="4">处理时间</div>
+			      <div nz-col nzSpan="4">处理结果</div>
+			    </div>
+        	</li>
+        	<li class='li_zq' *ngFor='let item of dataSet'>
+        		<div nz-row>
+			      <div nz-col nzSpan="5">{{item.orderno}}</div>
+			      <div nz-col nzSpan="3">{{item.nickname}}</div>
+			      <div nz-col nzSpan="4">{{item.addtime}}</div>
+			      <div nz-col nzSpan="4">{{item.reason}}</div>
+			      <div nz-col nzSpan="4">{{item.dealtime}}</div>
+			      <div nz-col nzSpan="4">{{item.result}}</div>
+			    </div>
+        	</li>
+        </ul>
+        </nz-form-control>
+	 </nz-form-item>
+      <nz-form-item>
+      	<nz-form-label [nzSpan]="3"  nzFor="avatar" [nzRequired]='parmlen!=2'>头像</nz-form-label>
+        <nz-form-control [nzSpan]="8"> 
+        	<div class="file" *ngIf="!avatar">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+			<input type="file" ng2FileSelect  [uploader]="uploader" (change)="uploadFileZQ($event,'avatar')"/>
+        	</div>
+        	<img class='imglist' id="vi" [src]="avatar" *ngIf="avatar"/>
+            <button type="button"  class="upbtn" (click)="uploadFile('avatar')" *ngIf="avatarsc">上传</button>
+            <button type="button"  class="upbtn" (click)="changeFile('avatar')" *ngIf="avatar">换图片</button>
+            <div>
+            </div>
+        </nz-form-control>
+        
+        <nz-form-label [nzSpan]="4" nzFor="cardface" [nzRequired]='parmlen!=2'>身份证正面</nz-form-label>
+        <nz-form-control [nzSpan]="8"> 
+        	<div class="file" *ngIf="!cardface">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event,'cardface')"/>
+        	</div>
+        	<img class='imglist' id="vi" [src]="cardface" *ngIf="cardface"/>
+            <button type="button"  class="upbtn" (click)="uploadFile('cardface')" *ngIf="cardfacesc">上传</button>
+            <button type="button"  class="upbtn" (click)="changeFile('cardface')" *ngIf="cardface">换图片</button>
+            <div>
+            </div>
+        </nz-form-control>
+      </nz-form-item>
+      
+      
+	 <nz-form-item>
+	 	<nz-form-label [nzSpan]="3" nzFor="cardback" [nzRequired]='parmlen!=2'>身份证反面</nz-form-label>
+        <nz-form-control [nzSpan]="8"> 
+        	<div class="file" *ngIf="!cardback">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event,'cardback')"/>
+        	</div>
+        	<img class='imglist' id="vi" [src]="cardback" *ngIf="cardback"/>
+            <button type="button"  class="upbtn" (click)="uploadFile('cardback')" *ngIf="cardbacksc">上传</button>
+            <button type="button"  class="upbtn" (click)="changeFile('cardback')" *ngIf="cardback">换图片</button>
+            <div>
+            </div>
+        </nz-form-control>
+        
+        <nz-form-label [nzSpan]="4" nzFor="cardhold" [nzRequired]='parmlen!=2'>手持身份证</nz-form-label>
+        <nz-form-control [nzSpan]="8"> 
+        	<div class="file" *ngIf="!cardhold">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event,'cardhold')"/>
+        	</div>
+        	<img class='imglist' id="vi" [src]="cardhold" *ngIf="cardhold"/>
+            <button type="button"  class="upbtn" (click)="uploadFile('cardhold')" *ngIf="cardholdsc">上传</button>
+            <button type="button"  class="upbtn" (click)="changeFile('cardhold')" *ngIf="cardhold">换图片</button>
+            <div>
+            </div>
+        </nz-form-control>
+	 </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="8" [nzOffset]="3">
+          <button nz-button nzType="primary">确认</button>
+        </nz-form-control>
+      </nz-form-item>
+</form>

@@ -1,0 +1,102 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+	<nz-breadcrumb-item>
+		<a [routerLink]="['/home']">主页</a>
+	</nz-breadcrumb-item>
+	<nz-breadcrumb-item>
+		<a [routerLink]="['/home/fault']">故障列表</a>
+	</nz-breadcrumb-item>
+	<nz-breadcrumb-item>{{pagename}}故障</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3" [nzRequired]="parmlen==1" nzFor="img">图片</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<div class="file" *ngIf="!img">
+				<div>
+					<i class="anticon anticon-plus"></i>
+					<div>选择图片</div>
+				</div>
+				<input type="file" ng2FileSelect [uploader]="uploader" (change)="uploadFileZQ($event)" />
+			</div>
+			<img class='imglist' id="vi" [src]="img" *ngIf="img" />
+			<button type="button" class="upbtn" (click)="uploadFile()" *ngIf="picturesc">上传</button>
+			<button type="button" class="upbtn" (click)="changeFile()" *ngIf="img">换图片</button>
+			<div>
+			</div>
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3" nzRequired nzFor="title">名称</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="title" [(ngModel)]="title" placeholder="请输入名称">
+			<nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">名称不能为空！</nz-form-explain>
+		</nz-form-control>
+		<nz-form-label [nzSpan]="4" nzRequired nzFor="num">排序</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="num" [(ngModel)]="num" placeholder="请输入编号">
+			<nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">编号不能为空！</nz-form-explain>
+		</nz-form-control>
+
+	</nz-form-item>
+
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3" nzRequired nzFor="type">类型</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<nz-select formControlName="type" [(ngModel)]="type" nzPlaceHolder="请选择状态">
+				<nz-option nzValue="1" nzLabel="平板"></nz-option>
+				<nz-option nzValue="2" nzLabel="手机"></nz-option>
+				<nz-option nzValue="3" nzLabel="无人机"></nz-option>
+			</nz-select>
+			<nz-form-explain *ngIf="validateForm.get('type').dirty && validateForm.get('type').errors">颜色不能为空！</nz-form-explain>
+		</nz-form-control>
+		<nz-form-label [nzSpan]="4" nzRequired nzFor="status">状态</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<nz-select formControlName="status" [(ngModel)]="status" nzPlaceHolder="请选择状态">
+				<nz-option nzValue="1" nzLabel="启用"></nz-option>
+				<nz-option nzValue="2" nzLabel="禁用"></nz-option>
+			</nz-select>
+			<nz-form-explain *ngIf="validateForm.get('status').dirty && validateForm.get('status').errors">状态不能为空！</nz-form-explain>
+		</nz-form-control>
+
+	</nz-form-item>
+	<nz-form-item *ngIf="pid=='1'">
+		<nz-form-label [nzSpan]="3"  nzFor="period">保修期</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="period" [(ngModel)]="period" placeholder="请输入保修期">
+			<nz-form-explain *ngIf="validateForm.get('period').dirty && validateForm.get('period').errors">保修期不能为空！</nz-form-explain>
+		</nz-form-control>
+
+		<nz-form-label [nzSpan]="4" nzFor="explain">维修时长</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="len" [(ngModel)]="len" placeholder="请输入维修时长">
+			<nz-form-explain *ngIf="validateForm.get('len').dirty && validateForm.get('len').errors">维修时长不能为空！</nz-form-explain>
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item *ngIf="pid=='1'">
+		<nz-form-label [nzSpan]="3"  nzFor="solution">维修方案</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="solution" [(ngModel)]="solution" placeholder="请输入维修方案">
+			<nz-form-explain *ngIf="validateForm.get('solution').dirty && validateForm.get('solution').errors">维修方案不能为空！</nz-form-explain>
+		</nz-form-control>
+		<nz-form-label [nzSpan]="4" nzFor="explain">维修说明</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="explain" [(ngModel)]="explain" placeholder="请输入维修说明">
+			<nz-form-explain *ngIf="validateForm.get('explain').dirty && validateForm.get('explain').errors">维修说明不能为空！</nz-form-explain>
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3" nzFor="explain">备注</nz-form-label>
+		<nz-form-control [nzSpan]="20">
+			<!--<input type="text" nz-input formControlName="remark" [(ngModel)]="remark" placeholder="请输入备注">-->
+			<textarea nz-input formControlName="remark" [(ngModel)]="remark" placeholder="请输入备注" nzAutosize></textarea>
+			<!--<nz-form-explain *ngIf="validateForm.get('remark').dirty && validateForm.get('remark').errors">备注不能为空！</nz-form-explain>-->
+		</nz-form-control>
+	</nz-form-item>
+
+	<nz-form-item>
+		<nz-form-control [nzSpan]="8" [nzOffset]="3">
+			<button nz-button nzType="primary">确认</button>
+		</nz-form-control>
+	</nz-form-item>
+</form>

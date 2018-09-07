@@ -1,0 +1,88 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>配件列表</nz-breadcrumb-item>
+</nz-breadcrumb>
+ <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="配件名称" >
+			    <input type="text" nz-input [(ngModel)]="title">
+			</nz-input-group>
+          </div>
+        </div>
+    <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="分类" >
+			    <nz-select [(ngModel)]="classifyid"   nzAllowClear >
+			        <nz-option *ngFor='let item of classlist' nzValue="{{item.id}}" nzLabel="{{item.title}}"></nz-option>
+			    </nz-select>
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="状态" >
+			    <nz-select class='select_zq'  [(ngModel)]="status" nzAllowClear >
+			        <nz-option nzValue="1" nzLabel="启用"></nz-option>
+			        <nz-option nzValue="2" nzLabel="禁用"></nz-option>
+			    </nz-select>
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+    </div>
+<button nz-button (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>配件名称</th>
+          <th>配件图片</th>
+          <th>采购价</th>
+          <th>分销价</th>
+          <th>订购价</th>
+          <th>库存</th>
+          <th>质保时间</th>
+          <th>创建时间</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.title}}</td>
+          <td><img src="{{imgUrl+data.img}}" alt="" /></td>
+          <td>{{data.puprice}}</td>
+          <td>{{data.diprice}}</td>
+          <td>{{data.orprice}}</td>
+          <td>{{data.stock}}</td>
+          <td>{{data.protect}}天</td>
+          <td>{{data.createtime}}</td>
+          <td>{{data.status == 1? "启用" : "禁用"}}</td>
+          <td class='operator'>       
+            <a  (click)="EditRow(data.id)">详情</a>
+            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+              <a  nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

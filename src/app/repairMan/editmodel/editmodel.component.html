@@ -1,0 +1,114 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+	<nz-breadcrumb-item>
+		<a [routerLink]="['/home']">主页</a>
+	</nz-breadcrumb-item>
+	<nz-breadcrumb-item>
+		<a [routerLink]="['/home/model']">型号列表</a>
+	</nz-breadcrumb-item>
+	<nz-breadcrumb-item>{{pagename}}型号</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3"  [nzRequired]="parmlen==1" nzFor="img">图片</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<div class="file" *ngIf="!img">
+				<div>
+					<i class="anticon anticon-plus"></i>
+					<div>选择图片</div>
+				</div>
+				<input type="file" ng2FileSelect [uploader]="uploader" (change)="uploadFileZQ($event)" />
+			</div>
+			<img class='imglist' id="vi" [src]="img" *ngIf="img" />
+			<button type="button" class="upbtn" (click)="uploadFile()" *ngIf="picturesc">上传</button>
+			<button type="button" class="upbtn" (click)="changeFile()" *ngIf="img">换图片</button>
+			<div>
+			</div>
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3" nzRequired nzFor="title">名称</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="title" [(ngModel)]="title" placeholder="请输入名称">
+			<nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">名称不能为空！</nz-form-explain>
+		</nz-form-control>
+		<nz-form-label [nzSpan]="4" nzRequired nzFor="describe">描述</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="describe" [(ngModel)]="describe" placeholder="请输入描述">
+			<nz-form-explain *ngIf="validateForm.get('describe').dirty && validateForm.get('describe').errors">描述不能为空！</nz-form-explain>
+		</nz-form-control>
+	</nz-form-item>
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3" nzRequired nzFor="colors">颜色</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<nz-select [nzMaxMultipleCount]="6" formControlName="colors"  style="width: 100%" nzMode="multiple" nzPlaceHolder="请选择颜色" [(ngModel)]="colors">
+		      <nz-option nzCustomContent  nzLabel="黑色" nzValue="黑色"><div class='color black'></div>黑色</nz-option>
+		      <nz-option nzCustomContent  nzLabel="白色" nzValue="白色"><div class='color white'></div>白色</nz-option>
+		      <nz-option nzCustomContent  nzLabel="金色" nzValue="金色"><div class='color gold'></div>金色</nz-option>
+		      <nz-option nzCustomContent nzLabel="灰色" nzValue="灰色"><div class='color gray'></div>灰色</nz-option>
+		      <nz-option nzCustomContent nzLabel="银色" nzValue="银色"><div class='color silver'></div>银色</nz-option>
+		      <nz-option  nzCustomContent nzLabel="玫瑰金" nzValue="玫瑰金"><div class='color rose'></div>玫瑰金</nz-option>
+		    </nz-select>
+			<nz-form-explain *ngIf="validateForm.get('colors').dirty && validateForm.get('colors').errors">颜色不能为空！</nz-form-explain>
+		</nz-form-control>
+		<nz-form-label [nzSpan]="4" nzRequired nzFor="num">排序</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<input type="text" nz-input formControlName="num" [(ngModel)]="num" placeholder="请输入排序">
+			<nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">排序不能为空！</nz-form-explain>
+		</nz-form-control>
+	</nz-form-item>
+	
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3" >一级故障</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<!--<label *ngFor='let item of primaryFaultList'  nz-checkbox [nzValue]="item.id"  [ngModelOptions]="{standalone: true}">{{item.title}}</label>-->
+		<nz-select [nzMaxMultipleCount]="6"  style="width: 100%" nzMode="multiple" nzPlaceHolder="选择一级分类查看对应二级分类" [(ngModel)]="firstid" (ngModelChange)="log()" [ngModelOptions]="{standalone: true}">
+		      <nz-option *ngFor='let item of primaryFaultList'   [nzLabel]="item.title" [nzValue]="item.id"></nz-option>
+		</nz-select>
+		
+		
+		
+		</nz-form-control>
+		<nz-form-label [nzSpan]="4" nzRequired nzFor="status">状态</nz-form-label>
+		<nz-form-control [nzSpan]="8">
+			<nz-select formControlName="status" [(ngModel)]="status" nzPlaceHolder="请选择状态">
+				<nz-option nzValue="1" nzLabel="启用"></nz-option>
+				<nz-option nzValue="2" nzLabel="禁用"></nz-option>
+			</nz-select>
+			<nz-form-explain *ngIf="validateForm.get('status').dirty && validateForm.get('status').errors">状态不能为空！</nz-form-explain>
+		</nz-form-control>
+		
+	</nz-form-item>
+	<nz-form-item>
+		<nz-form-label [nzSpan]="3" nzFor="secondaryFL">二级故障</nz-form-label>
+		<nz-form-control [nzSpan]="20">
+			 <ul class="ul_zq">
+        	<li>
+        		<div nz-row>
+			      <div nz-col nzSpan="8">故障类型</div>
+			      <div nz-col nzSpan="4">成本价格</div>
+			      <div nz-col nzSpan="4">分销价格</div>
+			      <div nz-col nzSpan="4">维修费用</div>
+			      <div nz-col nzSpan="4">状态</div>
+			    </div>
+        	</li>
+        	<li class='li_zq' *ngFor='let item of secondaryFaultList'>
+        		<div nz-row>
+			      <div nz-col nzSpan="8" id="{{item.id}},{{item.pid}}">{{item.title}}</div>
+			      <div nz-col nzSpan="4"><input nz-input [value]="item.cost" ></div>
+			      <div nz-col nzSpan="4"><input nz-input [value]="item.price"></div>
+			      <div nz-col nzSpan="4"><input nz-input [value]="item.fee" ></div> 
+			      <div nz-col nzSpan="4">{{item.status== '1'?'启用':'禁用'}}</div>
+			    </div>
+        	</li>
+        </ul>
+		</nz-form-control>
+		
+	</nz-form-item>
+
+	<nz-form-item>
+		<nz-form-control [nzSpan]="8" [nzOffset]="3">
+			<button nz-button nzType="primary">确认</button>
+		</nz-form-control>
+	</nz-form-item>
+</form>

@@ -1,0 +1,92 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/shop']">门店列表</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>技师列表</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="工号" >
+			    <input type="text" nz-input [(ngModel)]="worknum">
+			</nz-input-group>
+          </div>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="姓名" >
+			    <input type="text" nz-input [(ngModel)]="workname">
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="电话" >
+			    <input type="text" nz-input [(ngModel)]="phone">
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <button nz-button (click)="add()" class="editable-add-btn btnadd"><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+ <button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button> 
+   <nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>工号</th>
+          <th>姓名</th>
+          <th>电话</th>
+          <th>性别</th>
+          <th>账户余额</th>
+          <th>隶属门店</th>
+          <th>注册时间</th>
+          <th>剩余额度</th>
+          <th>邮箱</th>
+          <th>负责区域</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.worknum}}</td>
+          <td>{{data.workname}}</td>
+          <td>{{data.phone}}</td>
+          <td>{{data.sex == 1? "男":"女"}}</td>
+          <td>{{data.balance}}</td>
+          <td>{{data.shopname}}</td>
+          <td style="max-width:120px;">{{data.addtime}}</td>
+          <td>{{data.quota}}</td>
+          <td>{{data.email}}</td>
+          <td>{{data.district}}</td>
+          <td>{{data.status== '1'?'启用':'禁用'}}</td>
+          <td class='operator'>
+          	<nz-popconfirm [nzTitle]="'确定改变状态吗?'" (nzOnConfirm)="changestatus(data.workid,data.status)">
+            	<a  nz-popconfirm>修改状态</a>
+            </nz-popconfirm>
+            <a (click)="detail(data.workid)">详情 </a>
+            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.workid)">
+            	<a  nz-popconfirm> 删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

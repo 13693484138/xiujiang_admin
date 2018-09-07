@@ -1,0 +1,24 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/partorder']">配件订单列表</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>配件订单详情</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+       <ul class="ul_zq">
+        	<li class='lititle_zq'>
+        		<div nz-row>
+			      <div nz-col nzSpan="6">配件名称</div>
+			      <div nz-col nzSpan="6">图片</div>
+			      <div nz-col nzSpan="6">数量</div>
+			      <div nz-col nzSpan="6">价格</div>
+			    </div>
+        	</li>
+        	<li class='li_zq' *ngFor='let item of partsOrderDetail'>
+        		<div nz-row>
+			      <div nz-col nzSpan="6">{{item.title}}</div>
+			      <div nz-col nzSpan="6"><img src="{{item.img}}" alt="" /></div>
+			      <div nz-col nzSpan="6">{{item.num}}</div>
+			      <div nz-col nzSpan="6">{{item.price}}</div>
+			    </div>
+        	</li>
+        </ul>

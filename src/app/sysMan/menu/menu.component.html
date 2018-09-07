@@ -1,0 +1,72 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>菜单管理</nz-breadcrumb-item>
+</nz-breadcrumb>
+ <div nz-row>
+      <div nz-col nzSpan="4">	
+      	<nz-card nzType="inner" nzTitle="菜单树" [nzExtra]="extraTemplate">
+      <ul id="ztree" class="ztree"></ul>
+       </nz-card>
+      </div>
+      
+      <div nz-col nzSpan="1"></div>
+      
+      <div nz-col nzSpan="19">
+ <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="菜单名称" >
+			    <input type="text" nz-input [(ngModel)]="name">
+			</nz-input-group>
+          </div>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="层级" >
+			    <input type="text" nz-input [(ngModel)]="levels">
+			</nz-input-group>
+          </div>
+        </div>
+       
+      </div>
+      </div>
+<button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>菜单名称</th>
+          <th>层级</th>
+          <th>菜单编号</th>
+          <th>菜单父编号</th>
+          <th>是否是菜单</th>
+          <th>状态</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.name}}</td>
+          <td>{{data.levels}}</td>
+          <td>{{data.code}}</td>
+          <td>{{data.pcode}}</td>
+          <td>{{data.ismenu==1?"是":"否"}}</td>
+          <td>{{data.status==1?"可用":"不可用"}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    
+    </div>
+    </div>

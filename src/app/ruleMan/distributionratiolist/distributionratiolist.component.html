@@ -1,0 +1,125 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>分销比例</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="会员名称" >
+			    <input type="text" nz-input [(ngModel)]="username">
+			</nz-input-group>
+          </div>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="等级" >
+			    <nz-select class='select_zq'  [(ngModel)]="level" nzAllowClear >
+			        <nz-option nzValue="2" nzLabel="合作伙伴"></nz-option>
+			        <nz-option nzValue="7" nzLabel="高级合作伙伴"></nz-option>
+			    </nz-select>
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+    </div>
+<button nz-button (click)="showModalMiddle()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+	        <nz-form-item [formGroup]="validateForm" (ngSubmit)="handleOkMiddle()">
+	        <nz-form-label nzRequired nzFor="phone">电话号码</nz-form-label>
+			    <nz-form-control>
+			     <input nz-input [(ngModel)]="phone" name="phone" style="width:80%;margin-right: 2px;" placeholder="输入电话号码查询分销等级" id="phone" [ngModelOptions]="{standalone: true}">
+			     <button nz-button (click)="searchlevel()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+			    </nz-form-control>
+			    <nz-form-label nzRequired nzFor="leveladd">分销等级</nz-form-label>
+			    <nz-form-control>
+			      <nz-select class='select_zq' formControlName="leveladd" [(ngModel)]="leveladd">
+			        <nz-option nzValue="2" nzLabel="合作伙伴" nzDisabled></nz-option>
+			        <nz-option nzValue="7" nzLabel="高级合作伙伴" nzDisabled></nz-option>
+			    </nz-select>
+			    <nz-form-explain *ngIf="validateForm.get('leveladd').dirty && validateForm.get('leveladd').errors">分销等级不能为空！</nz-form-explain>        
+			    </nz-form-control>
+			    
+			    <nz-form-label nzFor="ratio">利润比例</nz-form-label>
+			    <nz-form-control>
+			    	 <input nz-input [(ngModel)]="ratio" name="ratio" placeholder="请输入利润比例" id="ratio" [ngModelOptions]="{standalone: true}">
+			    </nz-form-control>
+			    <nz-form-label nzRequired nzFor="status">状态</nz-form-label>
+			    <nz-form-control>
+			    	<nz-select class='select_zq' formControlName="status"  [(ngModel)]="status" nzAllowClear >
+			        <nz-option nzValue="1" nzLabel="生效"></nz-option>
+			        <nz-option nzValue="2" nzLabel="不生效"></nz-option>
+			    </nz-select>
+			    <nz-form-explain *ngIf="validateForm.get('status').dirty && validateForm.get('status').errors">状态不能为空！</nz-form-explain>        
+			    </nz-form-control>
+					</nz-form-item>
+			</nz-modal>
+
+			<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isedit" nzTitle="编辑" (nzOnCancel)="hideedit()" (nzOnOk)="edit()">
+	        <nz-form-item [formGroup]="validateForm" (ngSubmit)="edit()">
+			    <nz-form-label nzRequired nzFor="leveladd">分销等级</nz-form-label>
+			    <nz-form-control>
+			      <nz-select class='select_zq' formControlName="leveladd" [(ngModel)]="leveladd">
+			        <nz-option nzValue="2" nzLabel="合作伙伴" nzDisabled></nz-option>
+			        <nz-option nzValue="7" nzLabel="高级合作伙伴" nzDisabled></nz-option>
+			    </nz-select>
+			    </nz-form-control>
+			    <nz-form-label nzFor="ratio">利润比例</nz-form-label>
+			    <nz-form-control>
+			    	 <input nz-input [(ngModel)]="ratio" name="ratio" placeholder="请输入利润比例" id="ratio" [ngModelOptions]="{standalone: true}">
+			    </nz-form-control>
+			    <nz-form-label nzRequired  nzFor="status">状态</nz-form-label>
+			    <nz-form-control>
+			    	<nz-select class='select_zq' formControlName="status"  [(ngModel)]="status" nzAllowClear >
+			        <nz-option nzValue="1" nzLabel="生效"></nz-option>
+			        <nz-option nzValue="2" nzLabel="不生效"></nz-option>
+			    </nz-select>
+			    <nz-form-explain *ngIf="validateForm.get('status').dirty && validateForm.get('status').errors">状态不能为空！</nz-form-explain>        
+			    </nz-form-control>
+					</nz-form-item>
+			</nz-modal>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>会员名称</th>
+          <th>添加时间</th>
+          <th>分销等级</th>
+          <th>省比例</th>
+          <th>市比例</th>
+          <th>区比例</th>
+          <th>分销比例</th>
+          <th>门店比例</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.username}}</td>
+          <td>{{data.addtime}}</td>
+          <td>{{data.level=="2"?'合作伙伴':'高级合作伙伴'}}</td>
+          <td>{{data.province}}%</td>
+          <td>{{data.city}}%</td>
+          <td>{{data.district}}%</td>
+          <td>{{data.ratio}}%</td>
+          <td>{{data.store}}%</td>
+          <td class='operator'>       
+            <a  (click)="showedit(data.id)">编辑</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
