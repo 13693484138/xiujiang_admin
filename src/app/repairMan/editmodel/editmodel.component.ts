@@ -52,7 +52,7 @@ export class EditmodelComponent implements OnInit {
   	}
   	  this.httpl.httpmenderget("repairmanagemnet/getfaultinfo/"+this.id)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){
 				  this.secondaryFaultList=data.data.SecondaryFaultList;
 				  this.secondaryFaultList2=data.data.SecondaryFaultList;
@@ -66,7 +66,7 @@ export class EditmodelComponent implements OnInit {
   	 /*获取配件分类详情*/
      this.httpl.httpmenderget("repairmanagemnet/versiondetail/"+this.id)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){
 						this.title=data.data.title;
 						this.describe=data.data.describe;
@@ -86,7 +86,7 @@ export class EditmodelComponent implements OnInit {
     this.validateForm = this.fb.group({
       title: [ this.title, [ Validators.required ] ],
       describe:[this.describe, [ Validators.required ]],
-      num: [ this.num, [ Validators.required ] ],
+      num: [ this.num, [ Validators.required,Validators.pattern(/^[0-9]*$/)] ],
       status:[this.status,[ Validators.required ]],
       colors:[this.colors,[ Validators.required ]],
       secondaryFL:[this.secondaryFL],

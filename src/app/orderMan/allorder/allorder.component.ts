@@ -26,7 +26,7 @@ export class AllorderComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("ordermanagement/orderlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"orderno":this.orderno,"phone":this.phone,"servertype":this.servertype,"workername":this.workername,"status":this.status})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;

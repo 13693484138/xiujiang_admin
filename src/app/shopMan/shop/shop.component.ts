@@ -25,7 +25,7 @@ export class ShopComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("shopmanagemnet/shopinfolist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"shopname":this.shopname,"phone":this.phone,"repair":this.repair,"status":this.status})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -43,13 +43,12 @@ export class ShopComponent implements OnInit {
   	this.router.navigateByUrl("home/shopadd");
   }
   EditRow(item:any):void{//编辑门店
-  	console.log(item);
 	  this.router.navigate(["home/shopadd"],{queryParams:{'shopid':item}});
   }
   deleteRow(item:string):void{//删除门店
   	 this.http.httpmenderdel("shopmanagemnet/deleteshopinfo/"+item)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
 					this.message.success(data.msg);
 					this.searchData();

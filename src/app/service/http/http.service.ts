@@ -3,12 +3,13 @@ import {Http, RequestOptions,Headers} from "@angular/http";
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {CookieService} from "ngx-cookie-service";
+import { LocalStorageService} from 'angular-web-storage';
 
 @Injectable()
 export class HttpService {
 public url="http://192.168.1.250:8080/pc/";
 //public url="http://192.168.1.4:8888/pc/";
-  constructor(public http:Http,public cookieservice:CookieService) {
+  constructor(public http:Http,public local: LocalStorageService) {
   }
   //登录接口不传令牌post
   httpmenderlogin(funName:string,data:any){
@@ -23,7 +24,7 @@ public url="http://192.168.1.250:8080/pc/";
   httpmender(funName:string,data:any){
     let headers1 = new Headers();
     headers1.append('Content-Type','text/plain;charset=UTF-8');
-    headers1.append('Authorization',this.cookieservice.get('token'));    
+    headers1.append('Authorization',this.local.get("sysUser").token);    
     const options1 = new RequestOptions({ headers: headers1 });
     return this.http.post(this.url+funName,data,options1).pipe(map(res => res.json()));
   }
@@ -32,7 +33,7 @@ public url="http://192.168.1.250:8080/pc/";
   httpmenderget(funName:string){
     let headers2 = new Headers();
     headers2.append('Content-Type','text/plain;charset=UTF-8');
-    headers2.append('Authorization',this.cookieservice.get('token'));    
+    headers2.append('Authorization',this.local.get("sysUser").token);    
     const options2 = new RequestOptions({ headers: headers2 });
     return this.http.get(this.url+funName,options2).pipe(map(res => res.json()));
   }
@@ -41,7 +42,7 @@ public url="http://192.168.1.250:8080/pc/";
   httpmenderput(funName:string,data:any){
     let headers2 = new Headers();
     headers2.append('Content-Type','text/plain;charset=UTF-8');
-    headers2.append('Authorization',this.cookieservice.get('token')); 
+    headers2.append('Authorization',this.local.get("sysUser").token); 
     const options2 = new RequestOptions({ headers: headers2 });
     return this.http.put(this.url+funName,data,options2).pipe(map(res => res.json()));
   }
@@ -50,7 +51,7 @@ public url="http://192.168.1.250:8080/pc/";
   httpmenderdel(funName:string){
     let headers2 = new Headers();
     headers2.append('Content-Type','text/plain;charset=UTF-8');
-    headers2.append('Authorization',this.cookieservice.get('token'));
+    headers2.append('Authorization',this.local.get("sysUser").token);
     const options2 = new RequestOptions({ headers: headers2 });
     return this.http.delete(this.url+funName,options2).pipe(map(res => res.json()));
   }

@@ -82,7 +82,7 @@ export class EditroleComponent implements OnInit {
     this.validateForm = this.fb.group({
       name:[ this.name,[ Validators.required]],
       tips:[this.tips,[ Validators.required]],
-      num:[ this.num, [ Validators.required ]],
+      num:[ this.num, [ Validators.required,Validators.pattern(/^[0-9]*$/) ]],
       deptid:[this.deptid],
       pid:[this.pid,[ Validators.required ]]
     });

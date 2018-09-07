@@ -27,7 +27,6 @@ export class MenuComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("menumanagemnet/menulist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"code":this.code,"levels":this.levels,"name":this.name})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -67,7 +66,6 @@ export class MenuComponent implements OnInit {
   getnodes(){
   	  this.http.httpmenderget("menumanagemnet/menutreelist")
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == '0000'){      	
 					this.nodes=data.data;
 					$.fn.zTree.init($("#ztree"), this.setting, this.nodes);

@@ -23,7 +23,7 @@ export class PartclassComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("partsmanagemnet/partsclassifylist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"title":this.title,"classifyid":this.classifyid,"status":this.status})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -37,13 +37,13 @@ export class PartclassComponent implements OnInit {
   	this.router.navigateByUrl("home/addpartclass");
   }
   EditRow(item:any):void{//编辑配件分类
-  	console.log(item);
+//	console.log(item);
 	  this.router.navigate(["home/addpartclass"],{queryParams:{'classid':item}});
   }
   deleteRow(item:string):void{//删除配件
   	 this.http.httpmenderdel("partsmanagemnet/deletepartsclassify/"+item)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
 					this.message.success('删除成功!');
 					this.searchData();

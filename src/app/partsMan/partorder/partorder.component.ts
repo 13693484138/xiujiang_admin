@@ -25,7 +25,7 @@ export class PartorderComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("partsmanagemnet/partsorderlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"orderno":this.orderno,"worker":this.worker,"shopname":this.shopname,"courier":this.courier,"status":this.status})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -45,7 +45,7 @@ export class PartorderComponent implements OnInit {
   deleteRow(item:string):void{//删除配件
   	 this.http.httpmenderdel("partsmanagemnet/deletepartsinfo/"+item)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
 					this.message.success(data.msg);
 					this.searchData();

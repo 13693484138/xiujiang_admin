@@ -1,7 +1,7 @@
 import { Component, TemplateRef, ViewChild,OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {CookieService} from "ngx-cookie-service";
-
+import {HttpService,imgUrl} from "../service/http/http.service";
+import { LocalStorageService} from 'angular-web-storage';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,10 +9,14 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class HomeComponent implements OnInit {
 	loading = false;
-  constructor(public router:Router,public cookieService:CookieService) { }
+	avatar:string;
+	name:string;
+	imgUrl:string=imgUrl;
+  constructor(public router:Router,public local: LocalStorageService) { }
 
   ngOnInit() {
-  	
+  	this.avatar=this.imgUrl+this.local.get("sysUser").avatar;
+  	this.name=this.local.get("sysUser").name;
   }
   isCollapsed = false;
   triggerTemplate = null;
@@ -24,8 +28,7 @@ export class HomeComponent implements OnInit {
   
     
   logout() {
-    this.cookieService.delete('token');
-//  this.cookieService.delete('token');
+    this.local.clear();
     this.router.navigateByUrl("login");
   }
   cPassword(){

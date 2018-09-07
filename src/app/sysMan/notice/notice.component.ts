@@ -27,7 +27,6 @@ export class NoticeComponent implements OnInit {
     this.loading = true;
     this.http.httpmender("noticemanagement/noticelist", { "currentPage": this.pageIndex, "pageSize": this.pageSize, "title": this.title })
       .subscribe(data => {
-        console.log(data);
         if (data.result == "0000") {
           this.dataSet = data.data.list;
           this.loading = false;
@@ -48,7 +47,6 @@ export class NoticeComponent implements OnInit {
   deleteRow(item: string): void {//删除用户
     this.http.httpmenderdel("noticemanagement/deletenotice/" + item)
       .subscribe(data => {
-        console.log(data);
         if (data.result == "0000") {
           this.message.success('删除成功!');
           this.searchData();

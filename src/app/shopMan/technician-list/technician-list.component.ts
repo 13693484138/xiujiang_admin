@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpService} from "../../service/http/http.service";
 import {Router,ActivatedRoute} from '@angular/router';
-import {CookieService} from "ngx-cookie-service";
+import { LocalStorageService} from 'angular-web-storage';
 import { NzMessageService} from 'ng-zorro-antd';
 
 @Component({
@@ -21,7 +21,7 @@ export class TechnicianListComponent implements OnInit {
   phone:string;
   addbtn:boolean=false;
   
-  constructor(public http:HttpService,public router:Router,public cookieservice:CookieService,public rou:ActivatedRoute,public msg:NzMessageService) {
+  constructor(public http:HttpService,public router:Router,public local: LocalStorageService,public rou:ActivatedRoute,public msg:NzMessageService) {
   	this.rou.queryParams.subscribe(Params=>{
         this.shopid=Params['shopid'];
     });
@@ -30,14 +30,13 @@ export class TechnicianListComponent implements OnInit {
   searchData(): void {
     this.loading = true;
     if(!this.shopid){
-    	this.shopid=this.cookieservice.get("shopid");
-//  	this.addbtn=true;
+    	this.shopid=this.local.get("sysUser").shopid;
     }else{
 //  	this.addbtn=false;
     }
      this.http.httpmender("shopmanagemnet/workerinfolist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"shopid":this.shopid,"worknum":this.worknum,"workname":this.workname,"phone":this.phone})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -60,7 +59,6 @@ export class TechnicianListComponent implements OnInit {
   deleteRow(item:string):void{
   	 this.http.httpmenderdel("shopmanagemnet/deleteworker/"+item)
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == '0000'){
           this.msg.success('删除技师成功!');
           this.searchData();
@@ -78,7 +76,6 @@ export class TechnicianListComponent implements OnInit {
   	}
   	this.http.httpmenderput("shopmanagemnet/updateworkerstatus",{"workid":workid,"status":status})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == '0000'){
           this.msg.success("状态修改成功!");
           this.searchData();

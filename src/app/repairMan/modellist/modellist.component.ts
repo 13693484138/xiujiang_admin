@@ -28,7 +28,7 @@ export class ModellistComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("repairmanagemnet/versionlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"brandid":this.brandid,"title":this.title,"status":this.status})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -51,7 +51,7 @@ export class ModellistComponent implements OnInit {
   deleteRow(item:string):void{//删除型号
   	 this.http.httpmenderdel("repairmanagemnet/deleteversion/"+item)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
 					this.message.success('删除成功!');
 					this.searchData();
@@ -82,7 +82,7 @@ export class ModellistComponent implements OnInit {
    getnodes(){
   	  this.http.httpmenderget("repairmanagemnet/brandtreelist/")
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){      	
 					this.nodes=data.data;
 					$.fn.zTree.init($("#ztree"), this.setting, this.nodes);

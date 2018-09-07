@@ -30,7 +30,7 @@ export class BrandlistComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("repairmanagemnet/brandlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"id":this.pid,"title":this.title,"type":this.type,"status":this.status})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -66,7 +66,7 @@ export class BrandlistComponent implements OnInit {
   getnodes(){
   	  this.http.httpmenderget("repairmanagemnet/brandtreelist/")
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){      	
 					this.nodes=data.data;
 					$.fn.zTree.init($("#ztree"), this.setting, this.nodes);
@@ -81,13 +81,13 @@ export class BrandlistComponent implements OnInit {
   	this.router.navigate(["home/editbrand"],{queryParams:{'pid':this.pid}});
   }
   EditRow(item:any):void{//编辑品牌
-  	console.log(item);
+//	console.log(item);
 	  this.router.navigate(["home/editbrand"],{queryParams:{'id':item,'pid':this.pid}});
   }
   deleteRow(item:string):void{//删除品牌
   	 this.http.httpmenderdel("repairmanagemnet/deletebrand/"+item)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
 					this.message.success('删除成功!');
 					this.searchData();
