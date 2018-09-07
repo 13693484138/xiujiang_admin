@@ -38,7 +38,7 @@ export class BasiclistComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("rulesmanagemnet/basiclist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"name":this.name,"type":this.type})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -61,7 +61,7 @@ export class BasiclistComponent implements OnInit {
     if (this.validateForm.invalid) return;
   	this.http.httpmenderput("rulesmanagemnet/updatebasic",{"parm":this.parm,"id":this.id,"code":this.code})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
 					this.message.success('修改成功!');
 					this.searchData();
@@ -86,7 +86,7 @@ export class BasiclistComponent implements OnInit {
   deleteRow(item:string):void{
   	this.http.httpmenderdel("rulesmanagemnet/deletebasic/"+item)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
 					this.message.success('删除成功!');
 					this.searchData();

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService,imgUrl} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
+import { LocalStorageService} from 'angular-web-storage';
 import 'ztree';
 import 'jquery'
 declare var $: any;
@@ -28,7 +29,7 @@ pageIndex = 1;
   sUsername:string;
   roleids:string;
   isVisibleMiddle=false;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) { }
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
 
   searchData(): void {
     this.loading = true;
@@ -223,6 +224,9 @@ pageIndex = 1;
   	 this.searchData();
   }
   ngOnInit(): void {
+	console.log(this.local.get("permission"));
+	console.log(this.local.get("sysUser"));
+	console.log(this.local.get("titles"));
     this.searchData();
     this.getnodes();
   }

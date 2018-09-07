@@ -20,7 +20,6 @@ export class AddpartComponent implements OnInit {
   partid:string;
   title:string;
   classifyid:string;
-//createtime:string;
   diprice:string;
   orprice:string;
   protect:string;
@@ -46,7 +45,7 @@ export class AddpartComponent implements OnInit {
   ngOnInit() {
   	this.httpl.httpmenderget("partsmanagemnet/partsclassify")
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){
          this.classlist=data.data;
       	}else{
@@ -81,7 +80,7 @@ export class AddpartComponent implements OnInit {
   	/*表单验证设置*/
     this.validateForm = this.fb.group({
       title: [ this.title, [ Validators.required ] ],
-      num:[this.num, [ Validators.required ]],
+      num:[this.num, [ Validators.required,Validators.pattern(/^[0-9]*$/) ]],
       status:[this.status,[ Validators.required ]],
       classifyid: [ this.classifyid, [ Validators.required ] ],
       orprice:[this.orprice, [ Validators.required ]],

@@ -40,7 +40,7 @@ export class AddpartclassComponent implements OnInit {
   	 /*获取配件分类详情*/
      this.httpl.httpmenderget("partsmanagemnet/partsclassifydetail/"+this.classid)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){
 						this.title=data.data.title;
 						this.explain=data.data.explain;
@@ -58,7 +58,7 @@ export class AddpartclassComponent implements OnInit {
     this.validateForm = this.fb.group({
       title: [ this.title, [ Validators.required ] ],
       explain:[this.explain, [ Validators.required ]],
-      num: [ this.num, [ Validators.required ] ],
+      num: [ this.num, [ Validators.required ,Validators.pattern(/^[0-9]*$/)] ],
       status:[this.status,[ Validators.required ]],
      });
   }

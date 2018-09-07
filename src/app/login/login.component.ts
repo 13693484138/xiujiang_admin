@@ -3,7 +3,7 @@ import {AbstractControl,FormBuilder,FormGroup,Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import {HttpService} from "../service/http/http.service";
-import { CookieService } from 'ngx-cookie-service';
+import { LocalStorageService} from 'angular-web-storage';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ constructor(
 	  public msg: NzMessageService,
     private modalSrv: NzModalService,
     private http:HttpService,
-		private cookieService:CookieService) {
+    public local: LocalStorageService) {
 }
 
 ngOnInit(): void {
@@ -51,11 +51,10 @@ submitForm(): void {
       this.http.httpmenderlogin("user/login",{"userName":this.userName.value,"passWord":this.password.value})
       .subscribe(data=>{
       	if(data.result == '0000'){
-      		console.log(data.data.sysUser.token);
-      		this.cookieService.set('token',data.data.sysUser.token);
-      		this.cookieService.set('shopid',data.data.sysUser.shopid);
       		this.router.navigateByUrl("home");
-      		
+      		this.local.set('sysUser',data.data.sysUser);
+      		this.local.set('permission',data.data.permission);
+      		this.local.set('titles',data.data.titles);
       	}else{
       		this.error = data.msg;
       	}

@@ -27,7 +27,6 @@ export class DepartComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("deptmanagemnet/deptlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"deptid":this.pid,"simplename":this.simplename})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -49,7 +48,6 @@ export class DepartComponent implements OnInit {
     callback: {
 			onClick:(event:any,treeId:any,treeNode:any)=>{
 		  this.pid=treeNode.id;
-		  console.log(this.pid);
 		  if(treeNode.pid == 0){
 		  	this.showadd=true;
 		  }else{
@@ -64,7 +62,6 @@ export class DepartComponent implements OnInit {
   getnodes(){
   	  this.http.httpmenderget("deptmanagemnet/depttreelist")
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == '0000'){      	
 					this.nodes=data.data;
 					$.fn.zTree.init($("#ztree"), this.setting, this.nodes);
@@ -85,7 +82,6 @@ export class DepartComponent implements OnInit {
   deleteRow(item:string):void{//删除部门
   	 this.http.httpmenderdel("deptmanagemnet/deletedept/"+item)
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
 					this.message.success('删除成功!');
 					this.searchData();

@@ -24,7 +24,7 @@ export class EditpartorderComponent implements OnInit {
   	 /*获取订单详情*/
      this.httpl.httpmenderget("partsmanagemnet/partsorderdetail/"+this.orderno)
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){
  					this.partsOrderDetail=data.data.partsOrderDetail;
       	}else{

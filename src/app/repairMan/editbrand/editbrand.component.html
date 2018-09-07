@@ -38,8 +38,8 @@
        <nz-form-item>      
         <nz-form-label [nzSpan]="3" nzRequired nzFor="num">排序</nz-form-label>
         <nz-form-control [nzSpan]="8">
-          <input type="text" nz-input formControlName="num" [(ngModel)]="num" placeholder="请输入编号">
-          <nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">编号不能为空！</nz-form-explain>
+          <input type="text" nz-input formControlName="num" [(ngModel)]="num" placeholder="请输入排序">
+          <nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">排序为数字且不能为空！</nz-form-explain>
         </nz-form-control>
         
         <nz-form-label [nzSpan]="4" nzRequired nzFor="status">状态</nz-form-label>

@@ -14,7 +14,6 @@ import { TechnicianListComponent } from './shopMan/technician-list/technician-li
 import { ShopaddComponent } from './shopMan/shopadd/shopadd.component';
 import { TechnicianDetailComponent } from './shopMan/technician-detail/technician-detail.component';
 import { AllorderComponent } from './orderMan/allorder/allorder.component';
-import { AftersaleComponent } from './orderMan/aftersale/aftersale.component';
 import { OrderdetailComponent } from './orderMan/orderdetail/orderdetail.component';
 import { PartlistComponent } from './partsMan/partlist/partlist.component';
 import { PartclassComponent } from './partsMan/partclass/partclass.component';
@@ -67,7 +66,6 @@ const routes:Routes=[
 	{path:"techniciandetail",component:TechnicianDetailComponent},
 	//订单管理
 	{path:"allorder",component:AllorderComponent},
-	{path:"aftersale",component:AftersaleComponent},
 	{path:"orderdetail",component:OrderdetailComponent},
 	//配件管理
 	{path:"part",component:PartlistComponent},

@@ -35,7 +35,6 @@ export class EditdepartComponent implements OnInit {
     /*编辑部门*/
 	  this.httpl.httpmenderput("deptmanagemnet/updatedept",{"id":this.id,"simplename": this.simplename,"fullname":this.fullname,"pid":this.pid,"remark":this.remark,"num":this.num})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
 					this.msg.success('修改成功!');
 					this.rou.navigateByUrl("home/depart");
@@ -47,7 +46,6 @@ export class EditdepartComponent implements OnInit {
     /*新增部门*/
 	  this.httpl.httpmender("deptmanagemnet/adddept",{"simplename": this.simplename,"fullname":this.fullname,"pid":this.pid,"remark":this.remark,"num":this.num})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
 					this.msg.success('新增成功!');
 					this.rou.navigateByUrl("home/depart");
@@ -83,7 +81,6 @@ export class EditdepartComponent implements OnInit {
   	/*获取门店详情*/
      this.httpl.httpmenderget("deptmanagemnet/getdeptinfodetail/"+this.id)
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == '0000'){
           this.simplename=data.data.simplename;
           this.fullname=data.data.fullname;

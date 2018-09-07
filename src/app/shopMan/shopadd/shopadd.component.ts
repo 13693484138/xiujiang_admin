@@ -154,7 +154,6 @@ export class ShopaddComponent implements OnInit {
     /*编辑门店*/
 	  this.httpl.httpmenderput("shopmanagemnet/editshopinfo",{"address": this.address,"appid":this.appid,"provinceid":this.addressp.id,"cityid":this.addressc.id,"districtid":this.addressr.id,"id":this.shopid,"ispurchase":this.parts,"lat":this.coordinate.split(",")[1],"logo":this.mkey,"lon":this.coordinate.split(",")[0],"name": this.name,"phone": this.phone,"repair":this.maintain,"service":this.service,"status":this.state})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
 					this.msg.success('修改成功!');
 					this.rou.navigateByUrl("home/shop");
@@ -166,7 +165,6 @@ export class ShopaddComponent implements OnInit {
     /*新增门店*/
 	  this.httpl.httpmender("shopmanagemnet/addshopinfo",{"address": this.address,"appid":this.appid,"provinceid":this.addressp.id,"cityid":this.addressc.id,"districtid":this.addressr.id,"ispurchase":this.parts,"lat":this.coordinate.split(",")[1],"logo":this.mkey,"lon":this.coordinate.split(",")[0],"name": this.name,"phone": this.phone,"repair":this.maintain,"service":this.service,"status":this.state})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
 					this.msg.success('新增成功!');
 					this.rou.navigateByUrl("home/shop");

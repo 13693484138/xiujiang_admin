@@ -38,7 +38,7 @@ export class BannerComponent implements OnInit {
     this.loading = true;
      this.http.httpmender("rulesmanagemnet/bannerlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
         this.dataSet=data.data.list;
         this.loading = false;
@@ -81,7 +81,7 @@ export class BannerComponent implements OnInit {
     if (this.validateForm.invalid) return;
     this.http.httpmender("rulesmanagemnet/addbanner",{"pic_url":this.pic_url,"title":this.title,"page_url":this.page_url,"num":this.num})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == "0000"){
       		this.message.success('新增成功!');
   				this.isVisibleMiddle = false;

@@ -49,7 +49,7 @@ export class EditfaultComponent implements OnInit {
   	 /*获取配件分类详情*/
      this.httpl.httpmender("repairmanagemnet/faultdetail",{"id":this.id,"pid":this.pid})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){
 						this.title=data.data.title;
 						this.explain=data.data.explain;
@@ -77,7 +77,7 @@ export class EditfaultComponent implements OnInit {
     this.validateForm = this.fb.group({
       title: [ this.title, [ Validators.required ] ],
       explain:[this.explain],
-      num: [ this.num, [ Validators.required ] ],
+      num: [ this.num, [ Validators.required,Validators.pattern(/^[0-9]*$/) ] ],
       status:[this.status,[ Validators.required ]],
       type:[this.type],
       period:[this.period],

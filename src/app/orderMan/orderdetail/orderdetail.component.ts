@@ -51,7 +51,7 @@ export class OrderdetailComponent implements OnInit {
   	 /*获取订单详情*/
      this.httpl.httpmender("ordermanagement/orderdetail",{"orderno":this.orderno,"status":this.status})
       .subscribe(data=>{
-      	console.log(data);
+//    	console.log(data);
       	if(data.result == '0000'){
           this.brand=data.data.orderDetail.brand;
           this.version=data.data.orderDetail.version;

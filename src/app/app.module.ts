@@ -26,10 +26,9 @@ import { ShopComponent } from './shopMan/shop/shop.component';
 import { TechnicianListComponent } from './shopMan/technician-list/technician-list.component';
 import { ShopaddComponent } from './shopMan/shopadd/shopadd.component';
 import { TechnicianDetailComponent } from './shopMan/technician-detail/technician-detail.component';
+import { AngularWebStorageModule } from 'angular-web-storage';
 
-import { CookieService } from 'ngx-cookie-service';
 import { AllorderComponent } from './orderMan/allorder/allorder.component';
-import { AftersaleComponent } from './orderMan/aftersale/aftersale.component';
 import { OrderdetailComponent } from './orderMan/orderdetail/orderdetail.component';
 import { PartlistComponent } from './partsMan/partlist/partlist.component';
 import { PartclassComponent } from './partsMan/partclass/partclass.component';
@@ -69,7 +68,6 @@ registerLocaleData(zh);
     ShopaddComponent,
     TechnicianDetailComponent,
     AllorderComponent,
-    AftersaleComponent,
     OrderdetailComponent,
     PartlistComponent,
     PartclassComponent,
@@ -103,10 +101,11 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     ViserModule,
     AppRoutingModule,
-    FileUploadModule
+    FileUploadModule,
+    AngularWebStorageModule
   ],
   entryComponents: [],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN },HttpService,CookieService],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN },HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
