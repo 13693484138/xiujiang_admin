@@ -20,11 +20,6 @@ pageIndex = 1;
   imgUrl:string=imgUrl;
   showadd:boolean=true;
   nodes:any;
-<<<<<<< HEAD
-  account:string;
-  name:string;
-  phone:string;
-=======
   rolenodes:any;
   account:string;
   name:string;
@@ -33,7 +28,6 @@ pageIndex = 1;
   sUsername:string;
   roleids:string;
   isVisibleMiddle=false;
->>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
   constructor(public http:HttpService,public router:Router,public message:NzMessageService) { }
 
   searchData(): void {
@@ -72,8 +66,6 @@ pageIndex = 1;
 		}
 	  }
   };
-<<<<<<< HEAD
-=======
   settingrole = {
   	check: {
 				enable: true,
@@ -97,7 +89,6 @@ pageIndex = 1;
 		}
 	  }
   };
->>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
 
   getnodes(){
   	  this.http.httpmenderget("deptmanagemnet/depttreelist")
@@ -116,8 +107,6 @@ pageIndex = 1;
  add(){//新增用户
   	this.router.navigate(["home/edituser"],{queryParams:{'deptid':this.pid}});
   }
-<<<<<<< HEAD
-=======
  
    unfreeze():void{
    	if(!this.sUser){
@@ -183,7 +172,6 @@ pageIndex = 1;
    
    
    
->>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
   EditRow(item:any):void{//用户详情
 	  this.router.navigate(["home/edituser"],{queryParams:{'id':item,'deptid':'e'}});
   }
@@ -200,8 +188,6 @@ pageIndex = 1;
       	}
       });
   }
-<<<<<<< HEAD
-=======
 
   handleOkMiddle(): void {
   	var treeObj = $.fn.zTree.getZTreeObj("ztreerole");
@@ -232,7 +218,6 @@ pageIndex = 1;
   
   
   
->>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
   search(){
   	 this.pageIndex = 1;
   	 this.searchData();

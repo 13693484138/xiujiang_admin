@@ -24,12 +24,6 @@ export class HomeComponent implements OnInit {
   
     
   logout() {
-<<<<<<< HEAD
-    this.cookieService.deleteAll();
-//  this.cookieService.delete('token');
-    this.router.navigateByUrl("login");
-  }
-=======
     this.cookieService.delete('token');
 //  this.cookieService.delete('token');
     this.router.navigateByUrl("login");
@@ -37,7 +31,6 @@ export class HomeComponent implements OnInit {
   cPassword(){
   	this.router.navigateByUrl("home/password");
   }
->>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
 
 gorouter(item:any){
 	this.router.navigateByUrl(item);
