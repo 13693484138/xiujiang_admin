@@ -1,0 +1,56 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+  <nz-breadcrumb-item>
+    <a [routerLink]="['/home']">主页</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>通知管理</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div class="gutter-example">
+  <div nz-row nzGutter="16">
+    <div nz-col class="gutter-row" nzSpan="12">
+      <div class="gutter-box">
+        <nz-input-group nzAddOnBefore="标题">
+          <input type="text" nz-input [(ngModel)]="title">
+        </nz-input-group>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="text-align: left;">
+  <button nz-button class="editable-add-btn btnadd" (click)="add()">
+    <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+  <button nz-button class="editable-add-btn btnadd" (click)="search()">
+    <i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+</div>
+<nz-table nzShowSizeChanger nzBordered [nzFrontPagination]="false" [nzData]="dataSet" [nzLoading]="loading" [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData(pageIndex,pageSize)" (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+  <thead (nzSortChange)="sort($event)">
+    <tr>
+      <th>序号</th>
+      <th>标题</th>
+      <th>内容</th>
+      <th>发布者</th>
+      <th>类型</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of dataSet;let i=index">
+      <td style="text-align:center">
+          {{pageSize*(pageIndex-1)+(i+1)}}
+      </td>
+      <td>{{data.title}}</td>
+      <td>{{data.content}}</td>
+      <td>{{data.creater}}</td>
+      <td>{{data.type=='1'?'系统':data.type=='2'?'技师':'用户'}}</td>
+      <td>{{data.createtime}}</td>
+      <td class='operator'>
+        <a (click)="EditRow(data.id)">编辑</a>
+        <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+          <a nz-popconfirm>删除</a>
+        </nz-popconfirm>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

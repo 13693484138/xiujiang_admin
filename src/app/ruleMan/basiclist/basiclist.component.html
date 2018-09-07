@@ -1,0 +1,83 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>基础规则</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="名称" >
+			    <input type="text" nz-input [(ngModel)]="name">
+			</nz-input-group>
+          </div>
+        </div> 
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="类型" >
+			    <nz-select class='select_zq'  [(ngModel)]="type" nzAllowClear >
+			        <nz-option nzValue="1" nzLabel="系统"></nz-option>
+			        <nz-option nzValue="2" nzLabel="门店"></nz-option>
+			        <nz-option nzValue="3" nzLabel="技师"></nz-option>
+			        <nz-option nzValue="4" nzLabel="会员"></nz-option>
+			    </nz-select>
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+    </div>
+<button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isedit" nzTitle="编辑 -- {{showtitle}}" (nzOnCancel)="hideedit()" (nzOnOk)="edit()">
+	        <nz-form-item [formGroup]="validateForm" (ngSubmit)="edit()"> 
+			    <nz-form-label nzRequired nzFor="parm">参数值</nz-form-label>
+			    <nz-form-control>
+			      <input nz-input formControlName="parm" [(ngModel)]="parm" name="parm" placeholder="请输入参数值" id="parm">
+			       <nz-form-explain *ngIf="validateForm.get('parm').dirty && validateForm.get('parm').errors">参数值不能为空且为0-100正整数！</nz-form-explain>        
+			    </nz-form-control>
+					</nz-form-item>
+			</nz-modal>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>内码</th>
+          <th>操作员</th>
+          <th>添加时间</th>
+          <th>参数值</th>
+          <th>类型</th>
+          <th>备注</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.name}}</td>
+          <td>{{data.code}}</td>
+          <td>{{data.operator}}</td>
+          <td>{{data.addtime}}</td>
+          <td>{{data.parm}}</td>
+          <td>{{data.type=='1'?'系统':data.type=='2'?'门店':data.type=='3'?'技师':'会员'}}</td>
+          <td>{{data.remark}}</td>
+          <td>{{data.status=='1'?'启用':data.status=='2'?'冻结':'删除'}}</td>
+          <td class='operator'>       
+            <a  (click)="showedit(data)">编辑</a>
+            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+              <a  nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

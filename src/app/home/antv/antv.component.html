@@ -1,0 +1,49 @@
+<!--<div id="c1"  align="center" style="margin-top:100px"></div>-->
+
+<div nz-row>
+    <div nz-col nzSpan="12">	
+	<h2>折线图</h2>
+    <v-chart [forceFit]="forceFit" [height]="height" [data]="data" [scale]="scale">
+      <v-tooltip></v-tooltip>
+      <v-axis></v-axis>
+      <v-line position="year*value"></v-line>
+      <v-point position="year*value" shape="circle"></v-point>
+    </v-chart>
+    </div>
+    <div nz-col nzSpan="12">
+    	<h2>饼图</h2>
+    <v-chart [forceFit]="forceFitB" [height]="heightB" [data]="dataB" [scale]="scale">
+      <v-tooltip></v-tooltip>
+      <v-axis></v-axis>
+      <v-coord type="theta"></v-coord>
+      <v-pie position="percent" color="item" [style]="pieStyle" [label]="labelConfig"></v-pie>
+      <v-legend dataKey="item"></v-legend>
+    </v-chart>
+    	
+    </div>
+</div>
+<div nz-row>
+    <div nz-col nzSpan="12">	
+    	<h2>玫瑰图</h2>
+<div>
+	
+    <v-chart [forceFit]="forceFitC" [height]="heightC" [data]="dataC">
+      <v-tooltip></v-tooltip>
+      <v-coord type="polar" [innerRadius]="0.2"></v-coord>
+      <v-sector position="year*population" [style]="sectorStyle" color="year"></v-sector>
+      <v-legend dataKey="year" position="right" [offsetX]="-140"></v-legend>
+    </v-chart>
+  </div>
+</div>
+
+<div nz-col nzSpan="12">
+	<div>
+    <v-chart [forceFit]="forceFitD" [height]="heightD" [data]="dataD">
+      <v-tooltip></v-tooltip>
+      <v-axis></v-axis>
+      <v-legend></v-legend>
+      <v-bar position="月份*月均降雨量" color="name" [adjust]="adjust"></v-bar>
+    </v-chart>
+  </div>
+</div>
+</div>

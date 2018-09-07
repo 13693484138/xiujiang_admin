@@ -1,0 +1,194 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/allorder']">订单列表</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>订单详情</nz-breadcrumb-item>
+</nz-breadcrumb>
+     <form nz-form >
+      <nz-form-item> 
+      	<nz-form-label [nzSpan]="3"  nzFor="img">图片</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <img [src]="img" class='img_zq' alt="" />
+        </nz-form-control>  
+        <nz-form-label [nzSpan]="4"  nzFor="brand">品牌</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="brand" placeholder="品牌" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>        
+        
+      </nz-form-item>
+      <nz-form-item>
+      	<nz-form-label [nzSpan]="3"  nzFor="version">型号</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="version" placeholder="型号" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>
+             
+        <nz-form-label [nzSpan]="4"  nzFor="color">颜色</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="color" placeholder="颜色" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3"  nzFor="nickname">用户姓名</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="nickname" placeholder="用户姓名" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>   
+        <nz-form-label [nzSpan]="4"  nzFor="memberphone">联系方式</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="memberphone" placeholder="联系方式" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>   
+        
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3"  nzFor="address">预约地址</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="address" placeholder="预约地址" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>        
+        <nz-form-label [nzSpan]="4"  nzFor="bookingtime">预约时间</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="bookingtime" placeholder="预约时间" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>    
+        <nz-form-label [nzSpan]="3"  nzFor="workername">接单技师</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="workername" placeholder="接单技师" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control> 
+        <nz-form-label [nzSpan]="4"  nzFor="workerphone">技师电话</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="workerphone" placeholder="技师电话" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control> 
+      </nz-form-item>
+      <nz-form-item>
+              
+        <nz-form-label [nzSpan]="3"  nzFor="bookingtime">预约时间</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="bookingtime" placeholder="预约时间" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>
+          <nz-form-label [nzSpan]="4"  nzFor="paytime">支付时间</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="paytime" placeholder="支付时间" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3"  nzFor="paytype">支付方式</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="paytype" placeholder="支付方式" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control> 
+       <nz-form-label [nzSpan]="4"  nzFor="payment">支付金额</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input  [(ngModel)]="payment" placeholder="支付金额" [ngModelOptions]="{standalone: true}" disabled>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3"  nzFor="name">故障</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+       <ul class="ul_zq">
+        	<li>
+        		<div nz-row>
+			      <div nz-col nzSpan="5">订单编号</div>
+			      <div nz-col nzSpan="7">故障</div>
+			      <div nz-col nzSpan="2">成本价格</div>
+			      <div nz-col nzSpan="2">售价</div>
+			      <div nz-col nzSpan="2">折扣</div>
+			      <div nz-col nzSpan="2">维修费用</div>
+			      <div nz-col nzSpan="4">解决方案</div>
+			    </div>
+        	</li>
+        	<li class='li_zq' *ngFor='let item of orderFaultList'>
+        		<div nz-row>
+			      <div nz-col nzSpan="5">{{item.orderno}}</div>
+			      <div nz-col nzSpan="7">{{item.fault}}</div>
+			      <div nz-col nzSpan="2">{{item.cost}}</div>
+			      <div nz-col nzSpan="2">{{item.price}}</div>
+			      <div nz-col nzSpan="2">{{item.discount}}</div>
+			      <div nz-col nzSpan="2">{{item.fee}}</div>
+			      <div nz-col nzSpan="4">{{item.solution}}</div>
+			    </div>
+        	</li>
+        </ul>
+        </nz-form-control>  
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3"  nzFor="name">转单记录</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+          <!--<input type="text" nz-input  [(ngModel)]="orderTransferList" placeholder="转单记录" [ngModelOptions]="{standalone: true}">-->
+            <ul class="ul_zq">
+        	<li>
+        		<div nz-row>
+			      <div nz-col nzSpan="5">转移订单编号</div>
+			      <div nz-col nzSpan="3">转单技师</div>
+			      <div nz-col nzSpan="3">接单技师</div>
+			      <div nz-col nzSpan="2">转单次数</div>
+			      <div nz-col nzSpan="2">主板维修</div>
+			      <div nz-col nzSpan="4">转单时间</div>
+			      <div nz-col nzSpan="2">转单状态</div>
+			      <div nz-col nzSpan="3">备注</div>
+			    </div>
+        	</li>
+        	<li class='li_zq' *ngFor='let item of orderTransferList'>
+        		<div nz-row>
+			      <div nz-col nzSpan="5">{{item.orderno}}</div>
+			      <div nz-col nzSpan="3">{{item.papname}}</div>
+			      <div nz-col nzSpan="3">{{item.getname}}</div>
+			      <div nz-col nzSpan="2">{{item.num}}</div>
+			      <div nz-col nzSpan="2">{{item.isboard=='1'?'是':'否'}}</div>
+			      <div nz-col nzSpan="4">{{item.addtime}}</div>
+			      <div nz-col nzSpan="2">{{item.status=='1'?'待接收':item.status=='2'?'已接受':'拒绝'}}</div>
+			      <div nz-col nzSpan="3">{{item.remark}}</div>
+			    </div>
+        	</li>
+        </ul>
+        </nz-form-control>        
+      </nz-form-item>
+      <nz-form-item>     
+        <nz-form-label [nzSpan]="3"  nzFor="nickname">使用配件</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+         <ul class="ul_zq">
+        	<li>
+        		<div nz-row>
+			      <div nz-col nzSpan="5">订单号</div>
+			      <div nz-col nzSpan="3">技师姓名</div>
+			      <div nz-col nzSpan="5">使用时间</div>
+			      <div nz-col nzSpan="11">使用情况</div>
+			    </div>
+        	</li>
+        	<li class='li_zq'>
+        		<div nz-row>
+			      <div nz-col nzSpan="5">{{wpuorderno}}</div>
+			      <div nz-col nzSpan="3">{{wpuworkername}}</div>
+			      <div nz-col nzSpan="5">{{wpuaddtime}}</div>
+			      <div nz-col nzSpan="11">{{wpudesc}}</div>
+			    </div>
+        	</li>
+        </ul>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item *ngIf="status=='6'">     
+        <nz-form-label [nzSpan]="3"  nzFor="memberComplaint">售后详情</nz-form-label>
+        <nz-form-control [nzSpan]="20">
+         <ul class="ul_zq">
+        	<li>
+        		<div nz-row>
+        		  <div nz-col nzSpan="4">订单号</div>
+				  <div nz-col nzSpan="4">售后时间</div>
+			      <div nz-col nzSpan="4">售后原因</div>
+			      <div nz-col nzSpan="4">处理完成时间</div>
+			      <div nz-col nzSpan="4">处理结果</div>
+			      <div nz-col nzSpan="2">会员</div>
+			      <div nz-col nzSpan="2">技师</div>
+			    </div>
+        	</li>
+        	<li class='li_zq'>
+        		<div nz-row>
+			      <div nz-col nzSpan="4">{{mcorderno}}</div>
+			      <div nz-col nzSpan="4">{{mcaddtime}}</div>
+			      <div nz-col nzSpan="4">{{mcreason}}</div>
+			      <div nz-col nzSpan="4">{{mcdealtime}}</div>
+			      <div nz-col nzSpan="4">{{mcresult}}</div>
+			      <div nz-col nzSpan="2">{{mcmembername}}</div>
+			      <div nz-col nzSpan="2">{{mcworkername}}</div>
+			    </div>
+        	</li>
+        </ul>
+        </nz-form-control>
+      </nz-form-item>
+</form>

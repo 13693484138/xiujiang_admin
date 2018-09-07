@@ -1,0 +1,86 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item><a [routerLink]="['/home/user']">用户管理</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{pagename}}用户</nz-breadcrumb-item>
+ </nz-breadcrumb>
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  	<nz-form-item>
+      	<nz-form-label [nzSpan]="3" nzFor="pohto" nzRequired>门店图片</nz-form-label>
+        <nz-form-control [nzSpan]="8"> 
+        	<div class="file" *ngIf="!picture">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event)"/>
+        	</div>
+        	<img class='imglist' id="vi" [src]="picture" *ngIf="picture"/>
+            <button type="button"  class="upbtn" (click)="uploadFile()" *ngIf="picturesc">上传</button>
+            <button type="button"  class="upbtn" (click)="changeFile()" *ngIf="picture">换图片</button>
+            <div>
+            </div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="account">账号</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="account" [(ngModel)]="account" placeholder="请输入账号" >
+          <nz-form-explain *ngIf="validateForm.get('account').dirty && validateForm.get('account').errors">账号不能为空！</nz-form-explain>
+        </nz-form-control>        
+        <nz-form-label [nzSpan]="4" [nzRequired]='parmlen!=2' nzFor="password">密码</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="password" [(ngModel)]="password" placeholder="请输入密码" >
+          <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">密码不能为空！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="name">名称</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="name" [(ngModel)]="name" placeholder="请输入名称" >
+          <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">名称不能为空！</nz-form-explain>
+        </nz-form-control>        
+        <nz-form-label [nzSpan]="4" nzFor="birthday">生日</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <!--<input type="text" nz-input [(ngModel)]="birthday" placeholder="请输入生日" [ngModelOptions]="{standalone: true}">-->
+        <nz-date-picker [nzFormat]="dateFormat"  [(ngModel)]="birthday" [ngModelOptions]="{standalone: true}"  nzAllowClear></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="sex">性别</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+        	 <nz-select  formControlName="sex" nzName="sex" [(ngModel)]="sex" nzPlaceHolder="请选择性别">
+		    <nz-option  nzValue="1" nzLabel="男"></nz-option>
+		    <nz-option  nzValue="2" nzLabel="女"></nz-option>
+		</nz-select>
+		   <nz-form-explain *ngIf="validateForm.get('sex').dirty && validateForm.get('sex').errors">性别不能为空！</nz-form-explain>       
+        
+       </nz-form-control>           
+         <nz-form-label [nzSpan]="4" nzRequired nzFor="shopid">门店</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <nz-select  formControlName="shopid" nzName="shopid" [(ngModel)]="shopid" nzPlaceHolder="请选择门店">
+		    <nz-option *ngFor='let item of shoplist'  [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+		</nz-select>
+		<nz-form-explain *ngIf="validateForm.get('shopid').dirty && validateForm.get('shopid').errors">门店不能为空！</nz-form-explain>       
+        
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="phone">电话</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="phone" [(ngModel)]="phone" placeholder="请输入电话">
+           <nz-form-explain *ngIf="validateForm.get('phone').dirty && validateForm.get('phone').errors">请输入有效的电话号码！</nz-form-explain>       
+        </nz-form-control>
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="email">邮箱</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="email" [(ngModel)]="email" placeholder="请输入邮箱">
+           <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">邮箱不能为空！</nz-form-explain>
+        </nz-form-control>        
+       
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-control [nzSpan]="8" [nzOffset]="3">
+          <button nz-button nzType="primary">确认</button>
+        </nz-form-control>
+      </nz-form-item>
+</form>

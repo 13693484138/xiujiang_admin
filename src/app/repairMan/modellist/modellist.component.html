@@ -1,0 +1,78 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>型号列表</nz-breadcrumb-item>
+</nz-breadcrumb>
+ <div nz-row>
+      <div nz-col nzSpan="4">	
+      	<nz-card nzType="inner" nzTitle="品牌树" [nzExtra]="extraTemplate">
+   <ul id="ztree" class="ztree"></ul>
+       </nz-card>
+      </div>
+      
+      <div nz-col nzSpan="1"></div>
+      
+      <div nz-col nzSpan="19">
+ <div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="型号名称" >
+			    <input type="text" nz-input [(ngModel)]="title">
+			</nz-input-group>
+          </div>
+        </div>
+       <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="状态" >
+			    <nz-select class='select_zq'  [(ngModel)]="status" nzAllowClear >
+			        <nz-option nzValue="1" nzLabel="启用"></nz-option>
+			        <nz-option nzValue="2" nzLabel="禁用"></nz-option>
+			    </nz-select>
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+      </div>
+      
+<button nz-button (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>描述</th>
+          <th>图片</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.title}}</td>
+          <td>{{data.describe}}</td>
+          <td><img src="{{imgUrl+data.img}}" alt="" /></td>
+          <td>{{data.status == 1? "启用" : "禁用"}}</td>
+          <td class='operator'>       
+            <a  (click)="EditRow(data.id)">编辑</a>
+            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+              <a  nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+</div>
+</div>

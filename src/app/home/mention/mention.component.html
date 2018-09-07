@@ -1,0 +1,60 @@
+<nz-mention [nzSuggestions]="suggestions" [nzLoading]="loading" (nzOnSearchChange)="onSearchChange($event)">
+	<input nzMentionTrigger nz-input [(ngModel)]="inputValue">
+</nz-mention>
+<br /><br />
+<div nz-row>
+	<div nz-col nzSpan="11">
+		<div style="margin-bottom: 16px;">
+			<nz-input-group nzAddOnBefore="用户名称">
+				<!--nzAddOnAfter=".com"-->
+				<input type="text" nz-input [(ngModel)]="inputValue2" placeholder="账号/姓名/手机号">
+			</nz-input-group>
+		</div>
+
+	</div>
+	<div nz-col nzSpan="2">
+	</div>
+	<div nz-col nzSpan="11">
+		<div style="margin-bottom: 16px;">
+			<nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" [nzAddOnAfter]="addOnAfterTemplate">
+				<input type="text" nz-input [(ngModel)]="inputValue2">
+			</nz-input-group>
+			<ng-template #addOnBeforeTemplate>
+				<nz-select [ngModel]="'Http://'">
+					<nz-option [nzLabel]="'Http://'" [nzValue]="'Http://'"></nz-option>
+					<nz-option [nzLabel]="'Https://'" [nzValue]="'Https://'"></nz-option>
+				</nz-select>
+			</ng-template>
+			<ng-template #addOnAfterTemplate>
+				<nz-select [ngModel]="'.com'">
+					<nz-option [nzLabel]="'.com'" [nzValue]="'.com'"></nz-option>
+					<nz-option [nzLabel]="'.jp'" [nzValue]="'.jp'"></nz-option>
+					<nz-option [nzLabel]="'.cn'" [nzValue]="'.cn'"></nz-option>
+					<nz-option [nzLabel]="'.org'" [nzValue]="'.org'"></nz-option>
+				</nz-select>
+			</ng-template>
+		</div>
+	</div>
+</div>
+
+<div nz-row>
+	<div nz-col nzSpan="11">
+		<div style="margin-bottom: 16px;">
+			<nz-input-group nzAddOnAfterIcon="anticon anticon-setting">
+				<input type="text" nz-input [(ngModel)]="inputValue2">
+			</nz-input-group>
+		</div>
+	</div>
+	<div nz-col nzSpan="2">
+	</div>
+	<div nz-col nzSpan="11">
+
+		<div style="margin-bottom: 16px;">
+			<nz-input-group nzAddOnAfterIcon="anticon anticon-setting">
+				<input type="text" nz-input [(ngModel)]="inputValue2">
+			</nz-input-group>
+		</div>
+	</div>
+</div>
+
+<button nz-button nzType="primary" (click)="searchZQ()"><i class="anticon anticon-search"></i>搜索</button>

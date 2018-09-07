@@ -1,0 +1,68 @@
+  <nz-card style="width: 100%;" nzTitle="Card title" [nzExtra]="extraTemplate">
+      <nz-card-tab>
+        <nz-tabset nzSize="large" [(nzSelectedIndex)]="index1">
+          <nz-tab nzTitle="tab1"></nz-tab>
+          <nz-tab nzTitle="tab2"></nz-tab>
+        </nz-tabset>
+      </nz-card-tab>
+      content{{ index1 }}
+    </nz-card>
+    <ng-template #extraTemplate>
+      <a>More</a>
+    </ng-template>
+    <br>
+    <br>
+    <nz-card style="width: 100%;">
+      <nz-card-tab>
+        <nz-tabset nzSize="large" [(nzSelectedIndex)]="index2">
+        	
+          <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
+	        	<ng-template #titleTemplate>
+	          <div>
+	            {{tab}}
+	            <i class="anticon anticon-close" (click)="closeTab(tab)"></i>
+	          </div>
+	          </ng-template>
+          </nz-tab>
+        </nz-tabset>
+      </nz-card-tab>
+      content{{ index2 }}
+    </nz-card>
+    <div style="margin-top:30px;">
+  <nz-card nzHoverable style="width:240px;margin-right:30px;display:inline-block" [nzCover]="coverTemplate3">
+      <nz-card-meta nzTitle="Europe Street beat" nzDescription="www.instagram.com"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate3>
+      <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"/>
+    </ng-template>
+    
+<nz-card style="width:300px;display:inline-block" [nzCover]="coverTemplate" [nzActions]="[actionSetting,actionEdit,actionEllipsis]">
+      <nz-card-meta nzTitle="Card title" nzDescription="This is the description" [nzAvatar]="avatarTemplate"></nz-card-meta>
+    </nz-card>
+    <ng-template #avatarTemplate>
+      <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+    </ng-template>
+    <ng-template #coverTemplate>
+      <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"/>
+    </ng-template>
+    <ng-template #actionSetting>
+      <i class="anticon anticon-setting"></i>
+    </ng-template>
+    <ng-template #actionEdit>
+      <i class="anticon anticon-edit"></i>
+    </ng-template>
+    <ng-template #actionEllipsis>
+      <i class="anticon anticon-ellipsis"></i>
+    </ng-template>
+   </div> 
+   
+   
+    <nz-card nzTitle="Cart Title">
+      <div nz-card-grid [ngStyle]="gridStyle">Content</div>
+      <div nz-card-grid [ngStyle]="gridStyle">Content</div>
+      <div nz-card-grid [ngStyle]="gridStyle">Content</div>
+      <div nz-card-grid [ngStyle]="gridStyle">Content</div>
+      <div nz-card-grid [ngStyle]="gridStyle">Content</div>
+      <div nz-card-grid [ngStyle]="gridStyle">Content</div>
+      <div nz-card-grid [ngStyle]="gridStyle">Content</div>
+    </nz-card> 

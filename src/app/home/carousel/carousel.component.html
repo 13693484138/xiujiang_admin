@@ -1,0 +1,14 @@
+<nz-carousel nzAutoPlay>
+      <div nz-carousel-content *ngFor="let index of array"><h3>{{index}}</h3></div>
+    </nz-carousel>
+ <div style='margin-top:30px'>  
+ <nz-carousel [nzEffect]="'fade'">
+      <div nz-carousel-content *ngFor="let index of array"><h3>{{index}}</h3></div>
+ </nz-carousel>
+ </div> 
+ 
+<div style='margin-top:30px'>
+	<nz-carousel nzVertical>
+      <div nz-carousel-content *ngFor="let index of array"><h3>{{index}}</h3></div>
+    </nz-carousel>
+</div>

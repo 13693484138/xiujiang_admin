@@ -1,0 +1,32 @@
+
+<h3>小型进度条</h3>
+<div style="width: 170px;">
+      <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+      <nz-progress [nzPercent]="50" nzSize="small" nzStatus="active"></nz-progress>
+      <nz-progress [nzPercent]="70" nzSize="small" nzStatus="exception"></nz-progress>
+      <nz-progress [nzPercent]="100" nzSize="small"></nz-progress>
+      <nz-progress [nzPercent]="50" nzSize="small" [nzShowInfo]="false"></nz-progress>
+</div>
+<h3>进度圈动态展示</h3>
+
+<nz-progress [nzPercent]="percent" nzType="circle"></nz-progress>
+    <nz-button-group>
+      <button nz-button (click)="decline()"><i class="anticon anticon-minus"></i></button>
+      <button nz-button (click)="increase()"><i class="anticon anticon-plus"></i></button>
+    </nz-button-group>
+    
+<h3>仪表盘</h3>
+<nz-progress [nzPercent]="75" nzType="dashboard"></nz-progress>
+
+<h3>标准的进度条</h3>
+<nz-progress [nzPercent]="30"></nz-progress>
+<nz-progress [nzPercent]="50" nzStatus="active"></nz-progress>
+<nz-progress [nzPercent]="70" nzStatus="exception"></nz-progress>
+<nz-progress [nzPercent]="100"></nz-progress>
+<nz-progress [nzPercent]="50" [nzShowInfo]="false"></nz-progress>
+<h3>圈形的进度</h3>
+<div style="margin-top:30px;">
+ <nz-progress class='progress1' [nzPercent]="75" nzType="circle"></nz-progress>
+ <nz-progress class='progress1' [nzPercent]="70" nzType="circle" nzStatus="exception"></nz-progress>
+ <nz-progress class='progress1' [nzPercent]="100" nzType="circle"></nz-progress>
+</div>

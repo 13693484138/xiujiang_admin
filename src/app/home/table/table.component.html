@@ -1,0 +1,89 @@
+	<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">Home</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>table</nz-breadcrumb-item>
+	</nz-breadcrumb>
+	  <button nz-button (click)="addRow()" class="editable-add-btn" style="margin-bottom:10px;"><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+    <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+        <nz-form-item>
+		    <nz-form-label nzFor="no">姓名</nz-form-label>
+		    <nz-form-control>
+		      <input nz-input [(ngModel)]="name" name="name" placeholder="请输入" id="no1">
+		    </nz-form-control>
+		    <nz-form-label nzFor="no">年龄</nz-form-label>
+		    <nz-form-control>
+		      <input nz-input [(ngModel)]="age" name="age" placeholder="请输入" id="no2">
+		    </nz-form-control>
+		    <nz-form-label nzFor="no">地址</nz-form-label>
+		    <nz-form-control>
+		      <input nz-input [(ngModel)]="address" name="address" placeholder="请输入" id="no3">
+		    </nz-form-control>
+		</nz-form-item>
+    </nz-modal>
+	 <nz-table
+      #editRowTable
+      nzBordered
+      [nzPageSize]="5"
+      (nzPageIndexChange)="refreshStatus()"
+      (nzPageSizeChange)="refreshStatus()"
+      [nzLoading]="loading"
+      [nzData]="dataSet" style="background-color:white;">
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
+        <tr>
+          <th nzShowCheckbox nzShowRowSelection [nzSelections]="listOfSelection" [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+          <th nzShowSort nzSortKey="name" nzWidth="25%">姓名</th>
+          <th nzShowSort nzSortKey="age" nzWidth="15%">年龄</th>
+          <th nzShowSort nzSortKey="address" nzWidth="40%">地址</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of editRowTable.data">
+        	<td nzShowCheckbox [(nzChecked)]="data.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+          <td>
+            <div class="editable-cell">
+              <div class="editable-cell-text-wrapper">
+                <ng-container *ngIf="!editCache[data.key].edit">
+                  {{data.name}}
+                </ng-container>
+                <ng-container *ngIf="editCache[data.key].edit">
+                  <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
+                </ng-container>
+              </div>
+            </div>
+          </td>
+          <td>
+            <ng-container *ngIf="!editCache[data.key].edit">
+              {{data.age}}
+            </ng-container>
+            <ng-container *ngIf="editCache[data.key].edit">
+              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.age">
+            </ng-container>
+          </td>
+          <td>
+            <ng-container *ngIf="!editCache[data.key].edit">
+              {{data.address}}
+            </ng-container>
+            <ng-container *ngIf="editCache[data.key].edit">
+              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.address">
+            </ng-container>
+          </td>
+          <td>
+            <div class="editable-row-operations" style="display: inline-block;">
+              <ng-container *ngIf="!editCache[data.key].edit">
+                <a (click)="startEdit(data.key)">Edit</a>
+              </ng-container>
+              <ng-container *ngIf="editCache[data.key].edit">
+                <a (click)="saveEdit(data.key)">Save</a>
+                <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="cancelEdit(data.key)">
+                  <a nz-popconfirm>Cancel</a>
+                </nz-popconfirm>
+              </ng-container>
+            </div>
+            <nz-popconfirm [nzTitle]="'Sure to delete?'" (nzOnConfirm)="deleteRow(data.key)">
+              <a nz-popconfirm>Delete</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  

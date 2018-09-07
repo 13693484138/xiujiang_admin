@@ -1,0 +1,180 @@
+<nz-layout>
+	<nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate" style="margin-top:64px;overflow-y: scroll;">
+
+		<ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+			<!--[routerLink]="['../home/buttons']"-->
+			<!--<li nz-submenu [nzOpen]="true">
+				<span title><i class="anticon anticon-team"></i><span class="nav-text">UI组件</span></span>
+				<ul>
+					
+					<li nz-menu-item (click)="gorouter('home/buttons')">按钮</li>
+					<li nz-menu-item (click)="gorouter('home/table')">表格</li>
+					<li nz-menu-item (click)="gorouter('home/form')">表单</li>
+					<li nz-menu-item (click)="gorouter('home/card')">卡片</li>
+					<li nz-menu-item (click)="gorouter('home/simple-table')">简易表格</li>
+					<li nz-menu-item (click)="gorouter('home/upload')">图片上传</li>
+					<li nz-menu-item (click)="gorouter('home/panel')">折叠面板</li>
+					<li nz-menu-item (click)="gorouter('home/carousel')">走马灯</li>
+					<li nz-menu-item (click)="gorouter('home/steps')">步骤条</li>
+					<li nz-menu-item (click)="gorouter('home/progress')">进度条</li>
+					<li nz-menu-item (click)="gorouter('home/mention')">提及@</li>
+					<li nz-menu-item (click)="gorouter('home/antv')">数据可视化</li>
+				</ul>
+			</li>-->
+			<li nz-submenu>
+				<span title><i class="anticon anticon-user"></i><span class="nav-text">系统管理</span></span>
+				<ul>
+					<li nz-menu-item (click)="gorouter('home/user')">用户管理</li>
+					<li nz-menu-item (click)="gorouter('home/role')">角色管理</li>
+					<li nz-menu-item (click)="gorouter('home/depart')">部门管理</li>
+					<li nz-menu-item (click)="gorouter('home/menu')">菜单管理</li>
+					<li nz-menu-item (click)="gorouter('home/notice')">通知管理</li>
+				</ul>
+			</li>
+			<li nz-submenu>
+				<span title><i class="anticon anticon-shop"></i><span class="nav-text">门店管理</span></span>
+				<ul>
+					<li nz-menu-item (click)="gorouter('home/shop')">门店列表</li>
+					<li nz-menu-item (click)="gorouter('home/technicianlist')">技师列表</li>
+
+				</ul>
+			</li>
+			<li nz-submenu>
+				<span title><i class="anticon anticon-tool"></i><span class="nav-text">配件管理</span></span>
+				<ul>
+					<li nz-menu-item (click)="gorouter('home/partclass')">配件分类</li>
+					<li nz-menu-item (click)="gorouter('home/part')">配件列表</li>
+					<li nz-menu-item (click)="gorouter('home/partorder')">配件订单</li>
+				</ul>
+			</li>
+			<li nz-submenu>
+				<span title><i class="anticon anticon-setting"></i><span class="nav-text">维修管理</span></span>
+				<ul>
+					<li nz-menu-item (click)="gorouter('home/brand')">品牌列表</li>
+					<li nz-menu-item (click)="gorouter('home/fault')">故障列表</li>
+					<li nz-menu-item (click)="gorouter('home/model')">型号列表</li>
+					<!--<li nz-menu-item>新增型号</li>-->
+				</ul>
+			</li>
+			<li nz-submenu>
+				<span title><i class="anticon anticon-profile"></i><span class="nav-text">订单管理</span></span>
+				<ul>
+					<li nz-menu-item (click)="gorouter('home/allorder')">全部订单</li>
+					<!--<li nz-menu-item (click)="gorouter('home/aftersale')">售后订单</li>-->
+				</ul>
+			</li>
+			<li nz-submenu>
+				<span title><i class="anticon anticon-form"></i><span class="nav-text">规则管理</span></span>
+				<ul>
+					<li nz-menu-item (click)="gorouter('home/banner')">Banner设置</li>
+					<li nz-menu-item (click)="gorouter('home/distri')">分销比例设置</li>
+					<li nz-menu-item (click)="gorouter('home/basic')">基本规则设置</li>
+				</ul>
+			</li>
+		</ul>
+	</nz-sider>
+	<nz-layout>
+		<nz-header class='header'>
+			<div class="logo">
+				<a ng-reflect-router-link="/" href="#/">
+					<img class="expanded" src="./assets/img/logo-full.svg" style="max-height:40px;" alt="Alain">
+					<img class="collapsed" src="./assets/img/logo.svg" style="max-height:30px;" alt="Alain">
+				</a>
+			</div>
+
+			<div class="top-nav-wrap">
+				<i class="anticon trigger" style="color: white;" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+				<ul class="top-nav">
+					<li>
+						<nz-dropdown nzTrigger="click" nzPlacement="bottomRight" (nzVisibleChange)="change()">
+							<div class="item" nz-dropdown>
+								<nz-badge [nzDot]="true">
+									<i class="anticon anticon-bell"></i>
+								</nz-badge>
+							</div>
+							<div nz-menu class="wd-lg">
+								<nz-card nzTitle="Notifications" [nzLoading]="loading" class="ant-card__body-nopadding">
+									<ng-template #extra><i class="anticon anticon-plus"></i></ng-template>
+									<div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+										<div nz-col [nzSpan]="4" class="text-center">
+											<nz-avatar [nzSrc]="'./assets/img/logo.png'"></nz-avatar>
+										</div>
+										<div nz-col [nzSpan]="20">
+											<strong>cipchk</strong>
+											<p class="mb0">Please tell me what happened in a few words, don't go into details.</p>
+										</div>
+									</div>
+									<div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+										<div nz-col [nzSpan]="4" class="text-center">
+											<nz-avatar [nzSrc]="'./assets/img/2.png'"></nz-avatar>
+										</div>
+										<div nz-col [nzSpan]="20">
+											<strong>はなさき</strong>
+											<p class="mb0">ハルカソラトキヘダツヒカリ </p>
+										</div>
+									</div>
+									<div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+										<div nz-col [nzSpan]="4" class="text-center">
+											<nz-avatar [nzSrc]="'./assets/img/3.png'"></nz-avatar>
+										</div>
+										<div nz-col [nzSpan]="20">
+											<strong>苏先生</strong>
+											<p class="mb0">请告诉我，我应该说点什么好？</p>
+										</div>
+									</div>
+									<div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+										<div nz-col [nzSpan]="4" class="text-center">
+											<nz-avatar [nzSrc]="'./assets/img/4.png'"></nz-avatar>
+										</div>
+										<div nz-col [nzSpan]="20">
+											<strong>Kent</strong>
+											<p class="mb0">Please tell me what happened in a few words, don't go into details.</p>
+										</div>
+									</div>
+									<div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="py-sm bg-grey-lighter-h point">
+										<div nz-col [nzSpan]="4" class="text-center">
+											<nz-avatar [nzSrc]="'./assets/img/5.png'"></nz-avatar>
+										</div>
+										<div nz-col [nzSpan]="20">
+											<strong>Jefferson</strong>
+											<p class="mb0">Please tell me what happened in a few words, don't go into details.</p>
+										</div>
+									</div>
+									<div nz-row class="pt-lg pb-lg">
+										<div nz-col [nzSpan]="24" class="border-top-1 text-center text-grey point">
+											See All
+										</div>
+									</div>
+								</nz-card>
+							</div>
+						</nz-dropdown>
+					</li>
+					<li>
+						<nz-dropdown nzPlacement="bottomRight">
+							<div class="item d-flex align-items-center px-sm colorwhite" nz-dropdown>
+								<nz-avatar nzSrc="./assets/img/1.jpg" nzSize="default" class="mr-sm"></nz-avatar>
+								用户001
+							</div>
+							<div nz-menu class="width-sm">
+								<div nz-menu-item [nzDisabled]="true"><i class="anticon anticon-user mr-sm"></i>个人中心</div>
+								<div nz-menu-item><i class="anticon anticon-setting mr-sm"></i>修改密码</div>
+								<li nz-menu-divider></li>
+								<div nz-menu-item (click)="logout()"><i class="anticon anticon-setting mr-sm"></i>退出登录</div>
+							</div>
+						</nz-dropdown>
+					</li>
+				</ul>
+			</div>
+
+		</nz-header>
+		<nz-content #content style="margin:86px 16px 16px 16px;padding:16px; background:#fff;">
+			<router-outlet></router-outlet>	 
+		</nz-content>
+		
+		<nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
+	</nz-layout>
+</nz-layout>
+<ng-template #trigger>
+	<i class="anticon anticon-up"></i>
+</ng-template>
+<!--<nz-back-top [nzTarget]="content"></nz-back-top>-->	 

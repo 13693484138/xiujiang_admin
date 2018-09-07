@@ -1,0 +1,51 @@
+<div style="margin-bottom:30px;">
+	<nz-avatar nzIcon="anticon anticon-user"></nz-avatar>
+  <nz-avatar nzText="U" ></nz-avatar>
+  <nz-badge [nzCount]="5" style="margin-right: 24px;">
+    <nz-avatar nzIcon="anticon anticon-user" [nzShape]="'square'"></nz-avatar>
+  </nz-badge>
+  <nz-badge nzDot>
+    <nz-avatar nzIcon="anticon anticon-user" [nzShape]="'square'"></nz-avatar>
+  </nz-badge>
+</div>
+ <div class="clearfix upload1">
+    <nz-upload
+      [nzAction]="photourl"
+      nzListType="picture-card"
+      [nzMultiple]=true 
+      [(nzFileList)]="fileList"
+      [nzShowButton]="fileList.length < 5"
+      [nzPreview]="handlePreview">
+        <i class="anticon anticon-plus"></i>
+        <div class="ant-upload-text">Upload</div>
+    </nz-upload>
+    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+      <ng-template #modalContent>
+        <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+      </ng-template>
+    </nz-modal>
+  </div>
+  <!--手动上传图片-->
+  <nz-upload
+    [(nzFileList)]="fileList2"
+    [nzBeforeUpload]="beforeUpload2">
+    <button nz-button>
+      <i class="anticon anticon-upload" style="font-size:16px ;"></i><span>Select File</span>
+    </button>
+  </nz-upload>
+  <button nz-button [nzType]="'primary'" [nzLoading]="uploading2" (click)="handleUpload2()" [disabled]="fileList2.length == 0" style="margin-top: 16px">
+    {{ uploading2 ? 'Uploading2' : 'Start Upload' }}
+  </button>
+  
+
+<div style="margin-top:30px">
+    <nz-timeline [nzPending]="'Recording...'">
+      <nz-timeline-item>Create a services site 2015-09-01</nz-timeline-item>
+      <nz-timeline-item>Solve initial network problems 2015-09-01</nz-timeline-item>
+      <nz-timeline-item nzColor="red" [nzDot]="dotTemplate">Technical testing 2015-09-01</nz-timeline-item>
+      <nz-timeline-item>Network problems being solved 2015-09-01</nz-timeline-item>
+    </nz-timeline>
+    <ng-template #dotTemplate>
+      <i class="anticon anticon-clock-circle-o" style="font-size: 16px;"></i>
+    </ng-template>
+</div>

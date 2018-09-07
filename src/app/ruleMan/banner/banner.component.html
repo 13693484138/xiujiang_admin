@@ -1,0 +1,117 @@
+<nz-breadcrumb class='breadcrumbstyle'>
+        <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>Banner设置</nz-breadcrumb-item>
+</nz-breadcrumb>
+<button nz-button (click)="showModalMiddle()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+	       <nz-form-item [formGroup]="validateForm" (ngSubmit)="handleOkMiddle()">
+			    <nz-form-label nzRequired nzFor="pic_url">图片地址</nz-form-label>
+			    <nz-form-control>	
+			    <div class="file" *ngIf="!picture">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+				<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event)"/>
+	        	</div>
+	        	<img class='imglist' id="vi" [src]="picture" *ngIf="picture"/>
+	            <button type="button"  class="upbtn" (click)="uploadFile()" *ngIf="picturesc">上传</button>
+	            <button type="button"  class="upbtn" (click)="changeFile()" *ngIf="picture">换图片</button>
+	            <div>
+	            </div>
+			    </nz-form-control>
+			    
+			    <nz-form-label nzRequired nzFor="title">标题</nz-form-label>
+			    <nz-form-control>
+			      <input nz-input formControlName="title" [(ngModel)]="title" name="title" placeholder="请输入标题" id="title">
+			        <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">标题不能为空！</nz-form-explain>        
+			    </nz-form-control>
+			    
+
+			    <nz-form-label nzFor="page_url">跳转链接</nz-form-label>
+			    <nz-form-control>
+			      <input nz-input formControlName="page_url" [(ngModel)]="page_url" name="page_url" placeholder="请输入跳转链接" id="page_url">    
+			    </nz-form-control>
+			    <nz-form-label nzRequired nzFor="num">排序</nz-form-label>
+			    <nz-form-control>
+			      <input nz-input formControlName="num" [(ngModel)]="num" name="num" placeholder="排序" id="num">
+			        <nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">排序为数字且不能为空！</nz-form-explain>
+			    </nz-form-control>
+			</nz-form-item>
+			</nz-modal>
+			
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isedit" nzTitle="编辑" (nzOnCancel)="hideedit()" (nzOnOk)="submitForm()">
+	        <nz-form-item [formGroup]="validateForm" (ngSubmit)="submitForm()">
+	        	
+	        	<nz-form-label  nzFor="pic_url">图片</nz-form-label>
+			    <nz-form-control>
+			
+			     <div class="file" *ngIf="!picture">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+				<input type="file"  ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event)"/>
+	        	</div>
+	        	<img class='imglist' id="vi" [src]="picture" *ngIf="picture"/>
+	            <button type="button"  class="upbtn" (click)="uploadFile()" *ngIf="picturesc">上传</button>
+	            <button type="button"  class="upbtn" (click)="changeFile()" *ngIf="picture">换图片</button>
+	            <div>
+	            </div>
+			    
+			    </nz-form-control>
+			    <nz-form-label nzRequired nzFor="title">标题</nz-form-label>
+			    <nz-form-control>
+			      <input nz-input formControlName="title" [(ngModel)]="title" name="title" placeholder="请输入标题" id="title">
+			        <nz-form-explain *ngIf="validateForm.get('title').dirty && validateForm.get('title').errors">标题不能为空！</nz-form-explain>        
+			    </nz-form-control>
+			   
+			    <nz-form-label nzFor="page_url">跳转链接</nz-form-label>
+			    <nz-form-control>
+			      <input nz-input [(ngModel)]="page_url" [ngModelOptions]="{standalone: true}" name="page_url" placeholder="请输入跳转链接" id="page_url">      
+			    </nz-form-control>
+			    <nz-form-label nzRequired nzFor="num">排序</nz-form-label>
+			    <nz-form-control>
+			      <input nz-input formControlName="num" [(ngModel)]="num" name="num" placeholder="排序" id="num">
+			        <nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">排序为数字且不能为空！</nz-form-explain>
+			    </nz-form-control>
+			</nz-form-item>
+</nz-modal>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>添加时间</th>
+          <th>图片地址</th>
+          <th>跳转链接</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center">{{pageSize*(pageIndex-1)+(i+1)}}</td>
+          <td>{{data.title}}</td>
+          <td>{{data.addtime}}</td>
+          <td><img src="{{imgUrl+data.pic_url}}" alt="" /></td>
+          <td>{{data.page_url}}</td>
+          <td class='operator'>       
+            <a (click)="showedit(data)">编辑</a>
+            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+              <a  nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
