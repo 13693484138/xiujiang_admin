@@ -2,6 +2,7 @@
 	<nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate" style="margin-top:64px;overflow-y: scroll;">
 
 		<ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+<<<<<<< HEAD
 			<!--[routerLink]="['../home/buttons']"-->
 			<!--<li nz-submenu [nzOpen]="true">
 				<span title><i class="anticon anticon-team"></i><span class="nav-text">UI组件</span></span>
@@ -21,6 +22,8 @@
 					<li nz-menu-item (click)="gorouter('home/antv')">数据可视化</li>
 				</ul>
 			</li>-->
+=======
+>>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
 			<li nz-submenu>
 				<span title><i class="anticon anticon-user"></i><span class="nav-text">系统管理</span></span>
 				<ul>
@@ -53,14 +56,21 @@
 					<li nz-menu-item (click)="gorouter('home/brand')">品牌列表</li>
 					<li nz-menu-item (click)="gorouter('home/fault')">故障列表</li>
 					<li nz-menu-item (click)="gorouter('home/model')">型号列表</li>
+<<<<<<< HEAD
 					<!--<li nz-menu-item>新增型号</li>-->
+=======
+>>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
 				</ul>
 			</li>
 			<li nz-submenu>
 				<span title><i class="anticon anticon-profile"></i><span class="nav-text">订单管理</span></span>
 				<ul>
+<<<<<<< HEAD
 					<li nz-menu-item (click)="gorouter('home/allorder')">全部订单</li>
 					<!--<li nz-menu-item (click)="gorouter('home/aftersale')">售后订单</li>-->
+=======
+					<li nz-menu-item (click)="gorouter('home/allorder')">订单列表</li>
+>>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
 				</ul>
 			</li>
 			<li nz-submenu>
@@ -157,7 +167,11 @@
 							</div>
 							<div nz-menu class="width-sm">
 								<div nz-menu-item [nzDisabled]="true"><i class="anticon anticon-user mr-sm"></i>个人中心</div>
+<<<<<<< HEAD
 								<div nz-menu-item><i class="anticon anticon-setting mr-sm"></i>修改密码</div>
+=======
+								<div nz-menu-item (click)="cPassword()"><i class="anticon anticon-setting mr-sm"></i>修改密码</div>
+>>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
 								<li nz-menu-divider></li>
 								<div nz-menu-item (click)="logout()"><i class="anticon anticon-setting mr-sm"></i>退出登录</div>
 							</div>

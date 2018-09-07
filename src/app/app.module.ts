@@ -14,19 +14,21 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
-import { ButtonsComponent } from './home/buttons/buttons.component';
-import { TableComponent } from './home/table/table.component';
-import { FormComponent } from './home/form/form.component';
-import { CardsComponent } from './home/cards/cards.component';
-import { SimpleTableComponent } from './home/simple-table/simple-table.component';
-import { UploadComponent } from './home/upload/upload.component';
-import { PanelComponent } from './home/panel/panel.component';
-import { CarouselComponent } from './home/carousel/carousel.component';
-import { StepsComponent } from './home/steps/steps.component';
-import { ProgressComponent } from './home/progress/progress.component';
-import { ProgressprogressComponent } from './home/progressprogress/progressprogress.component';
-import { MentionComponent } from './home/mention/mention.component';
-import { AntvComponent } from './home/antv/antv.component';
+//import { ButtonsComponent } from './home/buttons/buttons.component';
+//import { TableComponent } from './home/table/table.component';
+//import { FormComponent } from './home/form/form.component';
+//import { CardsComponent } from './home/cards/cards.component';
+//import { SimpleTableComponent } from './home/simple-table/simple-table.component';
+//import { UploadComponent } from './home/upload/upload.component';
+//import { PanelComponent } from './home/panel/panel.component';
+//import { CarouselComponent } from './home/carousel/carousel.component';
+//import { StepsComponent } from './home/steps/steps.component';
+//import { ProgressComponent } from './home/progress/progress.component';
+//import { ProgressprogressComponent } from './home/progressprogress/progressprogress.component';
+//import { MentionComponent } from './home/mention/mention.component';
+//import { AntvComponent } from './home/antv/antv.component';
+
+
 import {HttpService} from "./service/http/http.service";
 import { UserComponent } from './sysMan/user/user.component';
 import { RoleComponent } from './sysMan/role/role.component';
@@ -60,6 +62,8 @@ import { BannerComponent } from './ruleMan/banner/banner.component';
 import { EdituserComponent } from './sysMan/user/edituser/edituser.component';
 import { EditdepartComponent } from './sysMan/depart/editdepart/editdepart.component';
 import { EditnoticeComponent } from './sysMan/notice/editnotice/editnotice.component';
+import { PasswordComponent } from './home/password/password.component';
+import { EditroleComponent } from './sysMan/role/editrole/editrole.component';
 
 registerLocaleData(zh);
 
@@ -68,19 +72,6 @@ registerLocaleData(zh);
     AppComponent,
     LoginComponent,
     HomeComponent,
-    ButtonsComponent,
-    TableComponent,
-    FormComponent,
-    CardsComponent,
-    SimpleTableComponent,
-    UploadComponent,
-    PanelComponent,
-    CarouselComponent,
-    StepsComponent,
-    ProgressComponent,
-    ProgressprogressComponent,
-    MentionComponent,
-    AntvComponent,
 		RoleComponent,
     UserComponent,
     DepartComponent,
@@ -110,7 +101,9 @@ registerLocaleData(zh);
     BannerComponent,
     EdituserComponent,
     EditdepartComponent,
-    EditnoticeComponent
+    EditnoticeComponent,
+    PasswordComponent,
+    EditroleComponent
   ],
   imports: [
     BrowserModule,

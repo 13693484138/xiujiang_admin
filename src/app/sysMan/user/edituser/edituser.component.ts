@@ -79,32 +79,29 @@ export class EdituserComponent implements OnInit {
       		this.msg.error(data.msg);
       	}
       })
-  		  	/*表单验证设置*/
+  		  	/*     表单验证设置    */
     this.validateForm = this.fb.group({
       account:[ this.account, [ Validators.required ]],
       password:[this.password],
       name:[ this.name,[ Validators.required]],
       sex:[this.sex,[ Validators.required]],
-      email:[ this.email, [ Validators.required ]],
-      phone:[this.phone,[ Validators.required ]],
+      email:[ this.email, [ Validators.required, Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/) ]],
+      phone:[this.phone,[ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)]],
       shopid:[ this.shopid,[ Validators.required]],
     });
   	}else{
   		this.pagename='新增';
-  		  	/*表单验证设置*/
+  		  	/*表单验证设置test*/
     this.validateForm = this.fb.group({
       account:[ this.account, [ Validators.required ]],
       password:[this.password,[ Validators.required ]],
       name:[ this.name,[ Validators.required]],
       sex:[this.sex,[ Validators.required]],
-      email:[ this.email, [ Validators.required ]],
-      phone:[this.phone,[ Validators.required ]],
+      email:[ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)]],
+      phone:[this.phone,[ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)]],
       shopid:[ this.shopid,[ Validators.required]],
     });
   	}
-  	
-  	
-
   }
   
   /*图片上传*/

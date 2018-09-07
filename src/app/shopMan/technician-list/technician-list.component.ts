@@ -23,7 +23,10 @@ export class TechnicianListComponent implements OnInit {
   
   constructor(public http:HttpService,public router:Router,public cookieservice:CookieService,public rou:ActivatedRoute,public msg:NzMessageService) {
   	this.rou.queryParams.subscribe(Params=>{
+<<<<<<< HEAD
   		  console.log(Params);
+=======
+>>>>>>> e4c9ed16e0a476c09fca54d2b3044981fadc7787
         this.shopid=Params['shopid'];
     });
   }

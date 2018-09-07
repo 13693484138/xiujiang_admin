@@ -1,7 +1,60 @@
 <nz-breadcrumb class='breadcrumbstyle'>
         <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
         <nz-breadcrumb-item>角色管理</nz-breadcrumb-item>
- </nz-breadcrumb>
-<p>
-  role works!
-</p>
+</nz-breadcrumb>
+      	<div class="gutter-example">
+      <div nz-row nzGutter="16">
+        <div nz-col class="gutter-row" nzSpan="12">
+          <div class="gutter-box">
+          	<nz-input-group nzAddOnBefore="角色名称" >
+			    <input type="text" nz-input [(ngModel)]="name">
+			</nz-input-group>
+          </div>
+        </div>
+      </div>
+      </div>
+<button nz-button *ngIf='showadd' (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
+<button nz-button (click)="role()" class="editable-add-btn btnadd"><i class="anticon anticon-user" style="display: inline-block;"></i>设置权限</button>
+
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="权限设置 -- {{sUsername}}" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+	  <ul id="ztreerole" class="ztree"></ul>
+</nz-modal>
+<nz-table
+      #ajaxTable
+      nzShowSizeChanger
+      nzBordered
+      [nzFrontPagination]="false"
+      [nzData]="dataSet"
+      [nzLoading]="loading"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData(pageIndex,pageSize)"
+      (nzPageSizeChange)="searchData(pageIndex,pageSize)">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th></th>
+          <th>角色名称</th>
+          <th>别名</th>
+          <th>上级角色</th>
+          <th>部门简称</th> 
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data;let i=index">
+          <td align="center"><input type="radio"  name='user' [value]='data.id' [(ngModel)]="sUser"/></td>
+          <td>{{data.name}}</td>
+          <td>{{data.tips}}</td>
+          <td>{{data.superior}}</td>
+          <td>{{data.simplename}}</td>
+          <td class='operator'>  
+            <a (click)="EditRow(data.id)">编辑</a>
+            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+              <a  nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

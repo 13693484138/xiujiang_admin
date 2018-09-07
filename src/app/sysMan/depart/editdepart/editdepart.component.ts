@@ -67,8 +67,13 @@ export class EditdepartComponent implements OnInit {
   ) {
   	  	this.router.queryParams.subscribe(Params=>{
   	  	this.parmlen=Object.keys(Params).length;
-        this.id=Params['id'];
-        this.pid=Params['pid'];
+  	  	if(this.parmlen==2){
+  	  		this.id=Params['id'];
+  	  	}else{
+  	  		this.id=Params['id'];
+          this.pid=Params['pid'];
+  	  	}
+        
         });
   }
 
@@ -84,6 +89,7 @@ export class EditdepartComponent implements OnInit {
           this.fullname=data.data.fullname;
           this.num=data.data.num;
           this.remark=data.data.remark;
+          this.pid=data.data.pid;
       	}else{
       		this.msg.error(data.msg);
       	}

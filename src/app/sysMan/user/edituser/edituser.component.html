@@ -53,7 +53,7 @@
 		    <nz-option  nzValue="2" nzLabel="女"></nz-option>
 		</nz-select>
 		   <nz-form-explain *ngIf="validateForm.get('sex').dirty && validateForm.get('sex').errors">性别不能为空！</nz-form-explain>       
-        
+         
        </nz-form-control>           
          <nz-form-label [nzSpan]="4" nzRequired nzFor="shopid">门店</nz-form-label>
         <nz-form-control [nzSpan]="8">
@@ -61,7 +61,6 @@
 		    <nz-option *ngFor='let item of shoplist'  [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
 		</nz-select>
 		<nz-form-explain *ngIf="validateForm.get('shopid').dirty && validateForm.get('shopid').errors">门店不能为空！</nz-form-explain>       
-        
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -73,7 +72,7 @@
         <nz-form-label [nzSpan]="4" nzRequired nzFor="email">邮箱</nz-form-label>
         <nz-form-control [nzSpan]="8">
           <input type="text" nz-input formControlName="email" [(ngModel)]="email" placeholder="请输入邮箱">
-           <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">邮箱不能为空！</nz-form-explain>
+           <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入有效的邮箱！</nz-form-explain>
         </nz-form-control>        
        
       </nz-form-item>

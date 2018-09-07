@@ -80,7 +80,7 @@ export class DepartComponent implements OnInit {
   	
   }
   EditRow(item:any):void{//部门详情
-	  this.router.navigate(["home/editdepart"],{queryParams:{'id':item,'pid':this.pid}});
+	  this.router.navigate(["home/editdepart"],{queryParams:{'id':item,'pid':'e'}});
   }
   deleteRow(item:string):void{//删除部门
   	 this.http.httpmenderdel("deptmanagemnet/deletedept/"+item)

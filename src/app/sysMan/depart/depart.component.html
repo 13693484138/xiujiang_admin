@@ -54,7 +54,7 @@
           <td>{{data.simplename}}</td>
           <td>{{data.fullname}}</td>
           <td>{{data.remark}}</td>
-          <td class='operator'>       
+          <td class='operator'>     
             <a (click)="EditRow(data.id)">编辑</a>
             <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
               <a  nz-popconfirm>删除</a>
