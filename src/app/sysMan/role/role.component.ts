@@ -3,7 +3,9 @@ import {HttpService} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
 import 'ztree';
-import 'jquery'
+import 'jquery';
+import { LocalStorageService} from 'angular-web-storage';
+
 declare var $: any;
 @Component({
   selector: 'app-role',
@@ -24,8 +26,12 @@ export class RoleComponent implements OnInit {
   sUser:string;
   sUsername:string;
   roleids:string;
-  isVisibleMiddle=false;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) { }
+	isVisibleMiddle=false;
+	role_delete:boolean;
+	role_list:boolean;
+	role_detail:boolean;
+	to_authority_role:boolean;
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
 
   searchData(): void {
     this.loading = true;
@@ -133,6 +139,20 @@ settingrole = {
   	 this.searchData();
   }
   ngOnInit(): void {
+		if(this.local.get('permission').indexOf('role_list')==-1 ||
+		this.local.get('permission').indexOf('role_detail')==-1 || 
+		this.local.get('permission').indexOf('role_delete')==-1 || 
+		this.local.get('permission').indexOf('to_authority_role')==-1){
+			this.role_list=false;
+			this.role_detail=false;
+			this.role_delete=false;
+			this.to_authority_role=false;
+    }else{
+			this.role_list=true;
+			this.role_detail=true;
+			this.role_delete=true;
+			this.to_authority_role=true;
+    };
     this.searchData();
   }
 

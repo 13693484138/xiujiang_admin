@@ -3,7 +3,8 @@ import {HttpService,imgUrl} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
 import 'ztree';
-import 'jquery'
+import 'jquery';
+import { LocalStorageService} from 'angular-web-storage';
 declare var $: any;
 @Component({
   selector: 'app-menu',
@@ -21,7 +22,7 @@ export class MenuComponent implements OnInit {
   showadd:boolean=true;
   nodes:any;
   name:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) { }
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
 
   searchData(): void {
     this.loading = true;

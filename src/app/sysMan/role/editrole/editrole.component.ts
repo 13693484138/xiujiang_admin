@@ -4,6 +4,7 @@ import { NzMessageService} from 'ng-zorro-antd';
 import {HttpService} from "../../../service/http/http.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUploader } from 'ng2-file-upload';
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -33,13 +34,18 @@ export class EditroleComponent implements OnInit {
   rolenodes:any;
   node1:any;
   node2:any;
+  edit:boolean;
+  add:boolean;
+  role_edit:boolean;
+  role_add:boolean;
   constructor(
   	private fb: FormBuilder,
   	public router:ActivatedRoute,
   	public rou:Router, 
   	private msg: NzMessageService,
   	private httpl:HttpService,
-  	private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public local: LocalStorageService
   ) {
   	  	this.router.queryParams.subscribe(Params=>{
   	  	this.parmlen=Object.keys(Params).length;
@@ -52,8 +58,17 @@ export class EditroleComponent implements OnInit {
     this.getdepart();
     //角色树
     this.getrole();
+    if(this.local.get('permission').indexOf('role_add')==-1 ||
+		this.local.get('permission').indexOf('role_edit')==-1){
+			this.role_add=false;
+			this.role_edit=false;
+    }else{
+			this.role_add=true;
+			this.role_edit=true;
+    };
   	if(this.parmlen==1){
-  		this.pagename='编辑';
+      this.pagename='详情';
+      this.edit = true;
   		this.httpl.httpmenderget("rolemanagemnet/getroleinfodetail/"+this.id)
       .subscribe(data=>{
       	if(data.result == '0000'){
@@ -76,7 +91,8 @@ export class EditroleComponent implements OnInit {
       	}
       })
   	}else{
-  		this.pagename='新增';
+      this.pagename='新增';
+      this.add = true;
   	}
   	  	/*表单验证设置*/
     this.validateForm = this.fb.group({

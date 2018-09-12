@@ -4,6 +4,7 @@ import { NzMessageService} from 'ng-zorro-antd';
 import {HttpService,uploadurl,imgUrl} from "../../../service/http/http.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUploader } from 'ng2-file-upload';
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -30,13 +31,18 @@ export class EdituserComponent implements OnInit {
   deptid:string;
   shopid:string;
   shoplist:any;
+  pcUser_add:boolean;
+  pcUser_edit:boolean;
+  add:boolean;
+  edit:boolean;
   constructor(
   	private fb: FormBuilder,
   	public router:ActivatedRoute,
   	public rou:Router, 
   	private msg: NzMessageService,
   	private httpl:HttpService,
-  	private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public local: LocalStorageService
   ) {
   	  	this.router.queryParams.subscribe(Params=>{
   	  	this.parmlen=Object.keys(Params).length;
@@ -51,6 +57,14 @@ export class EdituserComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.local.get('permission').indexOf('pcUser_add')==-1 || 
+    this.local.get('permission').indexOf('pcUser_edit')==-1){
+      this.pcUser_add=false;
+      this.pcUser_edit=false;
+    }else{
+      this.pcUser_add=true;
+      this.pcUser_edit=true;
+    };
   	this.httpl.httpmenderget("usermanagemnet/shoplistforsysuser")
       .subscribe(data=>{
       	console.log(data);
@@ -61,7 +75,8 @@ export class EdituserComponent implements OnInit {
       	}
       });
   	if(this.parmlen==2){
-  		this.pagename='编辑';
+      this.pagename='详情';
+      this.edit = true;
   		this.httpl.httpmenderget("usermanagemnet/getuserinfodetail/"+this.id)
       .subscribe(data=>{
       	console.log(data);
@@ -90,7 +105,8 @@ export class EdituserComponent implements OnInit {
       shopid:[ this.shopid,[ Validators.required]],
     });
   	}else{
-  		this.pagename='新增';
+      this.pagename='新增';
+      this.add = true;
   		  	/*表单验证设置test*/
     this.validateForm = this.fb.group({
       account:[ this.account, [ Validators.required ]],

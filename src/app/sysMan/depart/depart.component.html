@@ -55,9 +55,9 @@
           <td>{{data.fullname}}</td>
           <td>{{data.remark}}</td>
           <td class='operator'>     
-            <a (click)="EditRow(data.id)">编辑</a>
+            <a (click)="EditRow(data.id)" *ngIf='dept_detail'>详情</a>
             <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
-              <a  nz-popconfirm>删除</a>
+              <a  nz-popconfirm *ngIf='dept_delete'>删除</a>
             </nz-popconfirm>
           </td>
         </tr>

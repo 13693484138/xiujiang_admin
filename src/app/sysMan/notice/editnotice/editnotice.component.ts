@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { NzMessageService } from 'ng-zorro-antd';
 import { HttpService } from "../../../service/http/http.service";
-
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -25,12 +25,17 @@ export class EditnoticeComponent implements OnInit {
   shoplist: any;
   creater: string;
   type: string;
+  notice_add:boolean;
+  notice_edit:boolean;
+  edit:boolean;
+  add:boolean;
   constructor(
     private fb: FormBuilder,
     public router: ActivatedRoute,
     public rou: Router,
     private msg: NzMessageService,
-    private httpl: HttpService
+    private httpl: HttpService,
+    public local: LocalStorageService
   ) {
     this.router.queryParams.subscribe(Params => {
       this.parmlen = Object.keys(Params).length;  
@@ -39,6 +44,15 @@ export class EditnoticeComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*权限设置*/
+    if(this.local.get('permission').indexOf('notice_add')==-1 ||
+    this.local.get('permission').indexOf('notice_edit')==-1){
+			this.notice_add=false;
+      this.notice_edit=false;
+    }else{
+			this.notice_add=true;
+      this.notice_edit=true;
+    };
      /*表单验证设置*/
      this.validateForm = this.fb.group({
       title: [this.title, [Validators.required]],
@@ -47,7 +61,8 @@ export class EditnoticeComponent implements OnInit {
       // creater: [this.creater, [Validators.required]],
     });
     if (this.parmlen == 1) {
-      this.pagename = '编辑';
+      this.pagename = '详情';
+      this.edit = true;
       this.httpl.httpmenderget("noticemanagement/getnoticeinfo/" + this.id)
         .subscribe(data => {
           console.log(data);
@@ -62,6 +77,7 @@ export class EditnoticeComponent implements OnInit {
         })    
     } else {
       this.pagename = '新增';  
+      this.add = true;
     }
   }
 
