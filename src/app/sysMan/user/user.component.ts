@@ -35,6 +35,7 @@ pageIndex = 1;
 	pcUser_unfreeze:boolean;
 	to_assign_role:boolean;
 	pcUser_detail:boolean;
+	pcUser_add:boolean;
   constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
 
   searchData(): void {
@@ -226,23 +227,36 @@ pageIndex = 1;
 	}
 	
   ngOnInit(): void {
-		if(this.local.get('permission').indexOf('pcUser_detail')==-1 ||
-		this.local.get('permission').indexOf('pcUser_delete')==-1 || 
-		this.local.get('permission').indexOf('pcUser_freeze')==-1 ||
-		this.local.get('permission').indexOf('pcUser_unfreeze')==-1 ||
-		this.local.get('permission').indexOf('to_assign_role')==-1){
+		if(this.local.get('permission').indexOf('pcUser_detail')==-1){
 			this.pcUser_detail=false;
-			this.pcUser_delete=false;
-			this.pcUser_freeze=false;
-			this.pcUser_unfreeze=false;
-			this.to_assign_role=false;
     }else{
 			this.pcUser_detail=true;
+		};
+		if(this.local.get('permission').indexOf('pcUser_delete')==-1){
+			this.pcUser_delete=false;
+    }else{
 			this.pcUser_delete=true;
+		};
+		if(this.local.get('permission').indexOf('pcUser_freeze')==-1){
+			this.pcUser_freeze=false;
+    }else{
 			this.pcUser_freeze=true;
+		};
+		if(this.local.get('permission').indexOf('pcUser_unfreeze')==-1){
+			this.pcUser_unfreeze=false;
+    }else{
 			this.pcUser_unfreeze=true;
+    };
+		if(this.local.get('permission').indexOf('to_assign_role')==-1){
+			this.to_assign_role=false;
+    }else{
 			this.to_assign_role=true;
     };
+		if(this.local.get('permission').indexOf('pcUser_add')==-1){
+			this.pcUser_add=false;
+    }else{
+			this.pcUser_add=true;
+		};
     this.searchData();
     this.getnodes();
   }

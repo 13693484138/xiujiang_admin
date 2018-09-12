@@ -37,7 +37,6 @@ export class EditroleComponent implements OnInit {
   edit:boolean;
   add:boolean;
   role_edit:boolean;
-  role_add:boolean;
   constructor(
   	private fb: FormBuilder,
   	public router:ActivatedRoute,
@@ -58,12 +57,9 @@ export class EditroleComponent implements OnInit {
     this.getdepart();
     //角色树
     this.getrole();
-    if(this.local.get('permission').indexOf('role_add')==-1 ||
-		this.local.get('permission').indexOf('role_edit')==-1){
-			this.role_add=false;
+    if(this.local.get('permission').indexOf('role_edit')==-1){
 			this.role_edit=false;
     }else{
-			this.role_add=true;
 			this.role_edit=true;
     };
   	if(this.parmlen==1){

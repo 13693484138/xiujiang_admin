@@ -17,7 +17,7 @@
   </div>
 </div>
 <div style="text-align: left;">
-  <button nz-button class="editable-add-btn btnadd" (click)="add()">
+  <button nz-button *ngIf='showadd && notice_add' class="editable-add-btn btnadd" (click)="add()">
     <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
   <button nz-button class="editable-add-btn btnadd" (click)="search()">
     <i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>

@@ -26,7 +26,6 @@ export class EditdepartComponent implements OnInit {
   label:string;
   edit:boolean;
   add:boolean;
-  dept_add:boolean;
   dept_edit:boolean;
   /*提交表单*/
   submitForm(): void {
@@ -81,12 +80,9 @@ export class EditdepartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.local.get('permission').indexOf('dept_add')==-1 ||
-		this.local.get('permission').indexOf('dept_edit')==-1){
-			this.dept_add=false;
+    if(this.local.get('permission').indexOf('dept_edit')==-1){
 			this.dept_edit=false;
     }else{
-			this.dept_add=true;
 			this.dept_edit=true;
     };
   	if(this.parmlen==2){

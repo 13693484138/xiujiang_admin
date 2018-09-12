@@ -27,6 +27,7 @@ export class RoleComponent implements OnInit {
   sUsername:string;
   roleids:string;
 	isVisibleMiddle=false;
+	role_add:boolean;
 	role_delete:boolean;
 	role_list:boolean;
 	role_detail:boolean;
@@ -139,20 +140,26 @@ settingrole = {
   	 this.searchData();
   }
   ngOnInit(): void {
-		if(this.local.get('permission').indexOf('role_list')==-1 ||
-		this.local.get('permission').indexOf('role_detail')==-1 || 
-		this.local.get('permission').indexOf('role_delete')==-1 || 
-		this.local.get('permission').indexOf('to_authority_role')==-1){
-			this.role_list=false;
+		if(this.local.get('permission').indexOf('role_add')==-1){
+			this.role_add=false;
+    }else{
+			this.role_add=true;
+		};
+		if(this.local.get('permission').indexOf('role_detail')==-1){
 			this.role_detail=false;
+    }else{
+			this.role_detail=true;
+		};
+		if(this.local.get('permission').indexOf('role_delete')==-1){
 			this.role_delete=false;
+    }else{
+			this.role_delete=true;
+		};
+		if(this.local.get('permission').indexOf('to_authority_role')==-1){
 			this.to_authority_role=false;
     }else{
-			this.role_list=true;
-			this.role_detail=true;
-			this.role_delete=true;
 			this.to_authority_role=true;
-    };
+		};
     this.searchData();
   }
 

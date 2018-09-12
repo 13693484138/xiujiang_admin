@@ -24,6 +24,7 @@ export class DepartComponent implements OnInit {
   simplename:string;
   dept_delete:boolean;
   dept_detail:boolean;
+  dept_add:boolean;
   constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
   searchData(): void {
     this.loading = true;
@@ -98,13 +99,20 @@ export class DepartComponent implements OnInit {
   	 this.searchData();
   }
   ngOnInit(): void {
-    if(this.local.get('permission').indexOf('dept_detail')==-1 || 
-		this.local.get('permission').indexOf('dept_delete')==-1){
+    if(this.local.get('permission').indexOf('dept_detail')==-1){
 			this.dept_detail=false;
-			this.dept_delete=false;
     }else{
 			this.dept_detail=true;
+    };
+    if(this.local.get('permission').indexOf('dept_delete')==-1){
+			this.dept_delete=false;
+    }else{
 			this.dept_delete=true;
+    };
+    if(this.local.get('permission').indexOf('dept_add')==-1){
+			this.dept_add=false;
+    }else{
+			this.dept_add=true;
     };
     this.searchData();
     this.getnodes();

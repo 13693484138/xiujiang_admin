@@ -31,7 +31,6 @@ export class EdituserComponent implements OnInit {
   deptid:string;
   shopid:string;
   shoplist:any;
-  pcUser_add:boolean;
   pcUser_edit:boolean;
   add:boolean;
   edit:boolean;
@@ -57,12 +56,9 @@ export class EdituserComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.local.get('permission').indexOf('pcUser_add')==-1 || 
-    this.local.get('permission').indexOf('pcUser_edit')==-1){
-      this.pcUser_add=false;
+    if(this.local.get('permission').indexOf('pcUser_edit')==-1){
       this.pcUser_edit=false;
     }else{
-      this.pcUser_add=true;
       this.pcUser_edit=true;
     };
   	this.httpl.httpmenderget("usermanagemnet/shoplistforsysuser")

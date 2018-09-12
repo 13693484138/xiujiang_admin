@@ -25,7 +25,6 @@ export class EditnoticeComponent implements OnInit {
   shoplist: any;
   creater: string;
   type: string;
-  notice_add:boolean;
   notice_edit:boolean;
   edit:boolean;
   add:boolean;
@@ -45,12 +44,9 @@ export class EditnoticeComponent implements OnInit {
 
   ngOnInit() {
     /*权限设置*/
-    if(this.local.get('permission').indexOf('notice_add')==-1 ||
-    this.local.get('permission').indexOf('notice_edit')==-1){
-			this.notice_add=false;
+    if(this.local.get('permission').indexOf('notice_edit')==-1){
       this.notice_edit=false;
     }else{
-			this.notice_add=true;
       this.notice_edit=true;
     };
      /*表单验证设置*/
