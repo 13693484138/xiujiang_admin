@@ -78,7 +78,7 @@ pageIndex = 1;
   	check: {
 				enable: true,
 				chkStyle: "checkbox",
-				chkboxType: { "Y": "p", "N": "s" }
+				chkboxType: { "Y": "", "N": ""}
 			},
     data: {
     	key: {

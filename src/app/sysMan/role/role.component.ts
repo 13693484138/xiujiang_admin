@@ -122,9 +122,15 @@ settingrole = {
     this.http.httpmenderput("rolemanagemnet/setauthority",{'roleid':this.sUser,"ids":ids.substring(0,ids.length-1)})
       .subscribe(data=>{
       	if(data.result == "0000"){
-      		this.message.success('权限设置成功!');
-  				this.isVisibleMiddle = false;
-  				this.searchData();
+      		if(this.local.get('sysUser').roleid.split(',').indexOf(this.sUser.toString())==-1){
+      			this.message.success('权限设置成功!');
+      			this.isVisibleMiddle = false;
+      		}else{
+	        	this.message.success('权限设置成功,请重新登录!');
+	        	this.isVisibleMiddle = false;
+	      		this.local.clear();
+	          this.router.navigateByUrl("login");
+      		}
       	}else{
       	  this.message.error(data.msg);
       	}
