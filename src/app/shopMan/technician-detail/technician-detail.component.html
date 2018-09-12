@@ -166,6 +166,7 @@
 	 </nz-form-item>
       <nz-form-item >
         <nz-form-control  [nzSpan]="8" [nzOffset]="3">
+          <div *ngIf="workerlist_audit" class='examine' (click)="examine()">审核</div>
           <button *ngIf="edit && workerlist_edit" nz-button nzType="primary">确认</button>
       	  <button  *ngIf="add" nz-button nzType="primary">确认</button>
         </nz-form-control>

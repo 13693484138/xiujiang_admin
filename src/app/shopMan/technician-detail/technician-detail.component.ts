@@ -38,6 +38,7 @@ export class TechnicianDetailComponent implements OnInit {
 	authorid:string;
 	pagename:string;
 	workerlist_edit:boolean;
+	workerlist_audit:boolean;
 	edit:boolean;
 	add:boolean;
   constructor(
@@ -61,6 +62,11 @@ export class TechnicianDetailComponent implements OnInit {
     	this.workerlist_edit=false;
     }else{
     	this.workerlist_edit=true;
+    }
+    if(this.local.get('permission').indexOf('workerlist_audit')==-1){
+    	this.workerlist_audit=false;
+    }else{
+    	this.workerlist_audit=true;
     }
   	if(this.parmlen==2){
   		this.pagename='技师详情';
@@ -244,6 +250,10 @@ export class TechnicianDetailComponent implements OnInit {
       	}
       });
     }
+  }
+  
+  examine(){//审核
+  	
   }
 
 }

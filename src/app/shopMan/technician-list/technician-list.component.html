@@ -79,7 +79,7 @@
           <td>{{data.district}}</td>
           <td>{{data.status== '1'?'启用':'禁用'}}</td>
           <td class='operator'>
-          	<nz-popconfirm [nzTitle]="'确定改变状态吗?'" (nzOnConfirm)="changestatus(data.workid,data.status)">
+          	<nz-popconfirm [nzTitle]="'确定改变状态吗?'" *ngIf="workerlist_enable" (nzOnConfirm)="changestatus(data.workid,data.status)">
             	<a  nz-popconfirm>修改状态</a>
             </nz-popconfirm>
             <a *ngIf="workerlist_detail" (click)="detail(data.workid)">详情 </a>

@@ -23,6 +23,7 @@ export class TechnicianListComponent implements OnInit {
   workerlist_detail:boolean;
   workerlist_add:boolean;
   workerlist_delete:boolean;
+  workerlist_enable:boolean;
   constructor(public http:HttpService,public router:Router,public local: LocalStorageService,public rou:ActivatedRoute,public msg:NzMessageService) {
   	this.rou.queryParams.subscribe(Params=>{
         this.shopid=Params['shopid'];
@@ -103,6 +104,11 @@ export class TechnicianListComponent implements OnInit {
     	this.workerlist_delete=false;
     }else{
     	this.workerlist_delete=true;
+    }
+    if(this.local.get('permission').indexOf('workerlist_enable')==-1){
+    	this.workerlist_enable=false;
+    }else{
+    	this.workerlist_enable=true;
     }
   }
   
