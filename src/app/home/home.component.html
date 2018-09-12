@@ -3,6 +3,15 @@
 
 		<ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
 			<!--[routerLink]="['../home/buttons']"-->
+			<!--<li nz-submenu *ngFor='let item of menu'>
+				<span title><i class="anticon {{icon}}"></i><span class="nav-text">{{item.name}}</span></span>
+				<ul>
+					<li nz-menu-item *ngFor='let citem of item.children' (click)="gorouter(citem.url)">{{citem.name}}</li>
+				</ul>
+			</li>-->
+			
+			
+			
 			<li nz-submenu>
 				<span title><i class="anticon anticon-user"></i><span class="nav-text">系统管理</span></span>
 				<ul>
