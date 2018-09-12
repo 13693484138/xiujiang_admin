@@ -21,16 +21,24 @@ export class NoticeComponent implements OnInit {
   type: string;
   notice_delete:boolean;
   notice_detail:boolean;
+  notice_add:boolean;
   constructor(public http: HttpService, public router: Router, public message: NzMessageService,public local: LocalStorageService) { }
 
   ngOnInit(): void {
-    if(this.local.get('permission').indexOf('notice_detail')==-1 ||
-      this.local.get('permission').indexOf('notice_delete')==-1){
+    if(this.local.get('permission').indexOf('notice_detail')==-1){
       this.notice_detail=false;
-      this.notice_delete=false;
     }else{
       this.notice_detail=true;
+    };
+    if(this.local.get('permission').indexOf('notice_delete')==-1){
+      this.notice_delete=false;
+    }else{
       this.notice_delete=true;
+    };
+    if(this.local.get('permission').indexOf('notice_add')==-1){
+      this.notice_add=false;
+    }else{
+      this.notice_add=true;
     };
     this.searchData();
   }
