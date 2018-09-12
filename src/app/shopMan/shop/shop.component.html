@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-<button nz-button (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<button nz-button *ngIf='shoplist_add' (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
 <button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
 <nz-table
       #ajaxTable
@@ -79,8 +79,8 @@
           <td>{{data.status == 1? "启用" : "冻结"}}</td>
           <td class='operator'>       
             <a  (click)="toTechnician(data.id)">查看技师</a>
-            <a  (click)="EditRow(data.id)">编辑</a>
-            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+            <a *ngIf='shoplist_detail'  (click)="EditRow(data.id)">详情</a>
+            <nz-popconfirm  *ngIf='shoplist_delete' [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
               <a  nz-popconfirm>删除</a>
             </nz-popconfirm>
           </td>

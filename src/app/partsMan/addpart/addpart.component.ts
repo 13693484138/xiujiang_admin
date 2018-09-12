@@ -4,6 +4,7 @@ import { NzMessageService} from 'ng-zorro-antd';
 import {HttpService,uploadurl,imgUrl} from "../../service/http/http.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUploader } from 'ng2-file-upload';
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -30,19 +31,26 @@ export class AddpartComponent implements OnInit {
   parmlen:number;
   classlist:any;
   pagename:string;
+  partslist_edit:boolean;
   constructor(
   	public router:ActivatedRoute,
   	private msg: NzMessageService,
   	private httpl:HttpService,
   	private fb: FormBuilder,
   	public rou:Router,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+  public local: LocalStorageService) {
 	  this.router.queryParams.subscribe(Params=>{
 	  	this.parmlen=Object.keys(Params).length;
         this.partid=Params['partid'];
         });
   	}
   ngOnInit() {
+  	if(this.local.get('permission').indexOf('partslist_edit')==-1){
+    	this.partslist_edit=false;
+    }else{
+    	this.partslist_edit=true;
+    }
   	this.httpl.httpmenderget("partsmanagemnet/partsclassify")
       .subscribe(data=>{
 //    	console.log(data);

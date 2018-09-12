@@ -2,7 +2,7 @@
         <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
         <nz-breadcrumb-item>配件分类列表</nz-breadcrumb-item>
 </nz-breadcrumb>     
-<button nz-button (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<button nz-button *ngIf="partsclassify_add" (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
 <nz-table
       #ajaxTable
       nzShowSizeChanger
@@ -33,7 +33,7 @@
           <td>{{data.num}}</td>
           <td>{{data.status == 1? "启用" : "禁用"}}</td>
           <td class='operator'>       
-            <a  (click)="EditRow(data.id)">详情</a>
+            <a *ngIf='partsclassify_detail' (click)="EditRow(data.id)">详情</a>
             <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
               <a  nz-popconfirm>删除</a>
             </nz-popconfirm>

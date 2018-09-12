@@ -1,7 +1,7 @@
 <nz-breadcrumb class='breadcrumbstyle'>
         <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
         <nz-breadcrumb-item><a [routerLink]="['/home/shop']">门店列表</a></nz-breadcrumb-item>
-        <nz-breadcrumb-item>{{label}}门店</nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{label}}</nz-breadcrumb-item>
 </nz-breadcrumb>
 
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
@@ -103,10 +103,11 @@
         </nz-form-control>
          
       </nz-form-item>
-
-      <nz-form-item>
+      <nz-form-item >
         <nz-form-control [nzSpan]="8" [nzOffset]="3">
-          <button nz-button nzType="primary">确认</button>
+          <button *ngIf='edit && shoplist_edit' nz-button nzType="primary">新增{{label}}</button>
+          
+          <button *ngIf='add' nz-button nzType="primary">确认{{label}}</button>
         </nz-form-control>
       </nz-form-item>
 </form>

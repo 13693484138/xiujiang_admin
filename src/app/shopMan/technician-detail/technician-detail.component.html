@@ -2,7 +2,7 @@
         <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
         <nz-breadcrumb-item><a [routerLink]="['/home/shop']" >门店列表</a></nz-breadcrumb-item>
         <nz-breadcrumb-item><a [routerLink]="['/home/technicianlist']" [queryParams]="{'shopid':shopid}">技师列表</a></nz-breadcrumb-item>
-        <nz-breadcrumb-item>{{pagename}}技师</nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{pagename}}</nz-breadcrumb-item>
 </nz-breadcrumb>
 
     <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
@@ -164,8 +164,8 @@
             </div>
         </nz-form-control>
 	 </nz-form-item>
-      <nz-form-item>
-        <nz-form-control [nzSpan]="8" [nzOffset]="3">
+      <nz-form-item *ngIf="workerlist_edit">
+        <nz-form-control  [nzSpan]="8" [nzOffset]="3">
           <button nz-button nzType="primary">确认</button>
         </nz-form-control>
       </nz-form-item>

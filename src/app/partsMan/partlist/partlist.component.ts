@@ -2,7 +2,7 @@ import {Component, OnInit } from '@angular/core';
 import {HttpService,imgUrl} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
-
+import { LocalStorageService} from 'angular-web-storage';
 @Component({
   selector: 'app-partlist',
   templateUrl: './partlist.component.html',
@@ -20,7 +20,10 @@ export class PartlistComponent implements OnInit {
   title:string;
   classlist:any;
   imgUrl:string=imgUrl;
-  constructor(public http:HttpService,public router:Router,public msg:NzMessageService) {
+  partslist_detail:boolean;
+  partslist_delete:boolean;
+  partslist_add:boolean;
+  constructor(public http:HttpService,public router:Router,public msg:NzMessageService,public local: LocalStorageService) {
   }
 
   searchData(): void {
@@ -57,6 +60,24 @@ export class PartlistComponent implements OnInit {
   }
   
   ngOnInit(): void {
+  	
+  	if(this.local.get('permission').indexOf('partslist_detail')==-1){
+    	this.partslist_detail=false;
+    }else{
+    	this.partslist_detail=true;
+    }
+    if(this.local.get('permission').indexOf('partslist_delete')==-1){
+    	this.partslist_delete=false;
+    }else{
+    	this.partslist_delete=true;
+    }
+    if(this.local.get('permission').indexOf('partslist_add')==-1){
+    	this.partslist_add=false;
+    }else{
+    	this.partslist_add=true;
+    }
+  	
+  	
     this.searchData();
       	this.http.httpmenderget("partsmanagemnet/partsclassify")
       .subscribe(data=>{

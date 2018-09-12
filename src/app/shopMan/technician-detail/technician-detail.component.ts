@@ -4,6 +4,7 @@ import {HttpService,uploadurl,imgUrl} from "../../service/http/http.service";
 import { NzMessageService} from 'ng-zorro-antd';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUploader } from 'ng2-file-upload';
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -36,13 +37,15 @@ export class TechnicianDetailComponent implements OnInit {
 	cardid:string='';
 	authorid:string;
 	pagename:string;
+	workerlist_edit:boolean;
   constructor(
   	private fb: FormBuilder,
   	public rou:ActivatedRoute,
   	public router:Router,
   	public http:HttpService,
   	public msg:NzMessageService,
-  	private sanitizer: DomSanitizer
+  	private sanitizer: DomSanitizer,
+  	public local: LocalStorageService
   ) { 
   	 	this.rou.queryParams.subscribe(Params=>{
   	 		this.parmlen=Object.keys(Params).length;
@@ -52,8 +55,13 @@ export class TechnicianDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+  	if(this.local.get('permission').indexOf('workerlist_edit')==-1){
+    	this.workerlist_edit=false;
+    }else{
+    	this.workerlist_edit=true;
+    }
   	if(this.parmlen==2){
-  		this.pagename='编辑';
+  		this.pagename='技师详情';
   	  this.http.httpmenderget("shopmanagemnet/getworkerdetail/"+this.id)
       .subscribe(data=>{
       	if(data.result == '0000'){     		
@@ -94,7 +102,7 @@ export class TechnicianDetailComponent implements OnInit {
       cardid: [this.cardid,[ Validators.required ,Validators.pattern(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/)]]
     });
   	}else{
-  		this.pagename='新增';
+  		this.pagename='新增技师';
   		/*表单验证设置*/
     this.validateForm = this.fb.group({
       name: [ this.name, [ Validators.required ] ],
@@ -232,9 +240,6 @@ export class TechnicianDetailComponent implements OnInit {
       	}
       });
     }
-   
-   
-
   }
 
 }

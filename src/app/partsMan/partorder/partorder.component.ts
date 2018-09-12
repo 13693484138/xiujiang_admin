@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
+import { LocalStorageService} from 'angular-web-storage';
 @Component({
   selector: 'app-partorder',
   templateUrl: './partorder.component.html',
@@ -18,7 +19,8 @@ export class PartorderComponent implements OnInit {
 	worker:string;
 	shopname:string;
 	courier:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) {
+	partsorder_detail:boolean;
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) {
   }
 
   searchData(): void {
@@ -56,6 +58,11 @@ export class PartorderComponent implements OnInit {
   }
   
   ngOnInit(): void {
+  	if(this.local.get('permission').indexOf('partsorder_detail')==-1){
+    	this.partsorder_detail=false;
+    }else{
+    	this.partsorder_detail=true;
+    }
     this.searchData();
   }
   

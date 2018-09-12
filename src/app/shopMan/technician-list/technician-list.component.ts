@@ -20,7 +20,9 @@ export class TechnicianListComponent implements OnInit {
   worknum:string;
   phone:string;
   addbtn:boolean=false;
-  
+  workerlist_detail:boolean;
+  workerlist_add:boolean;
+  workerlist_delete:boolean;
   constructor(public http:HttpService,public router:Router,public local: LocalStorageService,public rou:ActivatedRoute,public msg:NzMessageService) {
   	this.rou.queryParams.subscribe(Params=>{
         this.shopid=Params['shopid'];
@@ -87,6 +89,21 @@ export class TechnicianListComponent implements OnInit {
   
   ngOnInit(): void {
     this.searchData();
+    if(this.local.get('permission').indexOf('workerlist_detail')==-1){
+    	this.workerlist_detail=false;
+    }else{
+    	this.workerlist_detail=true;
+    }
+    if(this.local.get('permission').indexOf('workerlist_add')==-1){
+    	this.workerlist_add=false;
+    }else{
+    	this.workerlist_add=true;
+    }
+    if(this.local.get('permission').indexOf('workerlist_delete')==-1){
+    	this.workerlist_delete=false;
+    }else{
+    	this.workerlist_delete=true;
+    }
   }
   
 }

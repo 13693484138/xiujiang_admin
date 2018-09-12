@@ -2,6 +2,7 @@ import {Component, OnInit } from '@angular/core';
 import {HttpService} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import {NzMessageService} from 'ng-zorro-antd';
+import { LocalStorageService} from 'angular-web-storage';
 @Component({
   selector: 'app-partclass',
   templateUrl: './partclass.component.html',
@@ -16,7 +17,10 @@ export class PartclassComponent implements OnInit {
   status:string;
   classifyid:string;
   title:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) {
+  partsclassify_detail:boolean;
+  partsclassify_delete:boolean;
+  partsclassify_add:boolean;
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) {
   }
 
   searchData(): void {
@@ -54,6 +58,21 @@ export class PartclassComponent implements OnInit {
   }
   
   ngOnInit(): void {
+  	if(this.local.get('permission').indexOf('partsclassify_detail')==-1){
+    	this.partsclassify_detail=false;
+    }else{
+    	this.partsclassify_detail=true;
+    }
+    if(this.local.get('permission').indexOf('partsclassify_delete')==-1){
+    	this.partsclassify_delete=false;
+    }else{
+    	this.partsclassify_delete=true;
+    }
+    if(this.local.get('permission').indexOf('partsclassify_add')==-1){
+    	this.partsclassify_add=false;
+    }else{
+    	this.partsclassify_add=true;
+    }
     this.searchData();
   }
   

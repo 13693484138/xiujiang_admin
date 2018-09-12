@@ -85,7 +85,7 @@
           <th>下单时间</th>
           <th>订单状态</th>
           <th>快递编号</th>
-          <th>操作</th>
+          <th *ngIf='partsorder_detail'>操作</th>
         </tr>
       </thead>
       <tbody>
@@ -102,12 +102,8 @@
           <td style="max-width:120px">{{data.createtime}}</td>
           <td>{{data.status == 0? "未生效" : data.status == 1? "待处理" : data.status == 2? "已发货" : data.status == 3? "待收货" : data.status == 0? "已完成" : "退单"}}</td>
           <td></td>
-          <td class='operator'>       
-            <!--<a  (click)="toTechnician(data.id)">查看技师</a>-->
+          <td class='operator' *ngIf='partsorder_detail'>       
             <a  (click)="EditRow(data.orderno)">详情</a>
-            <!--<nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
-              <a  nz-popconfirm>删除</a>
-            </nz-popconfirm>-->
           </td>
         </tr>
       </tbody>

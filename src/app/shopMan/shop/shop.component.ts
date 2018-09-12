@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
+import { LocalStorageService} from 'angular-web-storage';
 
 @Component({
   selector: 'app-shop',
@@ -18,7 +19,10 @@ export class ShopComponent implements OnInit {
   phone:string;
   repair:string;
   status:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) {
+  shoplist_detail:boolean;
+  shoplist_add:boolean;
+  shoplist_delete:boolean;
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) {
   }
 
   searchData(): void {
@@ -63,6 +67,22 @@ export class ShopComponent implements OnInit {
   
   ngOnInit(): void {
     this.searchData();
+    if(this.local.get('permission').indexOf('shoplist_detail')==-1){
+    	this.shoplist_detail=false;
+    }else{
+    	this.shoplist_detail=true;
+    }
+    if(this.local.get('permission').indexOf('shoplist_add')==-1){
+    	this.shoplist_add=false;
+    }else{
+    	this.shoplist_add=true;
+    }
+    if(this.local.get('permission').indexOf('shoplist_delete')==-1){
+    	this.shoplist_delete=false;
+    }else{
+    	this.shoplist_delete=true;
+    }
+    
   }
   
 }

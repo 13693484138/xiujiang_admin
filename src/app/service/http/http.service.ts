@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Http, RequestOptions,Headers} from "@angular/http";
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import {CookieService} from "ngx-cookie-service";
 import { LocalStorageService} from 'angular-web-storage';
 
 @Injectable()

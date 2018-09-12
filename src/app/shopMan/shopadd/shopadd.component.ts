@@ -4,6 +4,7 @@ import { NzMessageService} from 'ng-zorro-antd';
 import {HttpService,uploadurl,imgUrl} from "../../service/http/http.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUploader } from 'ng2-file-upload';
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -35,6 +36,10 @@ export class ShopaddComponent implements OnInit {
   label:string;
   service:number=0;
   servicearr:any=[];
+  
+  shoplist_edit:boolean;
+  edit:boolean;
+  add:boolean;
   
   provinceData:any;
   cityData:any;
@@ -181,7 +186,8 @@ export class ShopaddComponent implements OnInit {
   	public rou:Router, 
   	private msg: NzMessageService,
   	private httpl:HttpService,
-  	private sanitizer: DomSanitizer
+  	private sanitizer: DomSanitizer,
+  	public local: LocalStorageService
   ) {
   	  	this.router.queryParams.subscribe(Params=>{
   	  	this.parmlen=Object.keys(Params).length;
@@ -190,6 +196,12 @@ export class ShopaddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  	if(this.local.get('permission').indexOf('shoplist_edit')==-1){
+    	this.shoplist_edit=false;
+    }else{
+    	this.shoplist_edit=true;
+    }
+    
   	 /*获取门店区域信息*/
      this.httpl.httpmenderget("shopmanagemnet/getshopdistrict/1")
       .subscribe(data=>{
@@ -200,7 +212,8 @@ export class ShopaddComponent implements OnInit {
       	}
       });
   	if(this.parmlen==1){
-  		this.label='编辑';
+  		this.label='门店详情';
+  		this.edit=true;
   	/*获取门店详情*/
      this.httpl.httpmenderget("shopmanagemnet/getshopinfo/"+this.shopid)
       .subscribe(data=>{
@@ -237,7 +250,8 @@ export class ShopaddComponent implements OnInit {
       	}
       });
   	}else{
-  		this.label='新增';
+  		this.label='新增门店';
+  		this.add=true;
   	}
     /*表单验证设置*/
     this.validateForm = this.fb.group({

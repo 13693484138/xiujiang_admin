@@ -33,7 +33,7 @@
       </div>
     </div>
 
- <button nz-button (click)="add()" class="editable-add-btn btnadd"><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+ <button *ngIf='workerlist_add' nz-button (click)="add()" class="editable-add-btn btnadd"><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
  <button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button> 
    <nz-table
       #ajaxTable
@@ -82,8 +82,8 @@
           	<nz-popconfirm [nzTitle]="'确定改变状态吗?'" (nzOnConfirm)="changestatus(data.workid,data.status)">
             	<a  nz-popconfirm>修改状态</a>
             </nz-popconfirm>
-            <a (click)="detail(data.workid)">详情 </a>
-            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.workid)">
+            <a *ngIf="workerlist_detail" (click)="detail(data.workid)">详情 </a>
+            <nz-popconfirm *ngIf='workerlist_delete' [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.workid)">
             	<a  nz-popconfirm> 删除</a>
             </nz-popconfirm>
           </td>

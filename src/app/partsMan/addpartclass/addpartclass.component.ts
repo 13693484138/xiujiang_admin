@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router} from "@angular/router";
 import { NzMessageService} from 'ng-zorro-antd';
 import {HttpService,imgUrl} from "../../service/http/http.service";
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -22,21 +23,27 @@ export class AddpartclassComponent implements OnInit {
   parmlen:number;
   validateForm: FormGroup;
   pagename:string;
-
+  partsclassify_edit:boolean;
   constructor(
   	public router:ActivatedRoute,
   	private msg: NzMessageService,
   	private httpl:HttpService,
   	private fb: FormBuilder,
-  	public rou:Router) {
+  	public rou:Router,
+    public local: LocalStorageService) {
 	  this.router.queryParams.subscribe(Params=>{
 	  	  this.parmlen=Object.keys(Params).length;
         this.classid=Params['classid'];
         });
   	}
   ngOnInit() {
+  	if(this.local.get('permission').indexOf('partsclassify_edit')==-1){
+    	this.partsclassify_edit=false;
+    }else{
+    	this.partsclassify_edit=true;
+    }
   	if(this.parmlen==1){
-  		this.pagename='编辑';
+  		this.pagename='配件分类详情';
   	 /*获取配件分类详情*/
      this.httpl.httpmenderget("partsmanagemnet/partsclassifydetail/"+this.classid)
       .subscribe(data=>{
@@ -51,7 +58,7 @@ export class AddpartclassComponent implements OnInit {
       	}
       });
   	}else{
-  		this.pagename='新增';
+  		this.pagename='新增配件分类';
   	}
       
        /*表单验证设置*/
