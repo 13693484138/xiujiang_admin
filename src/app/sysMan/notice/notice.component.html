@@ -44,9 +44,9 @@
       <td>{{data.type=='1'?'系统':data.type=='2'?'技师':'用户'}}</td>
       <td>{{data.createtime}}</td>
       <td class='operator'>
-        <a (click)="EditRow(data.id)">编辑</a>
+        <a (click)="EditRow(data.id)" *ngIf='notice_detail'>详情</a>
         <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
-          <a nz-popconfirm>删除</a>
+          <a nz-popconfirm *ngIf='notice_delete'>删除</a>
         </nz-popconfirm>
       </td>
     </tr>

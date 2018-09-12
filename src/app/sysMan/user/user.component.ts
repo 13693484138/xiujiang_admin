@@ -28,7 +28,13 @@ pageIndex = 1;
   sUser:string;
   sUsername:string;
   roleids:string;
-  isVisibleMiddle=false;
+	isVisibleMiddle=false;
+	systemPermissions=[];
+	pcUser_delete:boolean;
+	pcUser_freeze:boolean;
+	pcUser_unfreeze:boolean;
+	to_assign_role:boolean;
+	pcUser_detail:boolean;
   constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
 
   searchData(): void {
@@ -214,19 +220,29 @@ pageIndex = 1;
     this.isVisibleMiddle = false;
   }
 
-  
-  
-  
-  
-  
   search(){
   	 this.pageIndex = 1;
   	 this.searchData();
-  }
+	}
+	
   ngOnInit(): void {
-	console.log(this.local.get("permission"));
-	console.log(this.local.get("sysUser"));
-	console.log(this.local.get("titles"));
+		if(this.local.get('permission').indexOf('pcUser_detail')==-1 ||
+		this.local.get('permission').indexOf('pcUser_delete')==-1 || 
+		this.local.get('permission').indexOf('pcUser_freeze')==-1 ||
+		this.local.get('permission').indexOf('pcUser_unfreeze')==-1 ||
+		this.local.get('permission').indexOf('to_assign_role')==-1){
+			this.pcUser_detail=false;
+			this.pcUser_delete=false;
+			this.pcUser_freeze=false;
+			this.pcUser_unfreeze=false;
+			this.to_assign_role=false;
+    }else{
+			this.pcUser_detail=true;
+			this.pcUser_delete=true;
+			this.pcUser_freeze=true;
+			this.pcUser_unfreeze=true;
+			this.to_assign_role=true;
+    };
     this.searchData();
     this.getnodes();
   }

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from "../../service/http/http.service";
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
-import 'jquery'
+import 'jquery';
+import { LocalStorageService} from 'angular-web-storage';
 @Component({
   selector: 'app-notice',
   templateUrl: './notice.component.html',
@@ -18,9 +19,19 @@ export class NoticeComponent implements OnInit {
   title: string;
   content: string;
   type: string;
-  constructor(public http: HttpService, public router: Router, public message: NzMessageService) { }
+  notice_delete:boolean;
+  notice_detail:boolean;
+  constructor(public http: HttpService, public router: Router, public message: NzMessageService,public local: LocalStorageService) { }
 
   ngOnInit(): void {
+    if(this.local.get('permission').indexOf('notice_detail')==-1 ||
+      this.local.get('permission').indexOf('notice_delete')==-1){
+      this.notice_detail=false;
+      this.notice_delete=false;
+    }else{
+      this.notice_detail=true;
+      this.notice_delete=true;
+    };
     this.searchData();
   }
   searchData(): void {

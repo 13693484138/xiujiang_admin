@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from "@angular/router";
 import { NzMessageService} from 'ng-zorro-antd';
 import {HttpService} from "../../../service/http/http.service";
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +24,10 @@ export class EditdepartComponent implements OnInit {
   remark:string;
   num:string;
   label:string;
-
+  edit:boolean;
+  add:boolean;
+  dept_add:boolean;
+  dept_edit:boolean;
   /*提交表单*/
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -61,7 +65,8 @@ export class EditdepartComponent implements OnInit {
   	public router:ActivatedRoute,
   	public rou:Router, 
   	private msg: NzMessageService,
-  	private httpl:HttpService,
+    private httpl:HttpService,
+    public local: LocalStorageService
   ) {
   	  	this.router.queryParams.subscribe(Params=>{
   	  	this.parmlen=Object.keys(Params).length;
@@ -76,8 +81,17 @@ export class EditdepartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.local.get('permission').indexOf('dept_add')==-1 ||
+		this.local.get('permission').indexOf('dept_edit')==-1){
+			this.dept_add=false;
+			this.dept_edit=false;
+    }else{
+			this.dept_add=true;
+			this.dept_edit=true;
+    };
   	if(this.parmlen==2){
-  		this.label='编辑';
+      this.label='详情';
+      this.edit = true;
   	/*获取门店详情*/
      this.httpl.httpmenderget("deptmanagemnet/getdeptinfodetail/"+this.id)
       .subscribe(data=>{
@@ -92,7 +106,8 @@ export class EditdepartComponent implements OnInit {
       	}
       });
   	}else{
-  		this.label='新增';
+      this.label='新增';
+      this.add = true;
   	}
     /*表单验证设置*/
     this.validateForm = this.fb.group({

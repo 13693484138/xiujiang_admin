@@ -3,7 +3,8 @@ import {HttpService,imgUrl} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
 import 'ztree';
-import 'jquery'
+import 'jquery';
+import { LocalStorageService} from 'angular-web-storage';
 declare var $: any;
 @Component({
   selector: 'app-depart',
@@ -21,8 +22,9 @@ export class DepartComponent implements OnInit {
   showadd:boolean=true;
   nodes:any;
   simplename:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) { }
-
+  dept_delete:boolean;
+  dept_detail:boolean;
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
   searchData(): void {
     this.loading = true;
      this.http.httpmender("deptmanagemnet/deptlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"deptid":this.pid,"simplename":this.simplename})
@@ -96,6 +98,14 @@ export class DepartComponent implements OnInit {
   	 this.searchData();
   }
   ngOnInit(): void {
+    if(this.local.get('permission').indexOf('dept_detail')==-1 || 
+		this.local.get('permission').indexOf('dept_delete')==-1){
+			this.dept_detail=false;
+			this.dept_delete=false;
+    }else{
+			this.dept_detail=true;
+			this.dept_delete=true;
+    };
     this.searchData();
     this.getnodes();
   }
