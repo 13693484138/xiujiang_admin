@@ -24,6 +24,8 @@ export class AddpartclassComponent implements OnInit {
   validateForm: FormGroup;
   pagename:string;
   partsclassify_edit:boolean;
+  edit:boolean;
+  add:boolean;
   constructor(
   	public router:ActivatedRoute,
   	private msg: NzMessageService,
@@ -44,6 +46,7 @@ export class AddpartclassComponent implements OnInit {
     }
   	if(this.parmlen==1){
   		this.pagename='配件分类详情';
+  		this.edit=true;
   	 /*获取配件分类详情*/
      this.httpl.httpmenderget("partsmanagemnet/partsclassifydetail/"+this.classid)
       .subscribe(data=>{
@@ -59,6 +62,7 @@ export class AddpartclassComponent implements OnInit {
       });
   	}else{
   		this.pagename='新增配件分类';
+  		this.add=true;
   	}
       
        /*表单验证设置*/

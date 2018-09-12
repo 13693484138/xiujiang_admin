@@ -73,11 +73,11 @@
           <td>{{data.remark}}</td>
           <td>{{data.status=='1'?'启用':data.status=='2'?'冻结':'删除'}}</td>
           <td class='operator'>       
-            <a  (click)="showedit(data)">编辑</a>
-            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+            <a *ngIf="basic_edit" (click)="showedit(data)">编辑</a>
+            <nz-popconfirm *ngIf="basic_delete" [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
               <a  nz-popconfirm>删除</a>
             </nz-popconfirm>
           </td>
         </tr>
       </tbody>
-    </nz-table>
+   </nz-table>

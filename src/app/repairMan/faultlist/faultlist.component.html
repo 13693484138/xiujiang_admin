@@ -35,8 +35,7 @@
         </div>
       </div>
     </div>
-
-    <button nz-button *ngIf="showadd" (click)="add()" class="editable-add-btn btnadd">
+    <button nz-button *ngIf="showadd && fault_add" (click)="add()" class="editable-add-btn btnadd">
       <i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
     <button nz-button (click)="search()" class="editable-add-btn btnadd">
       <i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
@@ -58,8 +57,8 @@
           <td>{{data.addtime}}</td>
           <td>{{data.type== 1 ? "手机":data.type== 2 ? "平板":"无人机"}}</td>
           <td class='operator'>
-            <a (click)="EditRow(data.id,data.pid)">编辑</a>
-            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+            <a *ngIf='fault_detail' (click)="EditRow(data.id,data.pid)">详情</a>
+            <nz-popconfirm *ngIf='fault_delete' [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
               <a nz-popconfirm>删除</a>
             </nz-popconfirm>
           </td>

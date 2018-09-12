@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -29,9 +30,28 @@ export class DistributionratiolistComponent implements OnInit {
   partner:string;
   status:string;
   ratio:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService,private fb: FormBuilder) { }
+  distributionratio_add:boolean;
+	distributionratio_edit:boolean;
+	distributionratio_detail:boolean;
+
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,private fb: FormBuilder,public local: LocalStorageService) { }
 
   ngOnInit() {
+  	if(this.local.get('permission').indexOf('distributionratio_add')==-1){
+    	this.distributionratio_add=false;
+    }else{
+    	this.distributionratio_add=true;
+    }
+    if(this.local.get('permission').indexOf('distributionratio_edit')==-1){
+    	this.distributionratio_edit=false;
+    }else{
+    	this.distributionratio_edit=true;
+    }
+    if(this.local.get('permission').indexOf('distributionratio_detail')==-1){
+    	this.distributionratio_detail=false;
+    }else{
+    	this.distributionratio_detail=true;
+    }
   	this.searchData();
   	this.validateForm = this.fb.group({
       leveladd: [ this.leveladd, [ Validators.required ] ],

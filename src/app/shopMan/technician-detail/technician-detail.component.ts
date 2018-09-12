@@ -38,6 +38,8 @@ export class TechnicianDetailComponent implements OnInit {
 	authorid:string;
 	pagename:string;
 	workerlist_edit:boolean;
+	edit:boolean;
+	add:boolean;
   constructor(
   	private fb: FormBuilder,
   	public rou:ActivatedRoute,
@@ -62,6 +64,7 @@ export class TechnicianDetailComponent implements OnInit {
     }
   	if(this.parmlen==2){
   		this.pagename='技师详情';
+  		this.edit=true;
   	  this.http.httpmenderget("shopmanagemnet/getworkerdetail/"+this.id)
       .subscribe(data=>{
       	if(data.result == '0000'){     		
@@ -103,6 +106,7 @@ export class TechnicianDetailComponent implements OnInit {
     });
   	}else{
   		this.pagename='新增技师';
+  		this.add=true;
   		/*表单验证设置*/
     this.validateForm = this.fb.group({
       name: [ this.name, [ Validators.required ] ],

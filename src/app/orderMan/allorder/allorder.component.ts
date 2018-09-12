@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
-
+import { LocalStorageService} from 'angular-web-storage';
 @Component({
   selector: 'app-allorder',
   templateUrl: './allorder.component.html',
@@ -19,7 +19,8 @@ export class AllorderComponent implements OnInit {
   servertype:string;
   status:string;
   workername:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) {
+  order_detail:boolean;
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) {
   }
 
   searchData(): void {
@@ -42,6 +43,11 @@ export class AllorderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  	if(this.local.get('permission').indexOf('order_detail')==-1){
+    	this.order_detail=false;
+    }else{
+    	this.order_detail=true;
+    }
     this.searchData();
   }
   

@@ -37,12 +37,12 @@
       
       
       <nz-form-item>
-         <nz-form-label [nzSpan]="3" nzRequired nzFor="classifyid">分类</nz-form-label>
+         <nz-form-label [nzSpan]="3" nzRequired nzFor="classifyid">配件分类</nz-form-label>
         <nz-form-control [nzSpan]="8">
-          <nz-select  formControlName="classifyid" [(ngModel)]="classifyid" nzPlaceHolder="请选择分类">
+          <nz-select  formControlName="classifyid" [(ngModel)]="classifyid" nzPlaceHolder="请选择配件分类">
 		    <nz-option *ngFor="let item of classlist"  nzValue="{{item.id}}" nzLabel="{{item.title}}"></nz-option>
 		</nz-select>
-          <nz-form-explain *ngIf="validateForm.get('classifyid').dirty && validateForm.get('classifyid').errors">分类不能为空！</nz-form-explain>
+          <nz-form-explain *ngIf="validateForm.get('classifyid').dirty && validateForm.get('classifyid').errors">配件分类不能为空！</nz-form-explain>
         </nz-form-control>
         <nz-form-label [nzSpan]="4" nzRequired  nzFor="explain">质保时间</nz-form-label>
         <nz-form-control [nzSpan]="8">
@@ -90,7 +90,8 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-control [nzSpan]="8" [nzOffset]="3">
-          <button nz-button nzType="primary">确认</button>
+          <button *ngIf='edit && partslist_edit' nz-button nzType="primary">确认</button>
+          <button *ngIf='add'  nz-button nzType="primary">确认</button>
         </nz-form-control>
       </nz-form-item>
 </form>

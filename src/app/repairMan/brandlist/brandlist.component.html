@@ -10,7 +10,6 @@
       </div>
       
       <div nz-col nzSpan="1"></div>
-      
       <div nz-col nzSpan="19">
  <div class="gutter-example">
       <div nz-row nzGutter="16">
@@ -48,7 +47,7 @@
         </div>
       </div>
     </div>
-<button nz-button *ngIf='showadd' (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<button nz-button *ngIf='showadd && brand_add' (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
 <button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
 <nz-table
       #ajaxTable
@@ -82,8 +81,8 @@
           <td>{{data.type== 1? "手机" :data.type== 2? "平板" : "无人机"}}</td>
           <td>{{data.status == 1? "启用" : "禁用"}}</td>
           <td class='operator'>       
-            <a  (click)="EditRow(data.id)">编辑</a>
-            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+            <a *ngIf='brand_detail' (click)="EditRow(data.id)">编辑</a>
+            <nz-popconfirm *ngIf='brand_delete' [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
               <a  nz-popconfirm>删除</a>
             </nz-popconfirm>
           </td>

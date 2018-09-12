@@ -5,6 +5,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
+import { LocalStorageService} from 'angular-web-storage';
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
@@ -23,7 +24,12 @@ export class BannerComponent implements OnInit {
   page_url:string;
   num:string;
   id:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService,private fb: FormBuilder,private sanitizer: DomSanitizer) { }
+  banner_add:boolean;
+	banner_edit:boolean;
+	banner_delete:boolean;
+	banner_detail:boolean;
+
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,private fb: FormBuilder,private sanitizer: DomSanitizer,public local: LocalStorageService) { }
 
   ngOnInit() {
   	this.searchData();
@@ -35,6 +41,26 @@ export class BannerComponent implements OnInit {
     });
   }
   searchData(): void {
+  	if(this.local.get('permission').indexOf('banner_add')==-1){
+    	this.banner_add=false;
+    }else{
+    	this.banner_add=true;
+    }
+    if(this.local.get('permission').indexOf('banner_edit')==-1){
+    	this.banner_edit=false;
+    }else{
+    	this.banner_edit=true;
+    }
+    if(this.local.get('permission').indexOf('banner_delete')==-1){
+    	this.banner_delete=false;
+    }else{
+    	this.banner_delete=true;
+    }
+    if(this.local.get('permission').indexOf('banner_detail')==-1){
+    	this.banner_detail=false;
+    }else{
+    	this.banner_detail=true;
+    }
     this.loading = true;
      this.http.httpmender("rulesmanagemnet/bannerlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize})
       .subscribe(data=>{

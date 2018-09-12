@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -26,9 +27,28 @@ export class BasiclistComponent implements OnInit {
   code:string;
   id:string;
   showtitle:string;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService,private fb: FormBuilder) { }
+//basic_add:boolean;
+	basic_edit:boolean;
+	basic_delete:boolean;
+
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,private fb: FormBuilder,public local: LocalStorageService) { }
 
   ngOnInit() {
+//	if(this.local.get('permission').indexOf('basic_add')==-1){
+//  	this.basic_add=false;
+//  }else{
+//  	this.basic_add=true;
+//  }
+    if(this.local.get('permission').indexOf('basic_edit')==-1){
+    	this.basic_edit=false;
+    }else{
+    	this.basic_edit=true;
+    }
+    if(this.local.get('permission').indexOf('basic_delete')==-1){
+    	this.basic_delete=false;
+    }else{
+    	this.basic_delete=true;
+    }
   	this.searchData();
   	this.validateForm = this.fb.group({
       parm: [ this.parm, [ Validators.required,Validators.pattern(/^(?:0|[1-9][0-9]?|100)$/)] ]

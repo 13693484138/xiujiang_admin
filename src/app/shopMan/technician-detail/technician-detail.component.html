@@ -164,9 +164,10 @@
             </div>
         </nz-form-control>
 	 </nz-form-item>
-      <nz-form-item *ngIf="workerlist_edit">
+      <nz-form-item >
         <nz-form-control  [nzSpan]="8" [nzOffset]="3">
-          <button nz-button nzType="primary">确认</button>
+          <button *ngIf="edit && workerlist_edit" nz-button nzType="primary">确认</button>
+      	  <button  *ngIf="add" nz-button nzType="primary">确认</button>
         </nz-form-control>
       </nz-form-item>
 </form>

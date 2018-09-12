@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService,imgUrl} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
+import { LocalStorageService} from 'angular-web-storage';
 import 'ztree';
 import 'jquery'
 declare var $: any;
@@ -24,7 +25,11 @@ export class BrandlistComponent implements OnInit {
   showadd:boolean=true;
   nodes:any;
   classid:string='0';
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) {
+  brand_add:boolean;
+	brand_delete:boolean;
+	brand_detail:boolean;
+
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService, public local: LocalStorageService) {
   }
   searchData(): void {
     this.loading = true;
@@ -102,6 +107,21 @@ export class BrandlistComponent implements OnInit {
   	 this.searchData();
   }
   ngOnInit(): void {
+  	if(this.local.get('permission').indexOf('brand_add')==-1){
+    	this.brand_add=false;
+    }else{
+    	this.brand_add=true;
+    }
+    if(this.local.get('permission').indexOf('brand_delete')==-1){
+    	this.brand_delete=false;
+    }else{
+    	this.brand_delete=true;
+    }
+    if(this.local.get('permission').indexOf('brand_detail')==-1){
+    	this.brand_detail=false;
+    }else{
+    	this.brand_detail=true;
+    }
     this.searchData();
     this.getnodes();
   }

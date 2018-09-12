@@ -2,7 +2,7 @@
         <nz-breadcrumb-item><a [routerLink]="['/home']">主页</a></nz-breadcrumb-item>
         <nz-breadcrumb-item>Banner设置</nz-breadcrumb-item>
 </nz-breadcrumb>
-<button nz-button (click)="showModalMiddle()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+<button *ngIf='banner_add' nz-button (click)="showModalMiddle()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
 	       <nz-form-item [formGroup]="validateForm" (ngSubmit)="handleOkMiddle()">
 			    <nz-form-label nzRequired nzFor="pic_url">图片地址</nz-form-label>
@@ -107,11 +107,11 @@
           <td><img src="{{imgUrl+data.pic_url}}" alt="" /></td>
           <td>{{data.page_url}}</td>
           <td class='operator'>       
-            <a (click)="showedit(data)">编辑</a>
-            <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
+            <a *ngIf="banner_edit" (click)="showedit(data)">编辑</a>
+            <nz-popconfirm *ngIf="banner_delete" [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
               <a  nz-popconfirm>删除</a>
             </nz-popconfirm>
           </td>
         </tr>
       </tbody>
-    </nz-table>
+   </nz-table>

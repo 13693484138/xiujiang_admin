@@ -4,6 +4,7 @@ import { NzMessageService} from 'ng-zorro-antd';
 import {HttpService,uploadurl,imgUrl} from "../../service/http/http.service";
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileUploader } from 'ng2-file-upload';
+import { LocalStorageService} from 'angular-web-storage';
 import {
   FormBuilder,
   FormGroup,
@@ -30,13 +31,17 @@ export class EditfaultComponent implements OnInit {
   validateForm: FormGroup;
   pagename:string;
   pid:string;
+  fault_edit:boolean;
+  edit:boolean;
+  add:boolean;
   constructor(
   	public router:ActivatedRoute,
   	private msg: NzMessageService,
   	private httpl:HttpService,
   	private fb: FormBuilder,
   	public rou:Router,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    public local: LocalStorageService) {
 	  this.router.queryParams.subscribe(Params=>{
 	  	  this.parmlen=Object.keys(Params).length;
         this.id=Params['id'];
@@ -44,8 +49,15 @@ export class EditfaultComponent implements OnInit {
         });
   	}
   ngOnInit() {
+  	if(this.local.get('permission').indexOf('fault_edit')==-1){
+    	this.fault_edit=false;
+    }else{
+    	this.fault_edit=true;
+    }
+    
   	if(this.parmlen==2){
-  		this.pagename='编辑';
+  		this.pagename='故障详情';
+  		this.edit=true;
   	 /*获取配件分类详情*/
      this.httpl.httpmender("repairmanagemnet/faultdetail",{"id":this.id,"pid":this.pid})
       .subscribe(data=>{
@@ -70,7 +82,8 @@ export class EditfaultComponent implements OnInit {
       	}
       });
   	}else{
-  		this.pagename='新增';
+  		this.pagename='新增故障';
+  		this.add=true;
   	}
       
        /*表单验证设置*/

@@ -88,7 +88,7 @@
           <th style="max-width:120px;">预约地址</th>
           <th>接单技师</th>
           <th>订单状态</th>
-          <th>操作</th>
+          <th *ngIf="order_detail">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -103,7 +103,7 @@
           <td style="max-width:120px;">{{data.address}}</td>
           <td>{{data.workername}}</td>
           <td>{{data.status == 0? "已取消" : data.status == 1? "待受理" : data.status == 2? "已受理" : data.status == 3? "已确认" : data.status == 4? "已支付" : data.status == 5? "已完成" : "售后"}}</td>
-          <td class='operator'>       
+          <td *ngIf="order_detail" class='operator'>       
             <a  (click)="EditRow(data)">详情</a>
           </td>
         </tr>

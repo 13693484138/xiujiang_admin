@@ -32,6 +32,8 @@ export class AddpartComponent implements OnInit {
   classlist:any;
   pagename:string;
   partslist_edit:boolean;
+  edit:boolean;
+  add:boolean;
   constructor(
   	public router:ActivatedRoute,
   	private msg: NzMessageService,
@@ -62,6 +64,7 @@ export class AddpartComponent implements OnInit {
       });
   	if(this.parmlen==1){
   		this.pagename='编辑';
+  		this.edit=true;
   	 /*获取配件分类详情*/
      this.httpl.httpmenderget("partsmanagemnet/partsinfodetail/"+this.partid)
       .subscribe(data=>{
@@ -83,6 +86,7 @@ export class AddpartComponent implements OnInit {
       });
       }else{
       	this.pagename='新增';
+      	this.add=true;
       }
       
   	/*表单验证设置*/

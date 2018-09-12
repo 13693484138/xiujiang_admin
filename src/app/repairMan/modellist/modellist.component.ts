@@ -5,6 +5,7 @@ import { NzMessageService} from 'ng-zorro-antd';
 import 'ztree';
 import 'jquery'
 declare var $: any;
+import { LocalStorageService} from 'angular-web-storage';
 @Component({
   selector: 'app-modellist',
   templateUrl: './modellist.component.html',
@@ -21,7 +22,11 @@ export class ModellistComponent implements OnInit {
   status:string;
   imgUrl:string=imgUrl;
   nodes:any;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) {
+  version_add:boolean;
+	version_delete:boolean;
+	version_detail:boolean;
+
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) {
   }
 
   searchData(): void {
@@ -92,6 +97,23 @@ export class ModellistComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+  	if(this.local.get('permission').indexOf('version_add')==-1){
+    	this.version_add=false;
+    }else{
+    	this.version_add=true;
+    }
+    if(this.local.get('permission').indexOf('version_delete')==-1){
+    	this.version_delete=false;
+    }else{
+    	this.version_delete=true;
+    }
+    if(this.local.get('permission').indexOf('version_detail')==-1){
+    	this.version_detail=false;
+    }else{
+    	this.version_detail=true;
+    }
+  	
+  	
   	this.getnodes();
     this.searchData();
   }

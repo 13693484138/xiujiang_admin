@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpService} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
+import { LocalStorageService} from 'angular-web-storage';
 import 'ztree';
 import 'jquery'
 declare var $: any;
@@ -21,7 +22,12 @@ export class FaultlistComponent implements OnInit {
   status:string;
   showadd:boolean=true;
   tree:any;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService) {
+  fault_add:boolean;
+	fault_edit:boolean;
+	fault_delete:boolean;
+	fault_detail:boolean;
+
+  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) {
   }
   searchData(): void {
     this.loading = true;
@@ -94,6 +100,21 @@ export class FaultlistComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+  	if(this.local.get('permission').indexOf('fault_add')==-1){
+    	this.fault_add=false;
+    }else{
+    	this.fault_add=true;
+    }
+    if(this.local.get('permission').indexOf('fault_delete')==-1){
+    	this.fault_delete=false;
+    }else{
+    	this.fault_delete=true;
+    }
+    if(this.local.get('permission').indexOf('fault_detail')==-1){
+    	this.fault_detail=false;
+    }else{
+    	this.fault_detail=true;
+    }
     this.searchData();
     this.getnodes();
    

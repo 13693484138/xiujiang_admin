@@ -24,7 +24,8 @@
         </div>
       </div>
     </div>
-<button nz-button (click)="showModalMiddle()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
+
+<button *ngIf="distributionratio_add" nz-button (click)="showModalMiddle()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
 <button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="新增" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
 	        <nz-form-item [formGroup]="validateForm" (ngSubmit)="handleOkMiddle()">
@@ -118,8 +119,8 @@
           <td>{{data.ratio}}%</td>
           <td>{{data.store}}%</td>
           <td class='operator'>       
-            <a  (click)="showedit(data.id)">编辑</a>
+            <a *ngIf="distributionratio_edit" (click)="showedit(data.id)">编辑</a>
           </td>
         </tr>
       </tbody>
-    </nz-table>
+   </nz-table>

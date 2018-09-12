@@ -5,7 +5,7 @@
 	<nz-breadcrumb-item>
 		<a [routerLink]="['/home/fault']">故障列表</a>
 	</nz-breadcrumb-item>
-	<nz-breadcrumb-item>{{pagename}}故障</nz-breadcrumb-item>
+	<nz-breadcrumb-item>{{pagename}}</nz-breadcrumb-item>
 </nz-breadcrumb>
 
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
@@ -96,7 +96,8 @@
 
 	<nz-form-item>
 		<nz-form-control [nzSpan]="8" [nzOffset]="3">
-			<button nz-button nzType="primary">确认</button>
+			<button *ngIf="edit && fault_edit" nz-button nzType="primary">确认</button>
+			<button *ngIf="add" nz-button nzType="primary">确认</button>
 		</nz-form-control>
 	</nz-form-item>
 </form>
