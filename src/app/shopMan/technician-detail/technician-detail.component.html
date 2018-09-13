@@ -104,7 +104,7 @@
         			<i class="anticon anticon-plus"></i>
         			<div>选择图片</div>
         		</div>
-			<input type="file" ng2FileSelect  [uploader]="uploader" (change)="uploadFileZQ($event,'avatar')"/>
+			<input type="file" ng2FileSelect  [uploader]="uploadera" (change)="uploadFileZQ($event,'avatar')"/>
         	</div>
         	<img class='imglist' id="vi" [src]="avatar" *ngIf="avatar"/>
             <button type="button"  class="upbtn" (click)="uploadFile('avatar')" *ngIf="avatarsc">上传</button>
@@ -120,7 +120,7 @@
         			<i class="anticon anticon-plus"></i>
         			<div>选择图片</div>
         		</div>
-			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event,'cardface')"/>
+			<input type="file" ng2FileSelect  [uploader]="uploaderf"   (change)="uploadFileZQ($event,'cardface')"/>
         	</div>
         	<img class='imglist' id="vi" [src]="cardface" *ngIf="cardface"/>
             <button type="button"  class="upbtn" (click)="uploadFile('cardface')" *ngIf="cardfacesc">上传</button>
@@ -139,7 +139,7 @@
         			<i class="anticon anticon-plus"></i>
         			<div>选择图片</div>
         		</div>
-			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event,'cardback')"/>
+			<input type="file" ng2FileSelect  [uploader]="uploaderb"   (change)="uploadFileZQ($event,'cardback')"/>
         	</div>
         	<img class='imglist' id="vi" [src]="cardback" *ngIf="cardback"/>
             <button type="button"  class="upbtn" (click)="uploadFile('cardback')" *ngIf="cardbacksc">上传</button>
@@ -155,7 +155,7 @@
         			<i class="anticon anticon-plus"></i>
         			<div>选择图片</div>
         		</div>
-			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event,'cardhold')"/>
+			<input type="file" ng2FileSelect  [uploader]="uploaderh"   (change)="uploadFileZQ($event,'cardhold')"/>
         	</div>
         	<img class='imglist' id="vi" [src]="cardhold" *ngIf="cardhold"/>
             <button type="button"  class="upbtn" (click)="uploadFile('cardhold')" *ngIf="cardholdsc">上传</button>
