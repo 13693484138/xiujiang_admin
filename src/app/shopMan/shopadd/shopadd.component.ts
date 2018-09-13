@@ -136,6 +136,7 @@ export class ShopaddComponent implements OnInit {
   }
   
   changeFile(){
+  	this.uploader.queue=[];
   	this.picturesc=false;
   	this.picture='';
   }

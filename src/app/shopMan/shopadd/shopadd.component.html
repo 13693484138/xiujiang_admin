@@ -5,8 +5,25 @@
 </nz-breadcrumb>
 
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+	<nz-form-item>
+      	<nz-form-label [nzSpan]="3" nzFor="pohto" nzRequired>门店图片</nz-form-label>
+        <nz-form-control [nzSpan]="8"> 
+        	<div class="file" *ngIf="!picture">
+        		<div>
+        			<i class="anticon anticon-plus"></i>
+        			<div>选择图片</div>
+        		</div>
+			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event)"/>
+        	</div>
+        	<img class='imglist' id="vi" [src]="picture" *ngIf="picture"/>
+            <button type="button"  class="upbtn" (click)="uploadFile()" *ngIf="picturesc">上传</button>
+            <button type="button"  class="upbtn" (click)="changeFile()" *ngIf="picture">换图片</button>
+            <div>
+            </div>
+        </nz-form-control>
+         </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSpan]="3" nzRequired nzFor="name">名称</nz-form-label>
+        <nz-form-label [nzSpan]="3" nzRequired nzFor="name">门店名称</nz-form-label>
         <nz-form-control [nzSpan]="8">
           <input type="text" nz-input formControlName="name" [(ngModel)]="name" placeholder="请输入门店名称" nzAllowClear>
           <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">门店名称不能为空！</nz-form-explain>
@@ -81,22 +98,7 @@
       </nz-form-item>
       
       <nz-form-item>
-      	<nz-form-label [nzSpan]="3" nzFor="pohto" nzRequired>门店图片</nz-form-label>
-        <nz-form-control [nzSpan]="8"> 
-        	<div class="file" *ngIf="!picture">
-        		<div>
-        			<i class="anticon anticon-plus"></i>
-        			<div>选择图片</div>
-        		</div>
-			<input type="file" ng2FileSelect  [uploader]="uploader"   (change)="uploadFileZQ($event)"/>
-        	</div>
-        	<img class='imglist' id="vi" [src]="picture" *ngIf="picture"/>
-            <button type="button"  class="upbtn" (click)="uploadFile()" *ngIf="picturesc">上传</button>
-            <button type="button"  class="upbtn" (click)="changeFile()" *ngIf="picture">换图片</button>
-            <div>
-            </div>
-        </nz-form-control>
-        <nz-form-label [nzSpan]="4" nzFor="serviceArea" nzRequired>服务范围</nz-form-label>
+        <nz-form-label [nzSpan]="3" nzFor="serviceArea" nzRequired>服务范围</nz-form-label>
         <nz-form-control [nzSpan]="8">
         <label nz-checkbox formControlName='serviceAreasm' [(ngModel)]="serviceAreasm">上门</label><label nz-checkbox formControlName='serviceAreadd'  [(ngModel)]="serviceAreadd">到店</label><label nz-checkbox formControlName='serviceAreayj' [(ngModel)]="serviceAreayj">邮寄</label>
         <nz-form-explain *ngIf="validateForm.get('serviceAreasm').dirty && validateForm.get('serviceAreasm').errors && validateForm.get('serviceAreayj').dirty && validateForm.get('serviceAreayj').errors && validateForm.get('serviceAreadd').dirty && validateForm.get('serviceAreadd').errors">Please select your serviceArea!</nz-form-explain>

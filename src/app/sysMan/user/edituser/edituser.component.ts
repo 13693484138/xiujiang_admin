@@ -156,6 +156,7 @@ export class EdituserComponent implements OnInit {
   }
   
   changeFile(){
+  	this.uploader.queue=[];
   	this.picturesc=false;
   	this.picture='';
   }
@@ -166,8 +167,12 @@ export class EdituserComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if (this.validateForm.invalid) return; 
-    let d = new Date(this.birthday);  
-     this.birthday=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    if(this.birthday){
+    	let d = new Date(this.birthday);  
+      this.birthday=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    }else{
+    	this.birthday='';
+    }
     if(this.parmlen==2){
     /*编辑用户*/
 	  this.httpl.httpmenderput("usermanagemnet/updateuser",{"id":this.id,"avatar": this.mkey,"account":this.account,"password":this.password,"name":this.name,"birthday":this.birthday,"sex":this.sex,"email":this.email,"phone":this.phone,"deptid":this.deptid,"shopid":this.shopid})

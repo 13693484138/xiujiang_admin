@@ -176,6 +176,7 @@ export class EditfaultComponent implements OnInit {
   }
   
   changeFile(){
+  	this.uploader.queue=[];
   	this.picturesc=false;
   	this.img='';
   }

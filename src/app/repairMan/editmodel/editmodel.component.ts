@@ -187,11 +187,10 @@ export class EditmodelComponent implements OnInit {
   }
   
   changeFile(){
+  	this.uploader.queue=[];
   	this.picturesc=false;
   	this.img='';
   }
-  
-  
   
   log(): void {
     let newarr=[];

@@ -202,6 +202,7 @@ export class TechnicianDetailComponent implements OnInit {
   }
   
     changeFile(item:string){
+//  this.uploader.queue=[];
   	if(item == 'avatar'){
         	this.avatar='';
         	this.avatarsc=false;
@@ -225,8 +226,13 @@ export class TechnicianDetailComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if (this.validateForm.invalid) return;
-     let d = new Date(this.birthday);  
+    if(this.birthday){
+    	let d = new Date(this.birthday);  
      this.birthday=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    }else{
+    	this.birthday="";
+    }
+     
     if(this.parmlen==2){
     /*编辑技师*/
 	  this.http.httpmenderput("shopmanagemnet/updateworkerinfo",{"workid": this.id,"name":this.name,"nickname":this.nickname,"avatar":this.avatarid,"phone":this.phone,"birthday":this.birthday,"sex":this.sex,"email":this.email,"password":this.password,"isboard":this.isboard,"cardid": this.cardid,"cardback": this.cardbackid,"cardface":this.cardfaceid,"cardhold":this.cardholdid,"authorid":this.authorid})
