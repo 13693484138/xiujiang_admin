@@ -19,6 +19,7 @@ import {
 export class TechnicianDetailComponent implements OnInit {
 	dateFormat = 'yyyy-MM-dd';
 	validateForm: FormGroup;
+	validateExamine: FormGroup;
 	shopid:string;
 	pageIndex = 1;
   pageSize = 10;
@@ -41,6 +42,11 @@ export class TechnicianDetailComponent implements OnInit {
 	workerlist_audit:boolean;
 	edit:boolean;
 	add:boolean;
+	isVisible = false;
+	status:any;
+	content:string;
+	radioValue:string='2';
+	examineName:string;
   constructor(
   	private fb: FormBuilder,
   	public rou:ActivatedRoute,
@@ -67,13 +73,30 @@ export class TechnicianDetailComponent implements OnInit {
     	this.workerlist_audit=false;
     }else{
     	this.workerlist_audit=true;
-    }
+		}
+
+
+		
+		/*验证审核表单*/
+		if(this.radioValue == '3'){
+			this.validateExamine = this.fb.group({
+				content: [ this.content, [ Validators.required ] ],
+				radioValue:[ this.radioValue,[ Validators.required ] ]
+			});
+		}else{
+			this.validateExamine = this.fb.group({
+				content: [this.content],
+				radioValue:[ this.radioValue,[ Validators.required ] ]
+			});
+		}
+
   	if(this.parmlen==2){
   		this.pagename='技师详情';
   		this.edit=true;
   	  this.http.httpmenderget("shopmanagemnet/getworkerdetail/"+this.id)
       .subscribe(data=>{
-      	if(data.result == '0000'){     		
+      	if(data.result == '0000'){ 
+					console.log(data.data);    		
       		this.name=data.data.workerInfo.name;
       		this.nickname=data.data.workerInfo.nickname;
       		this.email=data.data.workerInfo.email;
@@ -86,7 +109,8 @@ export class TechnicianDetailComponent implements OnInit {
       		this.cardback=this.imgUrl+data.data.workerInfo.cardback;
       		this.cardface=this.imgUrl+data.data.workerInfo.cardface;
       		this.cardid=data.data.workerInfo.cardid;
-      		this.cardhold=this.imgUrl+data.data.workerInfo.cardhold;
+					this.cardhold=this.imgUrl+data.data.workerInfo.cardhold;
+					this.status=data.data.workerInfo.status;
       		if(data.data.workerInfo.isboard){
       			this.isboard=data.data.workerInfo.isboard.toString();
       		}
@@ -100,7 +124,7 @@ export class TechnicianDetailComponent implements OnInit {
       
     /*表单验证设置*/
     this.validateForm = this.fb.group({
-      name: [ this.name, [ Validators.required ] ],
+			name: [ this.name, [ Validators.required ] ],
       nickname:[this.nickname],
       phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)] ],
       sex:[this.sex,[ Validators.required ]],
@@ -115,7 +139,7 @@ export class TechnicianDetailComponent implements OnInit {
   		this.add=true;
   		/*表单验证设置*/
     this.validateForm = this.fb.group({
-      name: [ this.name, [ Validators.required ] ],
+			name: [ this.name, [ Validators.required ] ],
       nickname:[this.nickname],
       phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)] ],
       sex:[this.sex,[ Validators.required ]],
@@ -250,10 +274,47 @@ export class TechnicianDetailComponent implements OnInit {
       	}
       });
     }
-  }
-  
-  examine(){//审核
-  	
+	}
+	
+
+  showModal(): void {
+    this.isVisible = true;
   }
 
+  handleOk(): void {	
+		this.submitExamine();
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+  changeradio(){
+    if(this.radioValue == '3'){
+			this.validateExamine = this.fb.group({
+				content: [ this.content, [ Validators.required ] ],
+				radioValue:[ this.radioValue,[ Validators.required ] ]
+			});
+		}else{
+			this.validateExamine = this.fb.group({
+				content: [this.content],
+				radioValue:[ this.radioValue,[ Validators.required ] ]
+			});
+		}
+	}
+	submitExamine(): void {
+		for (const i in this.validateExamine.controls) {
+      this.validateExamine.controls[ i ].markAsDirty();
+      this.validateExamine.controls[ i ].updateValueAndValidity();
+    }
+		if(this.validateExamine.invalid) return;					
+		this.http.httpmenderput("shopmanagemnet/auditworkerinfo",{"workid": this.id,"authorid":this.authorid,"status":this.radioValue,"reason":this.content})
+		.subscribe(data => {
+			if(data.result == "0000"){
+				this.msg.success("审核成功！");
+				this.isVisible = false;
+			}else{
+				this.msg.error(data.msg);
+			}
+		})
+	}
 }

@@ -43,7 +43,7 @@
         </nz-form-control> 
         <nz-form-label [nzSpan]="4" nzFor="birthday">出生日期</nz-form-label>
         <nz-form-control [nzSpan]="8">
-          <nz-date-picker [nzFormat]="dateFormat" formControlName="birthday" [(ngModel)]="birthday"  nzAllowClear></nz-date-picker>
+          <nz-date-picker [nzStyle]='' [nzFormat]="dateFormat" formControlName="birthday" [(ngModel)]="birthday"  nzAllowClear></nz-date-picker>
         </nz-form-control>    
       </nz-form-item>   
       
@@ -166,7 +166,22 @@
 	 </nz-form-item>
       <nz-form-item >
         <nz-form-control  [nzSpan]="8" [nzOffset]="3">
-          <div *ngIf="workerlist_audit" class='examine' (click)="examine()">审核</div>
+          <div *ngIf="workerlist_audit && status != 2" class='examine' nz-button [nzType]="'primary'" (click)="showModal()"><span>审核</span></div>
+          <nz-modal [(nzVisible)]="isVisible" nzTitle="审核" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+            <form nz-form [formGroup]="validateExamine" (ngSubmit)="submitExamine()">
+              <nz-radio-group  [(ngModel)]="radioValue" (ngModelChange)="changeradio()" formControlName="radioValue">
+                <label nz-radio nzValue="2">审核通过</label>
+                <label nz-radio nzValue="3">审核未通过</label>
+              </nz-radio-group>
+              <nz-form-item>
+                <nz-form-label nzFor="content" [nzRequired]='radioValue=="3"'>理由</nz-form-label>
+                <nz-form-control>
+                  <textarea nz-input [(ngModel)]="content" formControlName="content" placeholder="请输入你的理由..." [nzAutosize]="{ minRows: 3, maxRows: 6 }"></textarea>
+                  <nz-form-explain *ngIf="validateExamine.get('content').dirty && validateExamine.get('content').errors">理由不能为空！</nz-form-explain>
+                </nz-form-control> 
+              </nz-form-item> 
+            </form>      
+          </nz-modal>
           <button *ngIf="edit && workerlist_edit" nz-button nzType="primary">确认</button>
       	  <button  *ngIf="add" nz-button nzType="primary">确认</button>
         </nz-form-control>
