@@ -19,7 +19,6 @@ pageIndex = 1;
   loading = true;
   pid:string='0';
   imgUrl:string=imgUrl;
-  showadd:boolean=true;
   nodes:any;
   rolenodes:any;
   account:string;
@@ -64,11 +63,6 @@ pageIndex = 1;
     callback: {
 			onClick:(event:any,treeId:any,treeNode:any)=>{
 		  this.pid=treeNode.id;
-		  if(treeNode.pid == 0){
-		  	this.showadd=true;
-		  }else{
-		  	this.showadd=false;
-		  }
 		  this.pageIndex = 1;
 		  this.searchData();
 		}
@@ -78,7 +72,7 @@ pageIndex = 1;
   	check: {
 				enable: true,
 				chkStyle: "checkbox",
-				chkboxType: { "Y": "p", "N": "s" }
+				chkboxType: { "Y": "", "N": ""}
 			},
     data: {
     	key: {

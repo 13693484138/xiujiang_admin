@@ -75,14 +75,14 @@
 					<li>
 						<nz-dropdown nzPlacement="bottomRight">
 							<div class="item d-flex align-items-center px-sm colorwhite" nz-dropdown>
-								<nz-avatar nzSrc="avatar" nzSize="default" class="mr-sm"></nz-avatar>
+								<nz-avatar nzSrc="{{avatar}}" nzSize="default" class="mr-sm"></nz-avatar>
 								{{name}}
 							</div>
 							<div nz-menu class="width-sm">
-								<div nz-menu-item [nzDisabled]="true"><i class="anticon anticon-user mr-sm"></i>个人中心</div>
-								<div nz-menu-item (click)="cPassword()"><i class="anticon anticon-setting mr-sm"></i>修改密码</div>
+								<!--<div nz-menu-item [nzDisabled]="true"><i class="anticon anticon-user mr-sm"></i> 个人中心</div>-->
+								<div nz-menu-item (click)="cPassword()"><i class="anticon anticon-lock mr-sm"></i> 修改密码</div>
 								<li nz-menu-divider></li>
-								<div nz-menu-item (click)="logout()"><i class="anticon anticon-setting mr-sm"></i>退出登录</div>
+								<div nz-menu-item (click)="logout()"><i class="anticon anticon-logout mr-sm"></i> 退出登录</div>
 							</div>
 						</nz-dropdown>
 					</li>
@@ -94,7 +94,7 @@
 			<router-outlet></router-outlet>	 
 		</nz-content>
 		
-		<nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
+		<nz-footer style="text-align: center;">修匠 ©2018 修匠</nz-footer>
 	</nz-layout>
 </nz-layout>
 <ng-template #trigger>

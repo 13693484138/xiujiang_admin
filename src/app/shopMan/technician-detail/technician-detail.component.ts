@@ -188,7 +188,30 @@ export class TechnicianDetailComponent implements OnInit {
 	}	
 	}
 	
-	uploader:FileUploader = new FileUploader({
+	
+	
+	uploadera:FileUploader = new FileUploader({
+    url: this.uploadurl+ "attachment/upload",
+    method: "POST",
+    itemAlias: "file",
+    autoUpload: false,
+    removeAfterUpload:true
+  });
+  uploaderb:FileUploader = new FileUploader({
+    url: this.uploadurl+ "attachment/upload",
+    method: "POST",
+    itemAlias: "file",
+    autoUpload: false,
+    removeAfterUpload:true
+  });
+  uploaderf:FileUploader = new FileUploader({
+    url: this.uploadurl+ "attachment/upload",
+    method: "POST",
+    itemAlias: "file",
+    autoUpload: false,
+    removeAfterUpload:true
+  });
+  uploaderh:FileUploader = new FileUploader({
     url: this.uploadurl+ "attachment/upload",
     method: "POST",
     itemAlias: "file",
@@ -197,45 +220,74 @@ export class TechnicianDetailComponent implements OnInit {
   });
   
     uploadFile(item:string) {// 上传
-    let self=this;//为闭包函数重新指定this
-    this.uploader.queue[0].onSuccess = function (response, status, headers) {
-      // 上传文件成功
+    let self=this;
+    if(item == 'avatar'){
+	     this.uploadera.queue[0].onSuccess = function (response, status, headers) {
+	      if (status == 200) {
+	        let tempRes = JSON.parse(response);
+	        self.avatarid=tempRes.data;
+	        self.avatarsc=false;  
+	        self.msg.success("文件上传成功！");
+	      } else {
+	        self.msg.error("文件上传失败！");
+	      }
+	    };
+	    this.uploadera.queue[0].upload();
+    }else if(item == 'cardface'){
+       this.uploaderf.queue[0].onSuccess = function (response, status, headers) {
+	      if (status == 200) {
+	        let tempRes = JSON.parse(response);
+	        self.cardfaceid=tempRes.data;
+	        self.cardfacesc=false;
+	        self.msg.success("文件上传成功！");
+	      } else {
+	        self.msg.error("文件上传失败！");
+	      }
+	    };
+	    this.uploaderf.queue[0].upload();
+    }else if(item == 'cardback'){
+	     this.uploaderb.queue[0].onSuccess = function (response, status, headers) {
+	      if (status == 200) {
+	        let tempRes = JSON.parse(response);
+	        self.cardbackid=tempRes.data;
+	        self.cardbacksc=false;
+	        self.msg.success("文件上传成功！");
+	      } else {
+	        self.msg.error("文件上传失败！");
+	      }
+	    };
+	    this.uploaderb.queue[0].upload();
+    }else{
+       this.uploaderh.queue[0].onSuccess = function (response, status, headers) {
       if (status == 200) {
-        // 上传文件后获取服务器返回的数据
         let tempRes = JSON.parse(response);
-        if(item == 'avatar'){
-        	self.avatarid=tempRes.data;
-        	self.avatarsc=false;
-        }else if(item == 'cardface'){
-        	self.cardfaceid=tempRes.data;
-        	self.cardfacesc=false;
-        }else if(item == 'cardback'){
-        	self.cardbackid=tempRes.data;
-        	self.cardbacksc=false;
-        }else{
-        	self.cardholdid=tempRes.data;
-        	self.cardholdsc=false;
-        }
+        self.cardholdid=tempRes.data;
+        self.cardholdsc=false; 
         self.msg.success("文件上传成功！");
       } else {
         self.msg.error("文件上传失败！");
-        // 上传文件后获取服务器返回的数据错误
       }
     };
-    this.uploader.queue[0].upload(); // 开始上传
+    this.uploaderh.queue[0].upload();
+    }
   }
   
     changeFile(item:string){
+
   	if(item == 'avatar'){
+    		  this.uploadera.queue=[];
         	this.avatar='';
         	this.avatarsc=false;
         }else if(item == 'cardface'){
+        	this.uploaderf.queue=[];
         	this.cardface='';
         	this.cardfacesc=false;
         }else if(item == 'cardback'){
+        	this.uploaderb.queue=[];
         	this.cardback='';
         	this.cardbacksc=false;
         }else{
+        	this.uploaderh.queue=[];
         	this.cardhold='';
         	this.cardholdsc=false;
         }
@@ -249,8 +301,13 @@ export class TechnicianDetailComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if (this.validateForm.invalid) return;
-     let d = new Date(this.birthday);  
+    if(this.birthday){
+    	let d = new Date(this.birthday);  
      this.birthday=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    }else{
+    	this.birthday="";
+    }
+     
     if(this.parmlen==2){
     /*编辑技师*/
 	  this.http.httpmenderput("shopmanagemnet/updateworkerinfo",{"workid": this.id,"name":this.name,"nickname":this.nickname,"avatar":this.avatarid,"phone":this.phone,"birthday":this.birthday,"sex":this.sex,"email":this.email,"password":this.password,"isboard":this.isboard,"cardid": this.cardid,"cardback": this.cardbackid,"cardface":this.cardfaceid,"cardhold":this.cardholdid,"authorid":this.authorid})

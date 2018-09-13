@@ -175,6 +175,7 @@ export class AddpartComponent implements OnInit {
   }
   
   changeFile(){
+  	this.uploader.queue=[];
   	this.picturesc=false;
   	this.img='';
   }

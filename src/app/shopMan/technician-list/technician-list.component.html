@@ -79,8 +79,12 @@
           <td>{{data.district}}</td>
           <td>{{data.status== '1'?'启用':'禁用'}}</td>
           <td class='operator'>
-          	<nz-popconfirm [nzTitle]="'确定改变状态吗?'" *ngIf="workerlist_enable" (nzOnConfirm)="changestatus(data.workid,data.status)">
-            	<a  nz-popconfirm>修改状态</a>
+          	
+          	<nz-popconfirm [nzTitle]="'确定启用技师  '+data.workname+' 吗?'" *ngIf="data.status=='2' && workerlist_enable" (nzOnConfirm)="changestatus(data.workid,data.status)">
+            	<a  nz-popconfirm>启用</a>
+            </nz-popconfirm>
+            <nz-popconfirm [nzTitle]="'确定禁用技师 '+data.workname+' 吗?'" *ngIf="data.status=='1' workerlist_disable" (nzOnConfirm)="changestatus(data.workid,data.status)">
+            	<a  nz-popconfirm>禁用</a>
             </nz-popconfirm>
             <a *ngIf="workerlist_detail" (click)="detail(data.workid)">详情 </a>
             <nz-popconfirm *ngIf='workerlist_delete' [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.workid)">

@@ -160,6 +160,7 @@ export class EditbrandComponent implements OnInit {
   }
   
   changeFile(){
+  	this.uploader.queue=[];
   	this.picturesc=false;
   	this.img='';
   }

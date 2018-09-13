@@ -194,6 +194,7 @@ export class BannerComponent implements OnInit {
   }
   
   changeFile(){
+  	this.uploader.queue=[];
   	this.picturesc=false;
   	this.picture='';
   }
