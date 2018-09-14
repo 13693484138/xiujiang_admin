@@ -47,6 +47,8 @@ export class TechnicianDetailComponent implements OnInit {
 	content:string;
 	radioValue:string='2';
 	examineName:string;
+	isEexamine:boolean;
+	reason:string;
   constructor(
   	private fb: FormBuilder,
   	public rou:ActivatedRoute,
@@ -79,11 +81,13 @@ export class TechnicianDetailComponent implements OnInit {
 		
 		/*验证审核表单*/
 		if(this.radioValue == '3'){
+			this.isEexamine = true;
 			this.validateExamine = this.fb.group({
 				content: [ this.content, [ Validators.required ] ],
 				radioValue:[ this.radioValue,[ Validators.required ] ]
 			});
 		}else{
+			this.isEexamine = false;
 			this.validateExamine = this.fb.group({
 				content: [this.content],
 				radioValue:[ this.radioValue,[ Validators.required ] ]
@@ -92,8 +96,45 @@ export class TechnicianDetailComponent implements OnInit {
 
   	if(this.parmlen==2){
   		this.pagename='技师详情';
-  		this.edit=true;
-  	  this.http.httpmenderget("shopmanagemnet/getworkerdetail/"+this.id)
+			this.edit=true;
+			this.isEexamine=true;
+			this.getEditList();   
+      
+    /*表单验证设置*/
+    this.validateForm = this.fb.group({
+			name: [ this.name, [ Validators.required ] ],
+      nickname:[this.nickname],
+      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)] ],
+      sex:[this.sex,[ Validators.required ]],
+      password:[this.password],
+      birthday:[this.birthday],
+      email: [ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)] ],
+      isboard: [ this.isboard],
+      cardid: [this.cardid,[ Validators.required ,Validators.pattern(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/)]]
+    });
+  	}else{
+  		this.pagename='新增技师';
+			this.add=true;
+			this.isEexamine=false;
+  		/*表单验证设置*/
+    this.validateForm = this.fb.group({
+			name: [ this.name, [ Validators.required ] ],
+      nickname:[this.nickname],
+      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)] ],
+      sex:[this.sex,[ Validators.required ]],
+      password:[this.password,[ Validators.required ]],
+      birthday:[this.birthday],
+      email: [ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)] ],
+      isboard: [ this.isboard],
+      cardid: [this.cardid,[ Validators.required , Validators.pattern(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/)]]
+    });
+  	}
+ 
+	}
+
+	/*详情列表*/
+	getEditList(){
+		this.http.httpmenderget("shopmanagemnet/getworkerdetail/"+this.id)
       .subscribe(data=>{
       	if(data.result == '0000'){ 
 					console.log(data.data);    		
@@ -111,6 +152,7 @@ export class TechnicianDetailComponent implements OnInit {
       		this.cardid=data.data.workerInfo.cardid;
 					this.cardhold=this.imgUrl+data.data.workerInfo.cardhold;
 					this.status=data.data.workerInfo.status;
+					this.reason=data.data.workerInfo.reason;
       		if(data.data.workerInfo.isboard){
       			this.isboard=data.data.workerInfo.isboard.toString();
       		}
@@ -120,38 +162,10 @@ export class TechnicianDetailComponent implements OnInit {
       	}else{
       		this.msg.error(data.msg);
       	}
-      });   
-      
-    /*表单验证设置*/
-    this.validateForm = this.fb.group({
-			name: [ this.name, [ Validators.required ] ],
-      nickname:[this.nickname],
-      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)] ],
-      sex:[this.sex,[ Validators.required ]],
-      password:[this.password],
-      birthday:[this.birthday],
-      email: [ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)] ],
-      isboard: [ this.isboard],
-      cardid: [this.cardid,[ Validators.required ,Validators.pattern(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/)]]
-    });
-  	}else{
-  		this.pagename='新增技师';
-  		this.add=true;
-  		/*表单验证设置*/
-    this.validateForm = this.fb.group({
-			name: [ this.name, [ Validators.required ] ],
-      nickname:[this.nickname],
-      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)] ],
-      sex:[this.sex,[ Validators.required ]],
-      password:[this.password,[ Validators.required ]],
-      birthday:[this.birthday],
-      email: [ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)] ],
-      isboard: [ this.isboard],
-      cardid: [this.cardid,[ Validators.required , Validators.pattern(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/)]]
-    });
-  	}
- 
-  }
+      }); 
+	}
+
+
   /*图片上传*/
   imgUrl:string=imgUrl;
   avatar:any;//图片
@@ -340,6 +354,7 @@ export class TechnicianDetailComponent implements OnInit {
 
   handleOk(): void {	
 		this.submitExamine();
+		this.getEditList();
   }
 
   handleCancel(): void {
@@ -347,11 +362,13 @@ export class TechnicianDetailComponent implements OnInit {
   }
   changeradio(){
     if(this.radioValue == '3'){
+			this.isEexamine = true;
 			this.validateExamine = this.fb.group({
 				content: [ this.content, [ Validators.required ] ],
 				radioValue:[ this.radioValue,[ Validators.required ] ]
 			});
 		}else{
+			this.isEexamine = false;
 			this.validateExamine = this.fb.group({
 				content: [this.content],
 				radioValue:[ this.radioValue,[ Validators.required ] ]
@@ -368,6 +385,8 @@ export class TechnicianDetailComponent implements OnInit {
 		.subscribe(data => {
 			if(data.result == "0000"){
 				this.msg.success("审核成功！");
+
+				this.getEditList();
 				this.isVisible = false;
 			}else{
 				this.msg.error(data.msg);
