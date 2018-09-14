@@ -165,8 +165,12 @@
         </nz-form-control>
    </nz-form-item>
    
-   <nz-form-item  *ngIf='parmlen==2 && reason'>              
-      <p class="reason">审核意见：{{reason}}</p>    
+   <nz-form-item  *ngIf='parmlen==2 && reason'>
+   	<nz-form-control [nzSpan]="3"> 
+   	</nz-form-control>
+   	<nz-form-control [nzSpan]="21"> 
+      <p class="reason">审核意见：{{reason}}</p> 
+    </nz-form-control>
     </nz-form-item>   
 
       <nz-form-item >

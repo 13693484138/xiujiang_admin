@@ -6,8 +6,8 @@ import { LocalStorageService} from 'angular-web-storage';
 
 @Injectable()
 export class HttpService {
-public url="http://192.168.1.250:8080/pc/";
-//public url="http://192.168.1.19:8080/pc/";
+//public url="http://192.168.1.250:8080/pc/";
+public url="http://192.168.1.19:8080/pc/";
   constructor(public http:Http,public local: LocalStorageService) {
   }
   //登录接口不传令牌post
