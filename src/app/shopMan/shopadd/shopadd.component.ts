@@ -36,11 +36,12 @@ export class ShopaddComponent implements OnInit {
   label:string;
   service:number=0;
   servicearr:any=[];
-  
   shoplist_edit:boolean;
   edit:boolean;
   add:boolean;
-  
+  addresspValue: string;   // 地址省份默认值
+  addresscValue: string;   // 地址城市默认值
+  addressrValue: string;   // 地址地区默认值
   provinceData:any;
   cityData:any;
   regionData:any;
@@ -223,6 +224,9 @@ export class ShopaddComponent implements OnInit {
           this.name=data.data.name;
           this.phone=data.data.phone;           
           this.addressp={'name':data.data.province,'id':data.data.provinceid};
+          this.addresspValue=data.data.provinceid;
+          this.addresscValue=data.data.cityid;
+          this.addressrValue=data.data.districtid;
           this.addressc={'name':data.data.city,'id':data.data.cityid};
           this.addressr={'name':data.data.district,'id':data.data.districtid};
           this.address=data.data.address;
@@ -257,7 +261,7 @@ export class ShopaddComponent implements OnInit {
     /*表单验证设置*/
     this.validateForm = this.fb.group({
       name: [ this.name, [ Validators.required ] ],
-      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$/)] ],
+      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       appid:[this.appid,[ Validators.required ]],
       address: [ this.address, [ Validators.required ] ],
       coordinate: [ null, [ Validators.required ] ],
@@ -268,9 +272,6 @@ export class ShopaddComponent implements OnInit {
       parts:[this.parts],
       state:[this.state]
     });
-    
-    
-
   }
 }
 

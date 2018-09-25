@@ -40,7 +40,7 @@
         <nz-form-control [nzSpan]="8">
          <div nz-row>
       		<div nz-col nzSpan="8">
-		      <nz-select  formControlName="address" [(ngModel)]="addressp" (ngModelChange)="provinceChangep($event,'province')" nzAllowClear nzPlaceHolder="省">
+		      <nz-select  formControlName="address" [(ngModel)]="addressp" (ngModelChange)="provinceChangep($event,'province')" nzAllowClear nzPlaceHolder="省">  
 		        <nz-option *ngFor="let p of provinceData" [nzValue]="p" [nzLabel]="p.name"></nz-option>
 		      </nz-select>
 			</div> 

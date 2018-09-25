@@ -81,7 +81,7 @@
           <td>{{data.type== 1? "手机" :data.type== 2? "平板" : "无人机"}}</td>
           <td>{{data.status == 1? "启用" : "禁用"}}</td>
           <td class='operator'>       
-            <a *ngIf='brand_detail' (click)="EditRow(data.id)">编辑</a>
+            <a *ngIf='brand_detail' (click)="EditRow(data.id)">详情</a>
             <nz-popconfirm *ngIf='brand_delete' [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">
               <a  nz-popconfirm>删除</a>
             </nz-popconfirm>

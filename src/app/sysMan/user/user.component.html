@@ -49,7 +49,9 @@
 </nz-popconfirm>
 
 -->
-<button nz-button (click)="freeze()" class="editable-add-btn btnadd" ><i class="anticon anticon-warning" style="display: inline-block;" *ngIf='pcUser_freeze'></i>冻结</button>
+<!-- <button nz-button   nzType="info" (click)="showConfirm()">Confirm</button> -->
+<!-- <button nz-button  (click)="showConfirm()">Confirm</button> -->
+<button nz-button nzType="info" (click)="freeze()" class="editable-add-btn btnadd" ><i class="anticon anticon-warning" style="display: inline-block;" *ngIf='pcUser_freeze'></i>冻结</button>
 <button nz-button (click)="unfreeze()" class="editable-add-btn btnadd"><i class="anticon anticon-check-circle-o" style="display: inline-block;" *ngIf='pcUser_unfreeze'></i>解除冻结</button>
 <button nz-button (click)="role()" class="editable-add-btn btnadd" ><i class="anticon anticon-user" style="display: inline-block;" *ngIf='to_assign_role'></i>角色分配</button>
 
@@ -103,6 +105,5 @@
         </tr>
       </tbody>
     </nz-table>
-    
     </div>
     </div>

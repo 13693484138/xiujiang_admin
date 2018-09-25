@@ -104,7 +104,7 @@ export class TechnicianDetailComponent implements OnInit {
     this.validateForm = this.fb.group({
 			name: [ this.name, [ Validators.required ] ],
       nickname:[this.nickname],
-      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)] ],
+			phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       sex:[this.sex,[ Validators.required ]],
       password:[this.password],
       birthday:[this.birthday],
@@ -120,7 +120,7 @@ export class TechnicianDetailComponent implements OnInit {
     this.validateForm = this.fb.group({
 			name: [ this.name, [ Validators.required ] ],
       nickname:[this.nickname],
-      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)] ],
+      phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       sex:[this.sex,[ Validators.required ]],
       password:[this.password,[ Validators.required ]],
       birthday:[this.birthday],
