@@ -44,13 +44,13 @@ export class ShopaddComponent implements OnInit {
   provinceData:any;
   cityData:any;
   regionData:any;
-  addressp:any;
-  addressc:any;
-  addressr:any;
+  addressp:string;
+  addressc:string;
+  addressr:string;
   /*门店地址级联选择*/
-  provinceChangep(value:any): void {
+  provinceChangep(value:string): void {
   if(value){
-	this.httpl.httpmenderget("shopmanagemnet/getshopdistrict/"+value.id)
+	this.httpl.httpmenderget("shopmanagemnet/getshopdistrict/"+value.split(' ')[0])
       .subscribe(data=>{
       	if(data.result == '0000'){      	
       		this.cityData=data.data;
@@ -60,9 +60,9 @@ export class ShopaddComponent implements OnInit {
       });
   	}
   }
-    provinceChangec(value:any): void {
+    provinceChangec(value:string): void {
 	  if(value){
-		this.httpl.httpmenderget("shopmanagemnet/getshopdistrict/"+value.id)
+		this.httpl.httpmenderget("shopmanagemnet/getshopdistrict/"+value.split(' ')[0])
 	      .subscribe(data=>{
 	      	if(data.result == '0000'){      		
 	      		this.regionData=data.data;
@@ -78,7 +78,7 @@ export class ShopaddComponent implements OnInit {
   	this.address='';
     for(let n=0;n<addarr.length;n++){
     	if(addarr[n]){
-    		this.address+=addarr[n].name;
+    		this.address+=addarr[n].split(' ')[1];
     	}
     }
   	if(!this.address){
@@ -158,7 +158,7 @@ export class ShopaddComponent implements OnInit {
       
     if(this.parmlen==1){
     /*编辑门店*/
-	  this.httpl.httpmenderput("shopmanagemnet/editshopinfo",{"address": this.address,"appid":this.appid,"provinceid":this.addressp.id,"cityid":this.addressc.id,"districtid":this.addressr.id,"id":this.shopid,"ispurchase":this.parts,"lat":this.coordinate.split(",")[1],"logo":this.mkey,"lon":this.coordinate.split(",")[0],"name": this.name,"phone": this.phone,"repair":this.maintain,"service":this.service,"status":this.state})
+	  this.httpl.httpmenderput("shopmanagemnet/editshopinfo",{"address": this.address,"appid":this.appid,"provinceid":this.addressp.split(' ')[0],"cityid":this.addressc.split(' ')[0],"districtid":this.addressr.split(' ')[0],"id":this.shopid,"ispurchase":this.parts,"lat":this.coordinate.split(",")[1],"logo":this.mkey,"lon":this.coordinate.split(",")[0],"name": this.name,"phone": this.phone,"repair":this.maintain,"service":this.service,"status":this.state})
       .subscribe(data=>{
       	if(data.result == "0000"){
 					this.msg.success('修改成功!');
@@ -169,7 +169,7 @@ export class ShopaddComponent implements OnInit {
       });
     }else{   	
     /*新增门店*/
-	  this.httpl.httpmender("shopmanagemnet/addshopinfo",{"address": this.address,"appid":this.appid,"provinceid":this.addressp.id,"cityid":this.addressc.id,"districtid":this.addressr.id,"ispurchase":this.parts,"lat":this.coordinate.split(",")[1],"logo":this.mkey,"lon":this.coordinate.split(",")[0],"name": this.name,"phone": this.phone,"repair":this.maintain,"service":this.service,"status":this.state})
+	  this.httpl.httpmender("shopmanagemnet/addshopinfo",{"address": this.address,"appid":this.appid,"provinceid":this.addressp.split(' ')[0],"cityid":this.addressc.split(' ')[0],"districtid":this.addressr.split(' ')[0],"ispurchase":this.parts,"lat":this.coordinate.split(",")[1],"logo":this.mkey,"lon":this.coordinate.split(",")[0],"name": this.name,"phone": this.phone,"repair":this.maintain,"service":this.service,"status":this.state})
       .subscribe(data=>{
       	if(data.result == "0000"){
 					this.msg.success('新增成功!');
@@ -222,9 +222,11 @@ export class ShopaddComponent implements OnInit {
       	if(data.result == '0000'){
           this.name=data.data.name;
           this.phone=data.data.phone;           
-          this.addressp={'name':data.data.province,'id':data.data.provinceid};
-          this.addressc={'name':data.data.city,'id':data.data.cityid};
-          this.addressr={'name':data.data.district,'id':data.data.districtid};
+          this.addressp=data.data.provinceid+" "+data.data.province;
+          this.provinceChangep(this.addressp);
+          this.addressc=data.data.cityid+" "+data.data.city;
+          this.provinceChangec(this.addressc);
+          this.addressr=data.data.districtid+" "+data.data.district;
           this.address=data.data.address;
           if(data.data.status){
           	this.state=data.data.status.toString();

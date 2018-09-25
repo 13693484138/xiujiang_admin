@@ -40,18 +40,21 @@
         <nz-form-control [nzSpan]="8">
          <div nz-row>
       		<div nz-col nzSpan="8">
-		      <nz-select  formControlName="address" [(ngModel)]="addressp" (ngModelChange)="provinceChangep($event,'province')" nzAllowClear nzPlaceHolder="省">
-		        <nz-option *ngFor="let p of provinceData" [nzValue]="p" [nzLabel]="p.name"></nz-option>
+      			 <!--[compareWith]="compareFn"--> 
+		      <nz-select formControlName="address" [(ngModel)]="addressp" (ngModelChange)="provinceChangep($event,'province')" nzAllowClear nzPlaceHolder="省">
+		        <nz-option *ngFor="let p of provinceData" nzValue="{{p.id}} {{p.name}}" [nzLabel]="p.name"></nz-option>
+		        <!--{{p.id}} {{p.name}}-->
 		      </nz-select>
 			</div> 
 			<div nz-col nzSpan="8">
-		      <nz-select  formControlName="address" [(ngModel)]="addressc"  (ngModelChange)="provinceChangec($event,'city')" nzAllowClear nzPlaceHolder="市">
-		        <nz-option *ngFor="let c of cityData" [nzValue]="c" [nzLabel]="c.name"></nz-option>
+		      <nz-select   formControlName="address" [(ngModel)]="addressc"  (ngModelChange)="provinceChangec($event,'city')" nzAllowClear nzPlaceHolder="市">
+		        <nz-option *ngFor="let c of cityData" nzValue="{{c.id}} {{c.name}}" [nzLabel]="c.name"></nz-option>
 		      </nz-select>
 		     </div>
+		     
 		      <div nz-col nzSpan="8">
 		      <nz-select  formControlName="address" [(ngModel)]="addressr" nzAllowClear nzPlaceHolder="区">
-		        <nz-option *ngFor="let r of regionData" [nzValue]="r" [nzLabel]="r.name"></nz-option>
+		        <nz-option *ngFor="let r of regionData" nzValue="{{r.id}} {{r.name}}" [nzLabel]="r.name"></nz-option>
 		      </nz-select>
 		       </div>
 		    </div>

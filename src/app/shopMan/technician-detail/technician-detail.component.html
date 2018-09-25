@@ -175,7 +175,7 @@
 
       <nz-form-item >
         <nz-form-control  [nzSpan]="8" [nzOffset]="3">
-          <div *ngIf="workerlist_audit && status != 2 && parmlen==2 && radioValue == 2" class='examine' nz-button [nzType]="'primary'" (click)="showModal()"><span>审核</span></div>
+          <div *ngIf="workerlist_audit && status != 2 && parmlen==2" class='examine' nz-button [nzType]="'primary'" (click)="showModal()"><span>审核</span></div>
           <nz-modal [(nzVisible)]="isVisible" nzTitle="审核" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
             <form nz-form [formGroup]="validateExamine" (ngSubmit)="submitExamine()">
               <nz-radio-group  [(ngModel)]="radioValue" (ngModelChange)="changeradio()" formControlName="radioValue">
