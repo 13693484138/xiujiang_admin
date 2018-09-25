@@ -3,6 +3,7 @@ import {HttpService,imgUrl} from "../../service/http/http.service";
 import {Router} from '@angular/router';
 import { NzMessageService} from 'ng-zorro-antd';
 import { LocalStorageService} from 'angular-web-storage';
+import { NzModalService } from 'ng-zorro-antd';
 import 'ztree';
 import 'jquery'
 declare var $: any;
@@ -35,7 +36,12 @@ pageIndex = 1;
 	to_assign_role:boolean;
 	pcUser_detail:boolean;
 	pcUser_add:boolean;
-  constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
+  constructor(
+		public http:HttpService,
+		public router:Router,
+		public message:NzMessageService,
+		public local: LocalStorageService,
+		public modal: NzModalService) { }
 
   searchData(): void {
     this.loading = true;
@@ -114,7 +120,11 @@ pageIndex = 1;
    	if(!this.sUser){
    		this.message.info('请选择一位用户!');
    	}else{
-   	  this.http.httpmenderput("usermanagemnet/unfreezeuser/"+this.sUser,{})
+			this.modal.confirm({
+				nzTitle  : '<i>提示信息</i>',
+				nzContent: '<b>您确定解除冻结该用户吗？</b>',
+				nzOnOk   : () => {
+					this.http.httpmenderput("usermanagemnet/unfreezeuser/"+this.sUser,{})
       .subscribe(data=>{
       	console.log(data);
       	if(data.result == "0000"){
@@ -124,15 +134,21 @@ pageIndex = 1;
       		this.message.error(data.msg);
       	}
       });
+				}
+			});
    	}
-
   }
-   
+	 
+	
    freeze():void{
    	if(!this.sUser){
-   		this.message.info('请选择一位用户!');
+			 this.message.info('请选择一位用户!');
    	}else{
-   	  this.http.httpmenderput("usermanagemnet/freezeuser/"+this.sUser,{})
+			this.modal.confirm({
+				nzTitle  : '<i>提示信息</i>',
+				nzContent: '<b>您确定冻结该用户吗？</b>',
+				nzOnOk   : () => {
+					this.http.httpmenderput("usermanagemnet/freezeuser/"+this.sUser,{})
       .subscribe(data=>{
       	console.log(data);
       	if(data.result == "0000"){
@@ -142,6 +158,8 @@ pageIndex = 1;
       		this.message.error(data.msg);
       	}
       });
+				}
+			});
    	}
   }
    

@@ -97,7 +97,7 @@ export class EdituserComponent implements OnInit {
       name:[ this.name,[ Validators.required]],
       sex:[this.sex,[ Validators.required]],
       email:[ this.email, [ Validators.required, Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/) ]],
-      phone:[this.phone,[ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)]],
+      phone:[this.phone,[ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       shopid:[ this.shopid,[ Validators.required]],
     });
   	}else{
@@ -110,7 +110,7 @@ export class EdituserComponent implements OnInit {
       name:[ this.name,[ Validators.required]],
       sex:[this.sex,[ Validators.required]],
       email:[ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)]],
-      phone:[this.phone,[ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^0\d{2,3}-?\d{7,8}$/)]],
+      phone:[this.phone,[ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       shopid:[ this.shopid,[ Validators.required]],
     });
   	}
@@ -199,6 +199,4 @@ export class EdituserComponent implements OnInit {
       });
     }
   }
-
-
 }
