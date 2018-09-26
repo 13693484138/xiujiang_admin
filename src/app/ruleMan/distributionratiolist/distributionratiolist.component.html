@@ -13,9 +13,9 @@
           </div>
         </div>
         <div nz-col class="gutter-row" nzSpan="12">
-          <div class="gutter-box">
+          <div class="gutter-box select_zq">
           	<nz-input-group nzAddOnBefore="等级" >
-			    <nz-select class='select_zq'  [(ngModel)]="level" nzAllowClear >
+			    <nz-select   [(ngModel)]="level" nzAllowClear >
 			        <nz-option nzValue="2" nzLabel="合作伙伴"></nz-option>
 			        <nz-option nzValue="7" nzLabel="高级合作伙伴"></nz-option>
 			    </nz-select>
@@ -61,19 +61,19 @@
 			<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isedit" nzTitle="编辑" (nzOnCancel)="hideedit()" (nzOnOk)="edit()">
 	        <nz-form-item [formGroup]="validateForm" (ngSubmit)="edit()">
 			    <nz-form-label nzRequired nzFor="leveladd">分销等级</nz-form-label>
-			    <nz-form-control>
-			      <nz-select class='select_zq' formControlName="leveladd" [(ngModel)]="leveladd">
+			    <nz-form-control class="select2_zq">
+			      <nz-select  formControlName="leveladd" [(ngModel)]="leveladd">
 			        <nz-option nzValue="2" nzLabel="合作伙伴" nzDisabled></nz-option>
 			        <nz-option nzValue="7" nzLabel="高级合作伙伴" nzDisabled></nz-option>
 			    </nz-select>
 			    </nz-form-control>
 			    <nz-form-label nzFor="ratio">利润比例</nz-form-label>
-			    <nz-form-control>
+			    <nz-form-control >
 			    	 <input nz-input [(ngModel)]="ratio" name="ratio" placeholder="请输入利润比例" id="ratio" [ngModelOptions]="{standalone: true}">
 			    </nz-form-control>
 			    <nz-form-label nzRequired  nzFor="status">状态</nz-form-label>
-			    <nz-form-control>
-			    	<nz-select class='select_zq' formControlName="status"  [(ngModel)]="status" nzAllowClear >
+			    <nz-form-control class="select2_zq">
+			    	<nz-select  formControlName="status"  [(ngModel)]="status" nzAllowClear >
 			        <nz-option nzValue="1" nzLabel="生效"></nz-option>
 			        <nz-option nzValue="2" nzLabel="不生效"></nz-option>
 			    </nz-select>

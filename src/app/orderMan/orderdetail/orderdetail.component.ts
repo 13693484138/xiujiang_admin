@@ -56,7 +56,7 @@ export class OrderdetailComponent implements OnInit {
           this.brand=data.data.orderDetail.brand;
           this.version=data.data.orderDetail.version;
           this.color=data.data.orderDetail.color;
-          this.img=this.imgUrl+data.data.orderDetail.img;
+          this.img=data.data.orderDetail.img;
           this.bookingtime=data.data.orderDetail.bookingtime;
           this.address=data.data.orderDetail.address;
           this.nickname=data.data.orderDetail.nickname;

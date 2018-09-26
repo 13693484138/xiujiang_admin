@@ -46,13 +46,13 @@ export class FaultlistComponent implements OnInit {
   	 this.pageIndex = 1;
   	 this.searchData();
   }
-  add(){//新增门店
+  add(){//新增
   	this.router.navigate(["home/editfault"],{queryParams:{'pid':this.pid}});
   }
-  EditRow(item:any,item2:any):void{//编辑门店
+  EditRow(item:any,item2:any):void{//编辑
 	  this.router.navigate(["home/editfault"],{queryParams:{'id':item,'pid':item2}});
   }
-  deleteRow(item:string):void{//删除门店
+  deleteRow(item:string):void{//删除
   	 this.http.httpmenderdel("repairmanagemnet/deletefault/"+item)
       .subscribe(data=>{
       	if(data.result == "0000"){

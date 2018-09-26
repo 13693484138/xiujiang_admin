@@ -4,16 +4,15 @@
         <nz-breadcrumb-item>订单详情</nz-breadcrumb-item>
 </nz-breadcrumb>
      <form nz-form >
-      <nz-form-item> 
+      <nz-form-item class='formitem_zq'> 
       	<nz-form-label [nzSpan]="3"  nzFor="img">图片</nz-form-label>
         <nz-form-control [nzSpan]="8">
           <img [src]="img" class='img_zq' alt="" />
         </nz-form-control>  
-        <nz-form-label [nzSpan]="4"  nzFor="brand">品牌</nz-form-label>
-        <nz-form-control [nzSpan]="8">
+        <nz-form-label class='label_zq' [nzSpan]="4"  nzFor="brand">品牌</nz-form-label>
+        <nz-form-control class='control_zq' [nzSpan]="8">
           <input type="text" nz-input  [(ngModel)]="brand" placeholder="品牌" [ngModelOptions]="{standalone: true}" disabled>
         </nz-form-control>        
-        
       </nz-form-item>
       <nz-form-item>
       	<nz-form-label [nzSpan]="3"  nzFor="version">型号</nz-form-label>

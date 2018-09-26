@@ -1,6 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import "theme.less";
 
+:host ::ng-deep .ztree {
+    width: 100%;
+    padding: 0px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+:host ::ng-deep .ztree ul li{
+    width:100%;
+}
+:host ::ng-deep .level2{
+    width:82%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .breadcrumbstyle{
     margin:16px 0;
     border-bottom:1px solid @primary-color;
