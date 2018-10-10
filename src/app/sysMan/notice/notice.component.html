@@ -31,6 +31,7 @@
       <th>内容</th>
       <th>类型</th>
       <th>创建时间</th>
+      <th>结束时间</th>
       <th>操作</th>
     </tr>
   </thead>
@@ -43,6 +44,7 @@
       <td>{{data.content}}</td>
       <td>{{data.type=='1'?'系统':data.type=='2'?'技师':'用户'}}</td>
       <td>{{data.createtime}}</td>
+      <td>{{data.endtime}}</td>
       <td class='operator'>
         <a (click)="EditRow(data.id)" *ngIf='notice_detail'>详情</a>
         <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">

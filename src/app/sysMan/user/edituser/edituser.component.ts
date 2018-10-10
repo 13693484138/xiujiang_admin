@@ -24,9 +24,9 @@ export class EdituserComponent implements OnInit {
   account:string;
   password:string;
   name:string;
-  birthday:string;
-  sex:string;
-  email:string;
+//birthday:string;
+//sex:string;
+//email:string;
   phone:string;
   deptid:string;
   shopid:string;
@@ -34,6 +34,9 @@ export class EdituserComponent implements OnInit {
   pcUser_edit:boolean;
   add:boolean;
   edit:boolean;
+  rolenodes:any=[];
+  role:any=[];
+
   constructor(
   	private fb: FormBuilder,
   	public router:ActivatedRoute,
@@ -48,13 +51,21 @@ export class EdituserComponent implements OnInit {
   	  	if(this.parmlen==2){
   	  		this.id=Params['id'];
   	  	}else{
-  	  		this.id=Params['id'];
+  	  		this.id='';
           this.deptid=Params['deptid'];
   	  	}
         
-        });
+      });
+        //获取角色列表
+       this.httpl.httpmenderget("rolemanagemnet/roletreelist")
+      .subscribe(data=>{
+      	if(data.result == "0000"){
+					this.rolenodes=data.data;
+      	}else{
+      		this.msg.error(data.msg);
+      	}
+      });
   }
-
   ngOnInit() {
     if(this.local.get('permission').indexOf('pcUser_edit')==-1){
       this.pcUser_edit=false;
@@ -63,7 +74,6 @@ export class EdituserComponent implements OnInit {
     };
   	this.httpl.httpmenderget("usermanagemnet/shoplistforsysuser")
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == '0000'){      	
 					this.shoplist=data.data;
       	}else{
@@ -75,17 +85,19 @@ export class EdituserComponent implements OnInit {
       this.edit = true;
   		this.httpl.httpmenderget("usermanagemnet/getuserinfodetail/"+this.id)
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == '0000'){
       		this.name=data.data.name;
       		this.account=data.data.account;
       		this.picture=this.imgUrl+data.data.avatar;
-      		this.birthday=data.data.birthday;
-      		this.email=data.data.email;
+//    		this.birthday=data.data.birthday;
+//    		this.email=data.data.email;
       		this.phone=data.data.phone;
-      		this.sex=data.data.sex.toString();
+//    		this.sex=data.data.sex.toString();
           this.shopid=data.data.shopid;
           this.deptid=data.data.deptid;
+          if(data.data.roleid){
+          	this.role=data.data.roleid.split(',');
+          }
       	}else{
       		this.msg.error(data.msg);
       	}
@@ -95,21 +107,24 @@ export class EdituserComponent implements OnInit {
       account:[ this.account, [ Validators.required ]],
       password:[this.password],
       name:[ this.name,[ Validators.required]],
-      sex:[this.sex,[ Validators.required]],
-      email:[ this.email, [ Validators.required, Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/) ]],
+      role:[this.role,[ Validators.required]],
+//    sex:[this.sex,[ Validators.required]],
+//    email:[ this.email, [ Validators.required, Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/) ]],
       phone:[this.phone,[ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       shopid:[ this.shopid,[ Validators.required]],
     });
   	}else{
       this.pagename='新增';
       this.add = true;
+      
   		  	/*表单验证设置test*/
     this.validateForm = this.fb.group({
       account:[ this.account, [ Validators.required ]],
       password:[this.password,[ Validators.required ]],
       name:[ this.name,[ Validators.required]],
-      sex:[this.sex,[ Validators.required]],
-      email:[ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)]],
+      role:[this.role,[ Validators.required]],
+//    sex:[this.sex,[ Validators.required]],
+//    email:[ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)]],
       phone:[this.phone,[ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       shopid:[ this.shopid,[ Validators.required]],
     });
@@ -152,9 +167,9 @@ export class EdituserComponent implements OnInit {
         // 上传文件后获取服务器返回的数据错误
       }
     };
-    this.uploader.queue[0].upload(); // 开始上传
+    this.uploader.queue[0].upload(); //开始上传
   }
-  
+ 
   changeFile(){
   	this.uploader.queue=[];
   	this.picturesc=false;
@@ -167,17 +182,16 @@ export class EdituserComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if (this.validateForm.invalid) return; 
-    if(this.birthday){
-    	let d = new Date(this.birthday);  
-      this.birthday=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-    }else{
-    	this.birthday='';
-    }
+//  if(this.birthday){
+//  	let d = new Date(this.birthday);  
+//    this.birthday=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+//  }else{
+//  	this.birthday='';
+//  }
     if(this.parmlen==2){
     /*编辑用户*/
-	  this.httpl.httpmenderput("usermanagemnet/updateuser",{"id":this.id,"avatar": this.mkey,"account":this.account,"password":this.password,"name":this.name,"birthday":this.birthday,"sex":this.sex,"email":this.email,"phone":this.phone,"deptid":this.deptid,"shopid":this.shopid})
+	  this.httpl.httpmenderput("usermanagemnet/updateuser",{"id":this.id,"avatar": this.mkey,"account":this.account,"password":this.password,"name":this.name,"phone":this.phone,"deptid":this.deptid,"shopid":this.shopid,"roleid":this.role.join(',')})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
 					this.msg.success('修改成功!');
 					this.rou.navigateByUrl("home/user");
@@ -187,9 +201,8 @@ export class EdituserComponent implements OnInit {
       });
     }else{   	
     /*新增用户*/
-	  this.httpl.httpmender("usermanagemnet/adduser",{"avatar": this.mkey,"account":this.account,"password":this.password,"name":this.name,"birthday":this.birthday,"sex":this.sex,"email":this.email,"phone":this.phone,"deptid":this.deptid,"shopid":this.shopid})
+	  this.httpl.httpmender("usermanagemnet/adduser",{"avatar": this.mkey,"account":this.account,"password":this.password,"name":this.name,"phone":this.phone,"deptid":this.deptid,"shopid":this.shopid,"roleid":this.role.join(',')})
       .subscribe(data=>{
-      	console.log(data);
       	if(data.result == "0000"){
 					this.msg.success('新增成功!');
 					this.rou.navigateByUrl("home/user");

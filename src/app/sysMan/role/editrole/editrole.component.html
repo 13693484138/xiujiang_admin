@@ -14,13 +14,13 @@
 			<input type="text" nz-input formControlName="name" [(ngModel)]="name" placeholder="请输入角色名称">
 			<nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">角色名称不能为空！</nz-form-explain>
 		</nz-form-control>
-		<nz-form-label [nzSpan]="4" nzRequired nzFor="tips">别名</nz-form-label>
+		<nz-form-label [nzSpan]="4"  nzFor="tips">备注</nz-form-label>
 		<nz-form-control [nzSpan]="8">
-			<input type="text" nz-input formControlName="tips" [(ngModel)]="tips" placeholder="请输入别名">
-			<nz-form-explain *ngIf="validateForm.get('tips').dirty && validateForm.get('tips').errors">别名不能为空！</nz-form-explain>
+			<input type="text" nz-input formControlName="tips" [(ngModel)]="tips" placeholder="请输入备注">
+			<!--<nz-form-explain *ngIf="validateForm.get('tips').dirty && validateForm.get('tips').errors">别名不能为空！</nz-form-explain>-->
 		</nz-form-control>
 	</nz-form-item>
-	<nz-form-item>
+	<!--<nz-form-item>
 		<nz-form-label [nzSpan]="3" nzRequired nzFor="num">上级角色</nz-form-label>
 		<nz-form-control [nzSpan]="8">
 			<nz-select formControlName="pid" [(ngModel)]="pid"  nzPlaceHolder="请选择上级角色">
@@ -39,19 +39,26 @@
 			</nz-select>
 
 		</nz-form-control>
-	</nz-form-item>
-	<nz-form-item>
+	</nz-form-item>-->
+	<!--<nz-form-item>
 		<nz-form-label [nzSpan]="3" nzRequired nzFor="num">排序</nz-form-label>
 		<nz-form-control [nzSpan]="8">
 			<input type="text" nz-input formControlName="num" [(ngModel)]="num" placeholder="请输入排序">
 			<nz-form-explain *ngIf="validateForm.get('num').dirty && validateForm.get('num').errors">排序为数字且不能为空！</nz-form-explain>
 		</nz-form-control>
 
-	</nz-form-item>
+	</nz-form-item>-->
+	
 	<nz-form-item>
 		<nz-form-control [nzSpan]="8" [nzOffset]="3">
+			<div (click)="role()" class="examine" [ngClass]='{"examine":true,"borderred":borderred}'><i class="anticon anticon-user" style="display: inline-block;" *ngIf='to_authority_role'></i>选择权限</div>
 			<button *ngIf='edit && role_edit' nz-button nzType="primary">确认</button>     
           	<button *ngIf='add' nz-button nzType="primary">确认</button>
 		</nz-form-control>
 	</nz-form-item>
 </form> 
+
+<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="权限设置" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+	  <ul id="ztreerole" class="ztree"></ul>
+</nz-modal>
+		

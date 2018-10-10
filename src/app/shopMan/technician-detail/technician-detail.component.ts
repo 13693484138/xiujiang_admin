@@ -33,7 +33,7 @@ export class TechnicianDetailComponent implements OnInit {
   nickname:string='';
   phone:string='';
 	birthday:string;
-	password:string='';
+//	password:string='';
 	isboard:string='1';
 	cardid:string='';
 	authorid:string;
@@ -49,6 +49,7 @@ export class TechnicianDetailComponent implements OnInit {
 	examineName:string;
 	isEexamine:boolean;
 	reason:string;
+	addtime:string;
   constructor(
   	private fb: FormBuilder,
   	public rou:ActivatedRoute,
@@ -106,9 +107,10 @@ export class TechnicianDetailComponent implements OnInit {
       nickname:[this.nickname],
 			phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       sex:[this.sex,[ Validators.required ]],
-      password:[this.password],
+//    password:[this.password],
       birthday:[this.birthday],
-      email: [ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)] ],
+      email: [ this.email, [ Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)] ],
+      addtime:[this.addtime],
       isboard: [ this.isboard],
       cardid: [this.cardid,[ Validators.required ,Validators.pattern(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/)]]
     });
@@ -122,9 +124,10 @@ export class TechnicianDetailComponent implements OnInit {
       nickname:[this.nickname],
       phone: [ this.phone, [ Validators.required ,Validators.pattern(/^1[3|4|5|7|8][0-9]\d{8}$|^(0\d{2})-(\d{8})$|^(0\d{3})-(\d{7})$|^(0\d{2})-(\d{8})-(\d+)$|^(0\d{3})-(\d{7})-(\d+)$/)]],
       sex:[this.sex,[ Validators.required ]],
-      password:[this.password,[ Validators.required ]],
+//    password:[this.password,[ Validators.required ]],
       birthday:[this.birthday],
-      email: [ this.email, [ Validators.required , Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)] ],
+      email: [ this.email, [ Validators.pattern(/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/)] ],
+      addtime:[this.addtime],
       isboard: [ this.isboard],
       cardid: [this.cardid,[ Validators.required , Validators.pattern(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/)]]
     });
@@ -141,6 +144,7 @@ export class TechnicianDetailComponent implements OnInit {
       		this.name=data.data.workerInfo.name;
       		this.nickname=data.data.workerInfo.nickname;
       		this.email=data.data.workerInfo.email;
+      		this.addtime=data.data.workerInfo.addtime;
       		this.phone=data.data.workerInfo.phone;
       		this.dataSet=data.data.memberComplaint;
       		this.avatar=this.imgUrl+data.data.workerInfo.avatar;
@@ -324,7 +328,7 @@ export class TechnicianDetailComponent implements OnInit {
      
     if(this.parmlen==2){
     /*编辑技师*/
-	  this.http.httpmenderput("shopmanagemnet/updateworkerinfo",{"workid": this.id,"name":this.name,"nickname":this.nickname,"avatar":this.avatarid,"phone":this.phone,"birthday":this.birthday,"sex":this.sex,"email":this.email,"password":this.password,"isboard":this.isboard,"cardid": this.cardid,"cardback": this.cardbackid,"cardface":this.cardfaceid,"cardhold":this.cardholdid,"authorid":this.authorid})
+	  this.http.httpmenderput("shopmanagemnet/updateworkerinfo",{"workid": this.id,"name":this.name,"nickname":this.nickname,"avatar":this.avatarid,"phone":this.phone,"birthday":this.birthday,"sex":this.sex,"email":this.email,"isboard":this.isboard,"cardid": this.cardid,"cardback": this.cardbackid,"cardface":this.cardfaceid,"cardhold":this.cardholdid,"authorid":this.authorid})
       .subscribe(data=>{
       	if(data.result == "0000"){
 					this.msg.success('修改成功!');
@@ -335,7 +339,7 @@ export class TechnicianDetailComponent implements OnInit {
       });
     }else{   	
     /*新增技师*/
-	  this.http.httpmender("shopmanagemnet/addworker",{workerInfo:{name:this.name,nickname:this.nickname,avatar:this.avatarid,phone:this.phone,birthday:this.birthday,sex:this.sex,email:this.email,"password":this.password,"isboard":this.isboard},"workerAuthor":{"cardid":this.cardid,"cardback":this.cardbackid,"cardface":this.cardfaceid,"cardhold":this.cardholdid}})
+	  this.http.httpmender("shopmanagemnet/addworker",{workerInfo:{name:this.name,nickname:this.nickname,avatar:this.avatarid,phone:this.phone,birthday:this.birthday,sex:this.sex,email:this.email,"isboard":this.isboard},"workerAuthor":{"cardid":this.cardid,"cardback":this.cardbackid,"cardface":this.cardfaceid,"cardhold":this.cardholdid}})
       .subscribe(data=>{
       	if(data.result == "0000"){
 					this.msg.success('新增成功!');

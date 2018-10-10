@@ -22,7 +22,7 @@ pageIndex = 1;
   imgUrl:string=imgUrl;
   nodes:any;
   rolenodes:any;
-  account:string;
+//account:string;
   name:string;
   phone:string;
   sUser:string;
@@ -45,7 +45,7 @@ pageIndex = 1;
 
   searchData(): void {
     this.loading = true;
-     this.http.httpmender("usermanagemnet/userlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"deptid":this.pid,"account":this.account,"name":this.name,"phone":this.phone})
+     this.http.httpmender("usermanagemnet/userlist",{"currentPage":this.pageIndex,"pageSize":this.pageSize,"deptid":this.pid,"name":this.name,"phone":this.phone})
       .subscribe(data=>{
       	console.log(data);
       	if(data.result == "0000"){
@@ -163,33 +163,33 @@ pageIndex = 1;
    	}
   }
    
-   role():void{
-   	if(!this.sUser){
-   		this.message.info('请选择一位用户!');
-   	}else{
-   		 this.isVisibleMiddle = true;
-   		this.http.httpmenderget("usermanagemnet/roleassign/"+this.sUser)
-      .subscribe(data=>{
-      	console.log(data);
-      	if(data.result == "0000"){
-					this.sUsername=data.data.username;
-      	}else{
-      		this.message.error(data.msg);
-      	}
-      });
-   		 this.http.httpmenderget("rolemanagemnet/rolelistbyuserid/"+this.sUser)
-      .subscribe(data=>{
-      	console.log(data);
-      	if(data.result == "0000"){
-					this.rolenodes=data.data;
-					$.fn.zTree.init($("#ztreerole"), this.settingrole, this.rolenodes);
-      	}else{
-      		this.message.error(data.msg);
-      	}
-      });
-   	}
-   }
-   
+// role():void{
+// 	if(!this.sUser){
+// 		this.message.info('请选择一位用户!');
+// 	}else{
+// 		 this.isVisibleMiddle = true;
+// 		this.http.httpmenderget("usermanagemnet/roleassign/"+this.sUser)
+//    .subscribe(data=>{
+//    	console.log(data);
+//    	if(data.result == "0000"){
+//					this.sUsername=data.data.username;
+//    	}else{
+//    		this.message.error(data.msg);
+//    	}
+//    });
+// 		 this.http.httpmenderget("rolemanagemnet/rolelistbyuserid/"+this.sUser)
+//    .subscribe(data=>{
+//    	console.log(data);
+//    	if(data.result == "0000"){
+//					this.rolenodes=data.data;
+//					$.fn.zTree.init($("#ztreerole"), this.settingrole, this.rolenodes);
+//    	}else{
+//    		this.message.error(data.msg);
+//    	}
+//    });
+// 	}
+// }
+// 
    
    
   EditRow(item:any):void{//用户详情
@@ -209,29 +209,29 @@ pageIndex = 1;
       });
   }
 
-  handleOkMiddle(): void {
-  	var treeObj = $.fn.zTree.getZTreeObj("ztreerole");
-	  var nodes = treeObj.getCheckedNodes(true);
-	  var ids='';
-	  for(let i=0;i<nodes.length;i++){
-	  		ids+=nodes[i].id+',';
-	  }
-    this.http.httpmenderput("usermanagemnet/setRole",{"userid":this.sUser,"roleids":ids})
-      .subscribe(data=>{
-      	console.log(data);
-      	if(data.result == "0000"){
-      		this.message.success('角色分配成功!');
-  				this.isVisibleMiddle = false;
-  				this.searchData();
-      	}else{
-      	  this.message.error(data.msg);
-      	}
-      });
-  }
-
-  handleCancelMiddle(): void {
-    this.isVisibleMiddle = false;
-  }
+//handleOkMiddle(): void {
+//	var treeObj = $.fn.zTree.getZTreeObj("ztreerole");
+//	  var nodes = treeObj.getCheckedNodes(true);
+//	  var ids='';
+//	  for(let i=0;i<nodes.length;i++){
+//	  		ids+=nodes[i].id+',';
+//	  }
+//  this.http.httpmenderput("usermanagemnet/setRole",{"userid":this.sUser,"roleids":ids})
+//    .subscribe(data=>{
+//    	console.log(data);
+//    	if(data.result == "0000"){
+//    		this.message.success('角色分配成功!');
+//				this.isVisibleMiddle = false;
+//				this.searchData();
+//    	}else{
+//    	  this.message.error(data.msg);
+//    	}
+//    });
+//}
+//
+//handleCancelMiddle(): void {
+//  this.isVisibleMiddle = false;
+//}
 
   search(){
   	 this.pageIndex = 1;

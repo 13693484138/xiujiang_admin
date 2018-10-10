@@ -48,7 +48,10 @@
 		      <nz-option nzCustomContent nzLabel="灰色" nzValue="灰色"><div class='color gray'></div>灰色</nz-option>
 		      <nz-option nzCustomContent nzLabel="银色" nzValue="银色"><div class='color silver'></div>银色</nz-option>
 		      <nz-option  nzCustomContent nzLabel="玫瑰金" nzValue="玫瑰金"><div class='color rose'></div>玫瑰金</nz-option>
-		    </nz-select>
+		    <nz-option  nzCustomContent nzLabel="中国红" nzValue="中国红"><div class='color redc'></div>中国红</nz-option>
+		    
+			
+			</nz-select>
 			<nz-form-explain *ngIf="validateForm.get('colors').dirty && validateForm.get('colors').errors">颜色不能为空！</nz-form-explain>
 		</nz-form-control>
 		<nz-form-label [nzSpan]="4" nzRequired nzFor="num">排序</nz-form-label>

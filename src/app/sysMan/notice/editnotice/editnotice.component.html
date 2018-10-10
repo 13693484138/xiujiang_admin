@@ -29,6 +29,24 @@
       <nz-form-explain *ngIf="validateForm.get('type').dirty && validateForm.get('type').errors">类型不能为空！</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
+  
+  <nz-form-item>
+  <nz-form-label [nzSpan]="3" nzRequired nzFor="endtime">结束时间</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <!--<input type="text" nz-input [(ngModel)]="endtime" placeholder="请输入结束时间" [ngModelOptions]="{standalone: true}">-->
+        <nz-date-picker 
+        	nzShowTime 
+        	nzFormat="yyyy-MM-dd HH:mm:ss"  
+        	formControlName="endtime"  
+        	[nzDisabledDate]="disabledDate"
+      		[nzDisabledTime]="disabledDateTime" 
+      		[(ngModel)]="endtime"
+      		[nzShowTime]="{ nzDefaultOpenValue: timeDefaultValue }"
+      		style='width:100%' 
+      		nzAllowClear></nz-date-picker>
+        	<nz-form-explain *ngIf="validateForm.get('endtime').dirty && validateForm.get('endtime').errors">结束时间不能为空！</nz-form-explain>
+        </nz-form-control>
+         </nz-form-item>
   <nz-form-item>
     <nz-form-label [nzSpan]="3" nzRequired nzFor="">发布内容</nz-form-label>
     <nz-form-control [nzSpan]="20">

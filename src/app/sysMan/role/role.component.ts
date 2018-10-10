@@ -23,15 +23,13 @@ export class RoleComponent implements OnInit {
   nodes:any;
   rolenodes:any;
   name:string;
-  sUser:string;
-  sUsername:string;
+ 
   roleids:string;
-	isVisibleMiddle=false;
 	role_add:boolean;
 	role_delete:boolean;
 	role_list:boolean;
 	role_detail:boolean;
-	to_authority_role:boolean;
+	
   constructor(public http:HttpService,public router:Router,public message:NzMessageService,public local: LocalStorageService) { }
 
   searchData(): void {
@@ -48,55 +46,11 @@ export class RoleComponent implements OnInit {
       });
   }
 
-settingrole = {
-	  check: {
-				enable: true,
-				chkStyle: "checkbox",
-				chkboxType: { "Y": "p", "N": "s" }
-			},
-    data: {
-    	key: {
-			checked: "checked"
-		  },
-      simpleData: {
-        enable: true,
-				idKey: "id",
-				pIdKey: "pid",
-				rootPId: 0
-      }
-    }
-};
+
  add(){//新增用户
   	this.router.navigateByUrl("home/editrole");
  } 
-  role():void{
-   	if(!this.sUser){
-   		this.message.info('请选择一位用户!');
-   	}else{
-   		this.isVisibleMiddle = true;
-   		this.http.httpmenderget("rolemanagemnet/rightsprofile/"+this.sUser)
-      .subscribe(data=>{
-      	if(data.result == "0000"){
-					this.sUsername=data.data.rolename;
-      	}else{
-      		this.message.error(data.msg);
-      	}
-      });
-   		
-   		this.http.httpmenderget("menumanagemnet/menuTreeListByRoleId/"+this.sUser)
-      .subscribe(data=>{
-      	if(data.result == "0000"){
-					this.rolenodes=data.data;
-					$.fn.zTree.init($("#ztreerole"), this.settingrole, this.rolenodes);
-      	}else{
-      		this.message.error(data.msg);
-      	}
-      });
-   	}
-   }
-   
-   
-   
+
   EditRow(item:any):void{//角色详情
 	  this.router.navigate(["home/editrole"],{queryParams:{'id':item}});
   }
@@ -112,34 +66,6 @@ settingrole = {
       });
   }
 
-  handleOkMiddle(): void {
-  	var treeObj = $.fn.zTree.getZTreeObj("ztreerole");
-	  var nodes = treeObj.getCheckedNodes(true);
-	  var ids='';
-	  for(let i=0;i<nodes.length;i++){
-	  		ids+=nodes[i].id+',';
-	  }
-    this.http.httpmenderput("rolemanagemnet/setauthority",{'roleid':this.sUser,"ids":ids.substring(0,ids.length-1)})
-      .subscribe(data=>{
-      	if(data.result == "0000"){
-      		if(this.local.get('sysUser').roleid.split(',').indexOf(this.sUser.toString())==-1){
-      			this.message.success('权限设置成功!');
-      			this.isVisibleMiddle = false;
-      		}else{
-	        	this.message.success('权限设置成功,请重新登录!');
-	        	this.isVisibleMiddle = false;
-	      		this.local.clear();
-	          this.router.navigateByUrl("login");
-      		}
-      	}else{
-      	  this.message.error(data.msg);
-      	}
-      });
-  }
-
-  handleCancelMiddle(): void {
-    this.isVisibleMiddle = false;
-  }
 
   search(){
   	 this.pageIndex = 1;
@@ -161,11 +87,7 @@ settingrole = {
     }else{
 			this.role_delete=true;
 		};
-		if(this.local.get('permission').indexOf('to_authority_role')==-1){
-			this.to_authority_role=false;
-    }else{
-			this.to_authority_role=true;
-		};
+		
     this.searchData();
   }
 

@@ -36,10 +36,10 @@
       </nz-form-item>
       
       <nz-form-item>              
-      <nz-form-label [nzSpan]="3" nzFor="email" nzRequired>Email</nz-form-label>
+      <nz-form-label [nzSpan]="3" nzFor="email" >电子邮箱</nz-form-label>
         <nz-form-control [nzSpan]="8">
-          <input type="text" nz-input formControlName="email"  [(ngModel)]="email" placeholder="请输入email">
-          <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入有效的Email地址！</nz-form-explain>
+          <input type="text" nz-input formControlName="email"  [(ngModel)]="email" placeholder="请输入电子邮箱">
+          <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入有效的电子邮箱！</nz-form-explain>
         </nz-form-control> 
         <nz-form-label [nzSpan]="4" nzFor="birthday">出生日期</nz-form-label>
         <nz-form-control [nzSpan]="8">
@@ -63,11 +63,23 @@
       </nz-form-item>
       
       <nz-form-item>
-      	 <nz-form-label [nzSpan]="3"  nzFor="password" [nzRequired]='parmlen!=2'>APP登录密码</nz-form-label>
+      	<!--<nz-form-label [nzSpan]="3"  nzFor="password" [nzRequired]='parmlen!=2'>APP登录密码</nz-form-label>
         <nz-form-control [nzSpan]="8">
         <input type="text" nz-input  [(ngModel)]="password" formControlName="password" placeholder="请输入APP登录密码">
         <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">APP登录密码不能为空！</nz-form-explain>
+        </nz-form-control>-->
+        <!--<nz-form-label [nzSpan]="3"  nzFor="email">电子邮箱</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="email" [(ngModel)]="email" placeholder="请输入姓名">
+          <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">姓名不能为空！</nz-form-explain>
+        </nz-form-control>        -->
+        <nz-form-label [nzSpan]="3"  nzFor="addtime">注册时间</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <input type="text" nz-input formControlName="addtime"  [(ngModel)]="addtime"  readonly="readonly">
         </nz-form-control>
+        
+        
+        
       </nz-form-item>
       <nz-form-item *ngIf='parmlen==2'>
 	 	<nz-form-label [nzSpan]="3">投诉记录</nz-form-label>
@@ -183,9 +195,9 @@
                 <label nz-radio nzValue="3">审核未通过</label>
               </nz-radio-group>
               <nz-form-item>
-                <nz-form-label nzFor="content" [nzRequired]='radioValue=="3"'>理由</nz-form-label>
+                <nz-form-label nzFor="content" [nzRequired]='radioValue=="3"'>意见</nz-form-label>
                 <nz-form-control>
-                  <textarea nz-input [(ngModel)]="content" formControlName="content" placeholder="请输入你的理由..." [nzAutosize]="{ minRows: 3, maxRows: 6 }"></textarea>
+                  <textarea nz-input [(ngModel)]="content" formControlName="content" placeholder="请输入你的审核意见..." [nzAutosize]="{ minRows: 3, maxRows: 6 }"></textarea>
                   <nz-form-explain *ngIf="validateExamine.get('content').dirty && validateExamine.get('content').errors">理由不能为空！</nz-form-explain>
                 </nz-form-control> 
               </nz-form-item> 

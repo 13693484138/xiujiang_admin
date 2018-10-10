@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NzMessageService } from 'ng-zorro-antd';
 import { HttpService } from "../../../service/http/http.service";
 import { LocalStorageService} from 'angular-web-storage';
+import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import setHours from 'date-fns/set_hours';
 import {
   FormBuilder,
   FormGroup,
@@ -14,7 +16,6 @@ import {
   styleUrls: ['./editnotice.component.less']
 })
 export class EditnoticeComponent implements OnInit {
-
   validateForm: FormGroup;
   dateFormat = 'yyyy-MM-dd';
   id: string;
@@ -28,6 +29,7 @@ export class EditnoticeComponent implements OnInit {
   notice_edit:boolean;
   edit:boolean;
   add:boolean;
+  endtime:string;
   constructor(
     private fb: FormBuilder,
     public router: ActivatedRoute,
@@ -54,7 +56,7 @@ export class EditnoticeComponent implements OnInit {
       title: [this.title, [Validators.required]],
       type: [this.type, [Validators.required]],
       content: [this.content, [Validators.required]],
-      // creater: [this.creater, [Validators.required]],
+      endtime: [this.endtime, [Validators.required]],
     });
     if (this.parmlen == 1) {
       this.pagename = '详情';
@@ -67,6 +69,7 @@ export class EditnoticeComponent implements OnInit {
             this.type = data.data.type.toString();
             this.content = data.data.content;
             this.creater = data.data.creater;
+            this.endtime=data.data.endtime;
           } else {
             this.msg.error(data.msg);
           }
@@ -76,6 +79,33 @@ export class EditnoticeComponent implements OnInit {
       this.add = true;
     }
   }
+  //设置可选时间范围
+  today = new Date();
+  timeDefaultValue = setHours(new Date(), 0);
+  
+   range(start: number, end: number): number[] {
+    const result = [];
+    for (let i = start; i < end; i++) {
+      result.push(i);
+    }
+    return result;
+  }
+   
+	disabledDate = (current: Date): boolean => {
+    // Can not select days before today and today
+    return differenceInCalendarDays(current, this.today) < 0;
+  };
+  
+  
+   
+  disabledDateTime = (): object => {
+  	let d = new Date();
+    return {
+      nzDisabledHours  : () => this.range(0,d.getHours()),
+      nzDisabledMinutes: () => this.range(0,d.getMinutes()),
+      nzDisabledSeconds: () => [0,d.getSeconds()]
+    };
+  };
 
 
   /*提交表单*/
@@ -85,9 +115,13 @@ export class EditnoticeComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if (this.validateForm.invalid) return;
+//  console.log(this.endtime);
+//  let d = new Date(this.endtime);  
+//  this.endtime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()+' '+ d.getHours()+':'+d.getMinutes()+':'+d.getSeconds(); 
+//  console.log(this.endtime);
     if (this.parmlen == 1) {
       /*编辑用户*/
-      this.httpl.httpmenderput("noticemanagement/updatenotice", { "id": this.id, "title": this.title, "content": this.content, "type": this.type})
+      this.httpl.httpmenderput("noticemanagement/updatenotice", { "id": this.id, "title": this.title, "content": this.content, "type": this.type,"endtime":this.endtime})
         .subscribe(data => {
           // console.log(data);
           if (data.result == "0000") {
@@ -99,7 +133,7 @@ export class EditnoticeComponent implements OnInit {
         });
     } else {
       /*新增用户*/
-      this.httpl.httpmender("noticemanagement/addnotice", { "title": this.title, "content": this.content, "type": this.type })
+      this.httpl.httpmender("noticemanagement/addnotice", { "title": this.title, "content": this.content, "type": this.type,"endtime":this.endtime })
         .subscribe(data => {
           // console.log(data);
           if (data.result == "0000") {

@@ -14,24 +14,20 @@
       <div nz-col nzSpan="19">
  <div class="gutter-example">
       <div nz-row nzGutter="16">
-        <div nz-col class="gutter-row" nzSpan="12">
+        <!--<div nz-col class="gutter-row" nzSpan="12">
           <div class="gutter-box">
           	<nz-input-group nzAddOnBefore="账号" >
 			    <input type="text" nz-input [(ngModel)]="account">
 			</nz-input-group>
           </div>
-        </div>
+        </div>-->
         <div nz-col class="gutter-row" nzSpan="12">
           <div class="gutter-box">
           	<nz-input-group nzAddOnBefore="名称" >
 			    <input type="text" nz-input [(ngModel)]="name">
 			</nz-input-group>
           </div>
-        </div>
-      </div>
-      </div>
-      <div class="gutter-example">
-      <div nz-row nzGutter="16">
+        </div> 
         <div nz-col class="gutter-row" nzSpan="12">
           <div class="gutter-box">
           	<nz-input-group nzAddOnBefore="电话" >
@@ -40,7 +36,12 @@
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      <!--<div class="gutter-example">
+      <div nz-row nzGutter="16">
+       
+      </div>
+    </div>-->
 <button nz-button *ngIf='pcUser_add' (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
 <button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
 <!--<button nz-button (click)="EditRow()" class="editable-add-btn btnadd" ><i class="anticon anticon-edit" style="display: inline-block;"></i>编辑</button>
@@ -53,11 +54,11 @@
 <!-- <button nz-button  (click)="showConfirm()">Confirm</button> -->
 <button nz-button nzType="info" (click)="freeze()" class="editable-add-btn btnadd" ><i class="anticon anticon-warning" style="display: inline-block;" *ngIf='pcUser_freeze'></i>冻结</button>
 <button nz-button (click)="unfreeze()" class="editable-add-btn btnadd"><i class="anticon anticon-check-circle-o" style="display: inline-block;" *ngIf='pcUser_unfreeze'></i>解除冻结</button>
-<button nz-button (click)="role()" class="editable-add-btn btnadd" ><i class="anticon anticon-user" style="display: inline-block;" *ngIf='to_assign_role'></i>角色分配</button>
+<!--<button nz-button (click)="role()" class="editable-add-btn btnadd" ><i class="anticon anticon-user" style="display: inline-block;" *ngIf='to_assign_role'></i>角色分配</button>
 
 <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="角色分配 -- {{sUsername}}" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
 	  <ul id="ztreerole" class="ztree"></ul>
-</nz-modal>
+</nz-modal>-->
 
 <nz-table
       #ajaxTable

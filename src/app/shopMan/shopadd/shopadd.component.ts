@@ -38,16 +38,13 @@ export class ShopaddComponent implements OnInit {
   servicearr:any=[];
   shoplist_edit:boolean;
   edit:boolean;
-  add:boolean;
-  addresspValue: string;   // 地址省份默认值
-  addresscValue: string;   // 地址城市默认值
-  addressrValue: string;   // 地址地区默认值
+  add:boolean;  
   provinceData:any;
   cityData:any;
   regionData:any;
-  addressp:string;
-  addressc:string;
-  addressr:string;
+  addressp:string="";// 地址省份默认值
+  addressc:string="";// 地址城市默认值
+  addressr:string="";// 地址地区默认值
   /*门店地址级联选择*/
   provinceChangep(value:string): void {
   if(value){
@@ -143,11 +140,21 @@ export class ShopaddComponent implements OnInit {
   }
   /*提交表单*/
   submitForm(): void {
+  	if(this.addressp && this.addressc && this.addressr){
+  		this.address=this.addressp.split(' ')[1]+this.addressc.split(' ')[1]+this.addressr.split(' ')[1];
+  	}else{
+  		this.address='';
+  	}
+	
+    console.log(this.address);
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if (this.validateForm.invalid) return;
+    
+    console.log('验证通过');
+    
     this.servicearr=[this.serviceAreasm,this.serviceAreadd,this.serviceAreayj];
     let serlen=this.servicearr.length;
     this.service=0;
@@ -228,12 +235,6 @@ export class ShopaddComponent implements OnInit {
           this.addressc=data.data.cityid+" "+data.data.city;
           this.provinceChangec(this.addressc);
           this.addressr=data.data.districtid+" "+data.data.district;
-//        this.addressp={'name':data.data.province,'id':data.data.provinceid};
-//        this.addresspValue=data.data.provinceid;
-//        this.addresscValue=data.data.cityid;
-//        this.addressrValue=data.data.districtid;
-//        this.addressc={'name':data.data.city,'id':data.data.cityid};
-//        this.addressr={'name':data.data.district,'id':data.data.districtid};
           this.address=data.data.address;
           if(data.data.status){
           	this.state=data.data.status.toString();

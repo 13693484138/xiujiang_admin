@@ -15,11 +15,7 @@
       </div>
 <button nz-button *ngIf='showadd && role_add' (click)="add()" class="editable-add-btn btnadd" ><i class="anticon anticon-plus ng-star-inserted" style="display: inline-block;"></i>新增</button>
 <button nz-button (click)="search()" class="editable-add-btn btnadd"><i class="anticon anticon-search" style="display: inline-block;"></i>查询</button>
-<button nz-button (click)="role()" class="editable-add-btn btnadd"><i class="anticon anticon-user" style="display: inline-block;" *ngIf='to_authority_role'></i>设置权限</button>
 
-<nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisibleMiddle" nzTitle="权限设置 -- {{sUsername}}" (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
-	  <ul id="ztreerole" class="ztree"></ul>
-</nz-modal>
 <nz-table
       #ajaxTable
       nzShowSizeChanger
@@ -34,21 +30,17 @@
       (nzPageSizeChange)="searchData(pageIndex,pageSize)">
       <thead (nzSortChange)="sort($event)">
         <tr>
-          <th></th>
+          <th>序号</th>
           <th>角色名称</th>
-          <th>别名</th>
-          <th>上级角色</th>
-          <th>部门简称</th> 
+          <th>备注</th>
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of ajaxTable.data;let i=index">
-          <td align="center"><input type="radio"  name='user' [value]='data.id' [(ngModel)]="sUser"/></td>
+          <td>{{i+1}}</td>
           <td>{{data.name}}</td>
           <td>{{data.tips}}</td>
-          <td>{{data.superior}}</td>
-          <td>{{data.simplename}}</td>
           <td class='operator'>  
             <a (click)="EditRow(data.id)" *ngIf='role_detail'>详情</a>
             <nz-popconfirm [nzTitle]="'确定删除吗?'" (nzOnConfirm)="deleteRow(data.id)">

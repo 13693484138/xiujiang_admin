@@ -39,13 +39,21 @@
           <input type="text" nz-input formControlName="name" [(ngModel)]="name" placeholder="请输入名称" >
           <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">名称不能为空！</nz-form-explain>
         </nz-form-control>        
-        <nz-form-label [nzSpan]="4" nzFor="birthday">生日</nz-form-label>
-        <nz-form-control [nzSpan]="8">
+        <!--<nz-form-label [nzSpan]="4" nzFor="birthday">生日</nz-form-label>
+        <nz-form-control [nzSpan]="8">-->
           <!--<input type="text" nz-input [(ngModel)]="birthday" placeholder="请输入生日" [ngModelOptions]="{standalone: true}">-->
-        <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="birthday" [ngModelOptions]="{standalone: true}" style='width:100%' nzAllowClear></nz-date-picker>
+        <!--<nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="birthday" [ngModelOptions]="{standalone: true}" style='width:100%' nzAllowClear></nz-date-picker>
+        </nz-form-control>-->
+        
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="shopid">门店</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+          <nz-select  formControlName="shopid" nzName="shopid" [(ngModel)]="shopid" nzPlaceHolder="请选择门店">
+		    <nz-option *ngFor='let item of shoplist'  [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
+		</nz-select>
+		<nz-form-explain *ngIf="validateForm.get('shopid').dirty && validateForm.get('shopid').errors">门店不能为空！</nz-form-explain>       
         </nz-form-control>
       </nz-form-item>
-      <nz-form-item>
+      <!--<nz-form-item>
         <nz-form-label [nzSpan]="3" nzRequired nzFor="sex">性别</nz-form-label>
         <nz-form-control [nzSpan]="8">
         	 <nz-select  formControlName="sex" nzName="sex" [(ngModel)]="sex" nzPlaceHolder="请选择性别">
@@ -54,27 +62,29 @@
 		</nz-select>
 		   <nz-form-explain *ngIf="validateForm.get('sex').dirty && validateForm.get('sex').errors">性别不能为空！</nz-form-explain>       
          
-       </nz-form-control>           
-         <nz-form-label [nzSpan]="4" nzRequired nzFor="shopid">门店</nz-form-label>
-        <nz-form-control [nzSpan]="8">
-          <nz-select  formControlName="shopid" nzName="shopid" [(ngModel)]="shopid" nzPlaceHolder="请选择门店">
-		    <nz-option *ngFor='let item of shoplist'  [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
-		</nz-select>
-		<nz-form-explain *ngIf="validateForm.get('shopid').dirty && validateForm.get('shopid').errors">门店不能为空！</nz-form-explain>       
-        </nz-form-control>
-      </nz-form-item>
+       </nz-form-control>       
+         
+      </nz-form-item>    -->
       <nz-form-item>
         <nz-form-label [nzSpan]="3" nzRequired nzFor="phone">电话</nz-form-label>
         <nz-form-control [nzSpan]="8">
           <input type="text" nz-input formControlName="phone" [(ngModel)]="phone" placeholder="请输入电话">
            <nz-form-explain *ngIf="validateForm.get('phone').dirty && validateForm.get('phone').errors">请输入有效的电话号码！</nz-form-explain>       
         </nz-form-control>
-        <nz-form-label [nzSpan]="4" nzRequired nzFor="email">邮箱</nz-form-label>
+        <!--<nz-form-label [nzSpan]="4" nzRequired nzFor="email">邮箱</nz-form-label>
         <nz-form-control [nzSpan]="8">
           <input type="text" nz-input formControlName="email" [(ngModel)]="email" placeholder="请输入邮箱">
            <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">请输入有效的邮箱！</nz-form-explain>
         </nz-form-control>        
-       
+       -->
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="role">角色</nz-form-label>
+        <nz-form-control [nzSpan]="8">
+        	 <nz-select nzName="role" formControlName="role"   [(ngModel)]="role" nzMode="multiple" nzPlaceHolder="请选择角色"  [nzAllowClear]="true">
+		    <nz-option *ngFor="let node of rolenodes"  [nzValue]="node.id" [nzLabel]="node.name"></nz-option>
+		</nz-select>
+		<nz-form-explain *ngIf="validateForm.get('role').dirty && validateForm.get('role').errors">角色不能为空！</nz-form-explain>      
+         
+       </nz-form-control>  
       </nz-form-item>
       
       <nz-form-item>
